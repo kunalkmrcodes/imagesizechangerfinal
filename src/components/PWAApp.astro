@@ -1,0 +1,367 @@
+---
+// PWAApp.astro — Dedicated Mobile App Interface for Standalone PWA Mode
+import "../styles/pwa-app.css";
+---
+
+<div id="pwaAppInterface" class="pwa-app-interface" style="display: none;">
+
+  <!-- APP TOP HEADER -->
+  <header class="app-header">
+    <div class="app-brand">
+      <img src="/favicon.png" alt="ImageSizeChanger" class="app-brand-icon" />
+      <span>ImageSizeChanger</span>
+    </div>
+    <button id="appSettingsGearBtn" class="app-icon-btn" type="button" aria-label="Settings">
+      ⚙️
+    </button>
+  </header>
+
+  <!-- APP CONTENT CONTAINER -->
+  <main class="app-content">
+
+    <!-- VIEW 1: APP DASHBOARD / HOME -->
+    <div id="viewHome" class="app-view active">
+      <div class="app-section-heading">IMAGE TOOLS</div>
+
+      <div class="app-action-grid">
+        <div class="app-card" id="cardResizeTrigger">
+          <div class="app-card-left">
+            <div class="app-card-icon">📐</div>
+            <div class="app-card-info">
+              <h3>Resize Image</h3>
+              <p>Change width, height & scale dimensions</p>
+            </div>
+          </div>
+          <div class="app-card-arrow">→</div>
+        </div>
+
+        <div class="app-card" id="cardCompressTrigger">
+          <div class="app-card-left">
+            <div class="app-card-icon">⚡</div>
+            <div class="app-card-info">
+              <h3>Compress Image</h3>
+              <p>Reduce file size & adjust quality</p>
+            </div>
+          </div>
+          <div class="app-card-arrow">→</div>
+        </div>
+
+        <div class="app-card" id="cardConvertTrigger">
+          <div class="app-card-left">
+            <div class="app-card-icon">🔄</div>
+            <div class="app-card-info">
+              <h3>Convert Format</h3>
+              <p>Convert seamlessly to JPG, PNG or WebP</p>
+            </div>
+          </div>
+          <div class="app-card-arrow">→</div>
+        </div>
+
+        <div class="app-card" id="cardOptimizeTrigger" style="border-color: rgba(156, 255, 0, 0.3); background: rgba(156, 255, 0, 0.03);">
+          <div class="app-card-left">
+            <div class="app-card-icon" style="background: rgba(156, 255, 0, 0.2);">✨</div>
+            <div class="app-card-info">
+              <h3>Quick Optimize</h3>
+              <p>Resize + Compress + Convert together</p>
+            </div>
+          </div>
+          <div class="app-card-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- RECENT ACTIVITY SECTION -->
+      <div style="margin-top: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span class="app-section-heading" style="margin:0;">RECENT ACTIVITY</span>
+          <button id="appClearRecentBtn" type="button" style="background:none; border:none; color:#64748b; font-size:0.78rem; font-weight:700; cursor:pointer;">Clear</button>
+        </div>
+        <div id="appRecentList" style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="text-align: center; padding: 20px; color: #64748b; font-size: 0.85rem; background: rgba(255,255,255,0.02); border-radius: 14px;">
+            No recent activity yet
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: RESIZE WORKFLOW -->
+    <div id="viewResize" class="app-view">
+      <div class="app-view-header">
+        <button class="app-back-btn appGoHomeBtn" type="button">← Back</button>
+        <h2 class="app-view-title">Resize Image</h2>
+        <div style="width: 60px;"></div>
+      </div>
+
+      <div id="pwaResizeUploadBox" class="app-upload-box">
+        <div class="app-upload-icon">📁</div>
+        <div class="app-upload-title">Select Image to Resize</div>
+        <div class="app-upload-sub">Supports JPG, PNG, WebP</div>
+      </div>
+      <input type="file" id="pwaResizeFileInput" accept="image/*" style="display: none;" />
+
+      <div id="pwaResizePreviewArea" style="display: none; flex-direction: column; gap: 16px;">
+        <div class="app-file-preview">
+          <div class="app-preview-info">
+            <span id="pwaResizeFileName" class="app-preview-name">image.png</span>
+            <span id="pwaResizeFileMeta" class="app-preview-meta">Original: 1920 × 1080px · 2.4 MB</span>
+          </div>
+          <button id="pwaResizeChangeFileBtn" class="app-change-file-btn" type="button">Change</button>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">DIMENSIONS (PIXELS)</label>
+          <div class="app-input-row">
+            <input type="number" id="pwaResizeWidth" class="app-input" placeholder="Width" />
+            <span style="color:#64748b;">×</span>
+            <input type="number" id="pwaResizeHeight" class="app-input" placeholder="Height" />
+            <button id="pwaResizeLockBtn" class="app-lock-btn active" type="button" aria-label="Lock ratio">🔒</button>
+          </div>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">PRESETS</label>
+          <div class="app-presets-strip">
+            <button class="app-preset-chip" data-width="1080" data-height="1080" type="button">Instagram (1080×1080)</button>
+            <button class="app-preset-chip" data-width="1280" data-height="720" type="button">HD (1280×720)</button>
+            <button class="app-preset-chip" data-width="1920" data-height="1080" type="button">Full HD (1920×1080)</button>
+            <button class="app-preset-chip" data-width="1200" data-height="630" type="button">Social (1200×630)</button>
+          </div>
+        </div>
+
+        <button id="pwaResizeSubmitBtn" class="app-btn-primary" type="button">Resize Image ↗</button>
+      </div>
+    </div>
+
+    <!-- VIEW 3: COMPRESS WORKFLOW -->
+    <div id="viewCompress" class="app-view">
+      <div class="app-view-header">
+        <button class="app-back-btn appGoHomeBtn" type="button">← Back</button>
+        <h2 class="app-view-title">Compress Image</h2>
+        <div style="width: 60px;"></div>
+      </div>
+
+      <div id="pwaCompressUploadBox" class="app-upload-box">
+        <div class="app-upload-icon">⚡</div>
+        <div class="app-upload-title">Select Image to Compress</div>
+        <div class="app-upload-sub">Reduce file weight cleanly</div>
+      </div>
+      <input type="file" id="pwaCompressFileInput" accept="image/*" style="display: none;" />
+
+      <div id="pwaCompressPreviewArea" style="display: none; flex-direction: column; gap: 16px;">
+        <div class="app-file-preview">
+          <div class="app-preview-info">
+            <span id="pwaCompressFileName" class="app-preview-name">photo.jpg</span>
+            <span id="pwaCompressFileMeta" class="app-preview-meta">Original Size: 3.2 MB</span>
+          </div>
+          <button id="pwaCompressChangeFileBtn" class="app-change-file-btn" type="button">Change</button>
+        </div>
+
+        <div class="app-form-group">
+          <div class="app-form-label">
+            <span>TARGET FILE SIZE (OPTIONAL)</span>
+            <span style="font-size:0.75rem; color:#64748b;">Leave empty for quality-only</span>
+          </div>
+          <div class="app-input-row">
+            <input type="number" id="pwaCompressTargetSize" class="app-input" placeholder="e.g. 500" />
+            <select id="pwaCompressTargetUnit" class="app-input" style="flex:0.4;">
+              <option value="KB">KB</option>
+              <option value="MB">MB</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="pwaCompressSubmitBtn" class="app-btn-primary" type="button">Compress Image ↗</button>
+      </div>
+    </div>
+
+    <!-- VIEW 4: CONVERT WORKFLOW -->
+    <div id="viewConvert" class="app-view">
+      <div class="app-view-header">
+        <button class="app-back-btn appGoHomeBtn" type="button">← Back</button>
+        <h2 class="app-view-title">Convert Format</h2>
+        <div style="width: 60px;"></div>
+      </div>
+
+      <div id="pwaConvertUploadBox" class="app-upload-box">
+        <div class="app-upload-icon">🔄</div>
+        <div class="app-upload-title">Select Image to Convert</div>
+        <div class="app-upload-sub">Convert to JPG, PNG, or WebP</div>
+      </div>
+      <input type="file" id="pwaConvertFileInput" accept="image/*" style="display: none;" />
+
+      <div id="pwaConvertPreviewArea" style="display: none; flex-direction: column; gap: 16px;">
+        <div class="app-file-preview">
+          <div class="app-preview-info">
+            <span id="pwaConvertFileName" class="app-preview-name">graphic.png</span>
+            <span id="pwaConvertFileMeta" class="app-preview-meta">Format: PNG · 1.8 MB</span>
+          </div>
+          <button id="pwaConvertChangeFileBtn" class="app-change-file-btn" type="button">Change</button>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">CHOOSE TARGET FORMAT</label>
+          <div class="app-format-grid">
+            <button class="app-format-btn pwaFormatOption active" data-format="image/jpeg" type="button">JPG</button>
+            <button class="app-format-btn pwaFormatOption" data-format="image/png" type="button">PNG</button>
+            <button class="app-format-btn pwaFormatOption" data-format="image/webp" type="button">WebP</button>
+          </div>
+        </div>
+
+        <button id="pwaConvertSubmitBtn" class="app-btn-primary" type="button">Convert Format ↗</button>
+      </div>
+    </div>
+
+    <!-- VIEW 5: QUICK OPTIMIZE WORKFLOW -->
+    <div id="viewOptimize" class="app-view">
+      <div class="app-view-header">
+        <button class="app-back-btn appGoHomeBtn" type="button">← Back</button>
+        <h2 class="app-view-title">Quick Optimize</h2>
+        <div style="width: 60px;"></div>
+      </div>
+
+      <div id="pwaOptimizeUploadBox" class="app-upload-box">
+        <div class="app-upload-icon">✨</div>
+        <div class="app-upload-title">Select Image for All-In-One</div>
+        <div class="app-upload-sub">Resize + Compress + Convert in 1 click</div>
+      </div>
+      <input type="file" id="pwaOptimizeFileInput" accept="image/*" style="display: none;" />
+
+      <div id="pwaOptimizePreviewArea" style="display: none; flex-direction: column; gap: 16px;">
+        <div class="app-file-preview">
+          <div class="app-preview-info">
+            <span id="pwaOptimizeFileName" class="app-preview-name">master.png</span>
+            <span id="pwaOptimizeFileMeta" class="app-preview-meta">Original: 3840 × 2160px · 5.4 MB</span>
+          </div>
+          <button id="pwaOptimizeChangeFileBtn" class="app-change-file-btn" type="button">Change</button>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">DIMENSIONS (PIXELS)</label>
+          <div class="app-input-row">
+            <input type="number" id="pwaOptimizeWidth" class="app-input" placeholder="Width" />
+            <span style="color:#64748b;">×</span>
+            <input type="number" id="pwaOptimizeHeight" class="app-input" placeholder="Height" />
+            <button id="pwaOptimizeLockBtn" class="app-lock-btn active" type="button">🔒</button>
+          </div>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">TARGET FILE SIZE (OPTIONAL)</label>
+          <div class="app-input-row">
+            <input type="number" id="pwaOptimizeTargetSize" class="app-input" placeholder="e.g. 300" />
+            <select id="pwaOptimizeTargetUnit" class="app-input" style="flex:0.4;">
+              <option value="KB">KB</option>
+              <option value="MB">MB</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">OUTPUT FORMAT</label>
+          <div class="app-format-grid">
+            <button class="app-format-btn pwaOptFormatOption active" data-format="image/jpeg" type="button">JPG</button>
+            <button class="app-format-btn pwaOptFormatOption" data-format="image/png" type="button">PNG</button>
+            <button class="app-format-btn pwaOptFormatOption" data-format="image/webp" type="button">WebP</button>
+          </div>
+        </div>
+
+        <button id="pwaOptimizeSubmitBtn" class="app-btn-primary" type="button">Optimize Image ↗</button>
+      </div>
+    </div>
+
+    <!-- VIEW 6: PROCESSING SCREEN -->
+    <div id="viewProcessing" class="app-view" style="text-align: center; justify-content: center; padding-top: 60px;">
+      <div style="font-size: 3rem; margin-bottom: 16px; animation: spin 1s linear infinite; display: inline-block;">⚙️</div>
+      <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 8px;">Processing Image...</h3>
+      <p style="color: #94a3b8; font-size: 0.85rem;">Processing locally inside your browser</p>
+    </div>
+
+    <!-- VIEW 7: RESULT SCREEN -->
+    <div id="viewResult" class="app-view">
+      <div class="app-result-card">
+        <div class="app-badge-saved" id="pwaResultSavedBadge">Saved 65%</div>
+        <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin:0;">Image Ready!</h2>
+
+        <div class="app-specs-comparison">
+          <div class="app-spec-box">
+            <label>ORIGINAL</label>
+            <strong id="pwaResultOriginalMeta">2.4 MB</strong>
+          </div>
+          <div class="app-spec-box" style="border-color: rgba(156, 255, 0, 0.3);">
+            <label style="color: #9cff00;">PROCESSED</label>
+            <strong id="pwaResultOutputMeta" style="color: #9cff00;">680 KB</strong>
+          </div>
+        </div>
+
+        <button id="pwaDownloadBtn" class="app-btn-primary" type="button">DOWNLOAD IMAGE ⬇</button>
+
+        <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
+          <button id="pwaShareBtn" type="button" style="flex:1; padding:12px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; color:#fff; font-weight:700; font-size:0.88rem; cursor:pointer;">Share</button>
+          <button class="appGoHomeBtn" type="button" style="flex:1; padding:12px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; color:#fff; font-weight:700; font-size:0.88rem; cursor:pointer;">Process Another</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 8: HISTORY VIEW -->
+    <div id="viewHistory" class="app-view">
+      <div class="app-view-header">
+        <h2 class="app-view-title">Activity History</h2>
+        <button id="pwaClearHistoryViewBtn" type="button" style="background:none; border:none; color:#9cff00; font-weight:700; font-size:0.85rem; cursor:pointer;">Clear All</button>
+      </div>
+
+      <div id="pwaHistoryContainer" style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="text-align: center; padding: 40px 20px; color: #64748b; font-size: 0.9rem;">
+          No history records stored yet
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 9: SETTINGS VIEW -->
+    <div id="viewSettings" class="app-view">
+      <div class="app-view-header">
+        <button class="app-back-btn appGoHomeBtn" type="button">← Back</button>
+        <h2 class="app-view-title">Settings</h2>
+        <div style="width: 60px;"></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="app-form-group">
+          <label class="app-form-label">PRIVACY & PROCESSING MODEL</label>
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 16px;">
+            <strong style="color:#9cff00; font-size:0.9rem; display:block; margin-bottom:4px;">100% In-Browser Privacy</strong>
+            <p style="color:#94a3b8; font-size:0.82rem; margin:0; line-height:1.4;">
+              All resizing, compression, and format conversions execute locally on your device. Your images are never uploaded to any server.
+            </p>
+          </div>
+        </div>
+
+        <div class="app-form-group">
+          <label class="app-form-label">ABOUT IMAGESIZECHANGER</label>
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 16px; display:flex; flex-direction:column; gap:8px;">
+            <div style="font-weight:700; font-size:0.9rem; color:#fff;">Version 2.0 (PWA App Mode)</div>
+            <a href="/" style="color:#9cff00; font-size:0.85rem; font-weight:700; text-decoration:none;">Visit Website Guides & FAQs →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- APP BOTTOM NAVIGATION BAR -->
+  <nav class="app-bottom-nav">
+    <button class="app-nav-item active" id="tabHomeBtn" type="button">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="app-nav-item" id="tabHistoryBtn" type="button">
+      <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+      <span>History</span>
+    </button>
+    <button class="app-nav-item" id="tabSettingsBtn" type="button">
+      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+      <span>Settings</span>
+    </button>
+  </nav>
+
+</div>
+
+<script src="../scripts/pwa-app-engine.js"></script>

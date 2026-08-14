@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
+import PWAApp from "../components/PWAApp.astro";
 
 interface Props {
   title?: string;
@@ -123,6 +124,7 @@ const schemas = structuredData
   </head>
 
   <body>
+    <PWAApp />
     <slot />
     <CookieConsent />
   </body>

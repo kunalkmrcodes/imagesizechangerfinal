@@ -1,0 +1,519 @@
+/* =========================================================
+   PWA DEDICATED MOBILE APP INTERFACE STYLES
+   ========================================================= */
+
+#pwaAppInterface {
+  display: none;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #07080d;
+  color: #f5f7fb;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* App Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(7, 8, 13, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.app-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.app-icon-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.app-icon-btn:active {
+  transform: scale(0.94);
+  background: rgba(156, 255, 0, 0.15);
+  color: #9cff00;
+}
+
+/* Sub-Header / Back Header */
+.app-view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.app-back-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-view-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+/* Main Container */
+.app-content {
+  flex: 1;
+  padding: 20px;
+  padding-bottom: 100px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-view {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  animation: appFadeIn 0.25s ease-out;
+}
+
+.app-view.active {
+  display: flex;
+}
+
+@keyframes appFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section Labels & Headings */
+.app-section-heading {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+/* Primary Action Cards */
+.app-action-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.app-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.app-card:active {
+  transform: scale(0.98);
+  border-color: rgba(156, 255, 0, 0.4);
+  background: rgba(156, 255, 0, 0.04);
+}
+
+.app-card-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(156, 255, 0, 0.1);
+  border: 1px solid rgba(156, 255, 0, 0.25);
+  color: #9cff00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.app-card-info h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 3px 0;
+}
+
+.app-card-info p {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.app-card-arrow {
+  color: #64748b;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Upload Area inside Tool Views */
+.app-upload-box {
+  border: 2px dashed rgba(156, 255, 0, 0.3);
+  background: rgba(156, 255, 0, 0.02);
+  border-radius: 20px;
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-upload-box:active {
+  background: rgba(156, 255, 0, 0.08);
+  border-color: #9cff00;
+}
+
+.app-upload-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(156, 255, 0, 0.12);
+  color: #9cff00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.app-upload-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.app-upload-sub {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* File Preview Card */
+.app-file-preview {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.app-preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.app-preview-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-preview-meta {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.app-change-file-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #9cff00;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Form Field Groups */
+.app-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.app-form-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 12px 16px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.app-input:focus {
+  border-color: #9cff00;
+  background: rgba(156, 255, 0, 0.02);
+}
+
+.app-lock-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.app-lock-btn.active {
+  background: rgba(156, 255, 0, 0.15);
+  border-color: #9cff00;
+  color: #9cff00;
+}
+
+/* Presets Strip */
+.app-presets-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-preset-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.app-preset-chip:active {
+  background: #9cff00;
+  color: #07080d;
+}
+
+/* Format Pills */
+.app-format-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.app-format-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+}
+
+.app-format-btn.active {
+  background: rgba(156, 255, 0, 0.15);
+  border-color: #9cff00;
+  color: #9cff00;
+}
+
+/* Action Button */
+.app-btn-primary {
+  width: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  background: #9cff00;
+  color: #07080d;
+  font-size: 1.05rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(156, 255, 0, 0.25);
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.app-btn-primary:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* Result View Cards */
+.app-result-card {
+  background: rgba(156, 255, 0, 0.03);
+  border: 1px solid rgba(156, 255, 0, 0.25);
+  border-radius: 20px;
+  padding: 24px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.app-badge-saved {
+  background: rgba(156, 255, 0, 0.18);
+  color: #9cff00;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.app-specs-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.app-spec-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.app-spec-box label {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.app-spec-box strong {
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+/* Bottom Navigation Bar */
+.app-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 68px;
+  background: rgba(12, 14, 22, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+
+.app-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+
+.app-nav-item.active {
+  color: #9cff00;
+}
+
+.app-nav-item svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
