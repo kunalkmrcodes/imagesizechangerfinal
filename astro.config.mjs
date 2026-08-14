@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://imagesizechanger-com.vercel.app',
+  site: 'https://www.imagesizechanger.info',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]

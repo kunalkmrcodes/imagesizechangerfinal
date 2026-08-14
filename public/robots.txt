@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://imagesizechanger-com.vercel.app/sitemap.xml
-Sitemap: https://imagesizechanger-com.vercel.app/sitemap-index.xml
+Sitemap: https://www.imagesizechanger.info/sitemap.xml
+Sitemap: https://www.imagesizechanger.info/sitemap-index.xml

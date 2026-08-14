@@ -22,7 +22,7 @@ const {
   adSensePublisherId
 } = Astro.props;
 
-const siteUrl = Astro.site ? Astro.site.origin : "https://imagesizechanger-com.vercel.app";
+const siteUrl = Astro.site ? Astro.site.origin : "https://www.imagesizechanger.info";
 const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
 const imageURL = new URL(image, siteUrl).href;
 
