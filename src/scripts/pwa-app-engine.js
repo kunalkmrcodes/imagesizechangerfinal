@@ -19,15 +19,6 @@
   }
 
   // Standalone Mode Active — Hide website interface, unhide PWA App UI
-  const siteHeader = document.querySelector(".site-header");
-  const mainContent = document.querySelector("main");
-  const siteFooter = document.querySelector(".site-footer");
-
-  if (siteHeader) siteHeader.style.display = "none";
-  if (mainContent && mainContent.id !== "pwaAppInterface") mainContent.style.display = "none";
-  if (siteFooter) siteFooter.style.display = "none";
-
-  // Also wrap any top-level body children except #pwaAppInterface
   Array.from(document.body.children).forEach((child) => {
     if (child !== pwaApp && child.tagName !== "SCRIPT" && child.tagName !== "STYLE") {
       child.style.display = "none";
@@ -35,6 +26,10 @@
   });
 
   pwaApp.style.display = "flex";
+  const appContent = pwaApp.querySelector(".app-content");
+  if (appContent) {
+    appContent.style.display = "block";
+  }
 
   // State
   let currentView = "viewHome";
@@ -461,4 +456,5 @@
   document.getElementById("pwaClearHistoryViewBtn")?.addEventListener("click", clearHistory);
 
   renderHistory();
+  switchView("viewHome");
 })();

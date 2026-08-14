@@ -1,5 +1,5 @@
 // ImageSizeChanger PWA Service Worker
-const CACHE_NAME = "imagesizechanger-v1";
+const CACHE_NAME = "imagesizechanger-v2";
 const STATIC_ASSETS = [
   "/",
   "/resize-image/",

@@ -118,7 +118,7 @@
 }
 
 .app-view.active {
-  display: flex;
+  display: flex !important;
 }
 
 @keyframes appFadeIn {
