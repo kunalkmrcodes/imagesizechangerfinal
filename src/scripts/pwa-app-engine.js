@@ -1,4 +1,4 @@
-// pwa-app-engine.js — Standalone PWA Mobile App Engine & Canvas Controller
+// pwa-app-engine.js — Premium PWA App Engine v2.0
 
 (function () {
   const pwaApp = document.getElementById("pwaAppInterface");
@@ -12,13 +12,13 @@
     );
   }
 
-  // Activate PWA App Mode ONLY when running in standalone mode!
+  // Activate PWA App Mode ONLY in standalone mode!
   if (!isStandalone()) {
     pwaApp.style.display = "none";
     return;
   }
 
-  // Standalone Mode Active — Hide website interface, unhide PWA App UI
+  // Hide non-PWA body children
   Array.from(document.body.children).forEach((child) => {
     if (child !== pwaApp && child.tagName !== "SCRIPT" && child.tagName !== "STYLE") {
       child.style.display = "none";
@@ -27,48 +27,45 @@
 
   pwaApp.style.display = "flex";
   const appContent = pwaApp.querySelector(".app-content");
-  if (appContent) {
-    appContent.style.display = "block";
-  }
+  if (appContent) appContent.style.display = "block";
 
-  // State
-  let currentView = "viewHome";
+  // App State
   let activeFile = null;
   let activeImage = null;
   let originalWidth = 0;
   let originalHeight = 0;
   let aspectRatio = 1;
-  let aspectLocked = true;
+
+  let optAspectLocked = true;
+  let resizeAspectLocked = true;
+
+  let optQuality = 0.82;
+  let compressQuality = 0.82;
+  let optFormat = "image/jpeg";
+  let convertFormat = "image/jpeg";
+
   let processedBlob = null;
   let processedFilename = "image-optimized.jpg";
-  let selectedFormat = "image/jpeg";
-  let selectedOptFormat = "image/jpeg";
 
-  // Views & Tabs Navigation
-  const views = ["viewHome", "viewResize", "viewCompress", "viewConvert", "viewOptimize", "viewProcessing", "viewResult", "viewHistory", "viewSettings"];
-  const navTabs = {
-    tabHomeBtn: "viewHome",
-    tabHistoryBtn: "viewHistory",
-    tabSettingsBtn: "viewSettings"
-  };
+  // View Navigation System
+  const views = ["viewHome", "viewWorkspace", "viewProcessing", "viewResult", "viewHistory", "viewSettings"];
+  const navMap = { navHomeBtn: "viewHome", navHistoryBtn: "viewHistory", navSettingsBtn: "viewSettings" };
 
   function switchView(targetView) {
     views.forEach((vId) => {
       const el = document.getElementById(vId);
       if (el) el.classList.toggle("active", vId === targetView);
     });
-    currentView = targetView;
 
-    // Update bottom nav active state
-    Object.keys(navTabs).forEach((tabId) => {
-      const btn = document.getElementById(tabId);
-      if (btn) btn.classList.toggle("active", navTabs[tabId] === targetView);
+    Object.keys(navMap).forEach((navId) => {
+      const btn = document.getElementById(navId);
+      if (btn) btn.classList.toggle("active", navMap[navId] === targetView);
     });
   }
 
-  Object.keys(navTabs).forEach((tabId) => {
-    const btn = document.getElementById(tabId);
-    if (btn) btn.addEventListener("click", () => switchView(navTabs[tabId]));
+  Object.keys(navMap).forEach((navId) => {
+    const btn = document.getElementById(navId);
+    if (btn) btn.addEventListener("click", () => switchView(navMap[navId]));
   });
 
   document.querySelectorAll(".appGoHomeBtn").forEach((btn) => {
@@ -77,11 +74,340 @@
 
   document.getElementById("appSettingsGearBtn")?.addEventListener("click", () => switchView("viewSettings"));
 
-  // Dashboard Triggers
-  document.getElementById("cardResizeTrigger")?.addEventListener("click", () => switchView("viewResize"));
-  document.getElementById("cardCompressTrigger")?.addEventListener("click", () => switchView("viewCompress"));
-  document.getElementById("cardConvertTrigger")?.addEventListener("click", () => switchView("viewConvert"));
-  document.getElementById("cardOptimizeTrigger")?.addEventListener("click", () => switchView("viewOptimize"));
+  // Workspace Panel Switching (Optimize | Resize | Compress | Convert)
+  const panels = {
+    tabPanelOpt: "panelOpt",
+    tabPanelResize: "panelResize",
+    tabPanelCompress: "panelCompress",
+    tabPanelConvert: "panelConvert"
+  };
+
+  function switchWorkspacePanel(targetPanelId, activeTabId) {
+    Object.values(panels).forEach((pId) => {
+      const p = document.getElementById(pId);
+      if (p) p.style.display = pId === targetPanelId ? "flex" : "none";
+    });
+
+    Object.keys(panels).forEach((tId) => {
+      const tab = document.getElementById(tId);
+      if (tab) tab.classList.toggle("active", tId === activeTabId);
+    });
+  }
+
+  Object.keys(panels).forEach((tabId) => {
+    document.getElementById(tabId)?.addEventListener("click", () => {
+      switchWorkspacePanel(panels[tabId], tabId);
+    });
+  });
+
+  // Home Upload Trigger & File Selection
+  const pwaHomeUploadCard = document.getElementById("pwaHomeUploadCard");
+  const pwaHomeFileInput = document.getElementById("pwaHomeFileInput");
+
+  pwaHomeUploadCard?.addEventListener("click", () => pwaHomeFileInput?.click());
+  document.getElementById("pwaWorkspaceChangeImgBtn")?.addEventListener("click", () => pwaHomeFileInput?.click());
+
+  pwaHomeFileInput?.addEventListener("change", async () => {
+    if (!pwaHomeFileInput.files?.length) return;
+    await handleImageSelection(pwaHomeFileInput.files[0]);
+  });
+
+  // Quick Action Tool Chips on Home Screen
+  document.getElementById("toolOptChip")?.addEventListener("click", () => {
+    if (!activeFile) pwaHomeFileInput?.click();
+    else { switchWorkspacePanel("panelOpt", "tabPanelOpt"); switchView("viewWorkspace"); }
+  });
+
+  document.getElementById("toolResizeChip")?.addEventListener("click", () => {
+    if (!activeFile) pwaHomeFileInput?.click();
+    else { switchWorkspacePanel("panelResize", "tabPanelResize"); switchView("viewWorkspace"); }
+  });
+
+  document.getElementById("toolCompressChip")?.addEventListener("click", () => {
+    if (!activeFile) pwaHomeFileInput?.click();
+    else { switchWorkspacePanel("panelCompress", "tabPanelCompress"); switchView("viewWorkspace"); }
+  });
+
+  document.getElementById("toolConvertChip")?.addEventListener("click", () => {
+    if (!activeFile) pwaHomeFileInput?.click();
+    else { switchWorkspacePanel("panelConvert", "tabPanelConvert"); switchView("viewWorkspace"); }
+  });
+
+  // Image Selection Handler
+  async function handleImageSelection(file) {
+    try {
+      activeFile = file;
+      activeImage = await loadImage(file);
+      originalWidth = activeImage.naturalWidth;
+      originalHeight = activeImage.naturalHeight;
+      aspectRatio = originalWidth / originalHeight;
+
+      // Update Workspace Image Card
+      const thumbImg = document.getElementById("pwaWorkspaceThumb");
+      if (thumbImg) thumbImg.src = URL.createObjectURL(file);
+      document.getElementById("pwaWorkspaceFileName").textContent = file.name;
+      document.getElementById("pwaWorkspaceFileSpecs").textContent = `${originalWidth} × ${originalHeight}px · ${formatBytes(file.size)}`;
+
+      // Populate Inputs
+      document.getElementById("optWidth").value = originalWidth;
+      document.getElementById("optHeight").value = originalHeight;
+      document.getElementById("resizeWidth").value = originalWidth;
+      document.getElementById("resizeHeight").value = originalHeight;
+
+      switchWorkspacePanel("panelOpt", "tabPanelOpt");
+      switchView("viewWorkspace");
+    } catch (err) {
+      alert("Unable to load image: " + err.message);
+    }
+  }
+
+  // Dimension & Aspect Ratio Lock Logic
+  setupRatioLock("optWidth", "optHeight", "optLockBtn", () => optAspectLocked, (val) => optAspectLocked = val);
+  setupRatioLock("resizeWidth", "resizeHeight", "resizeLockBtn", () => resizeAspectLocked, (val) => resizeAspectLocked = val);
+
+  function setupRatioLock(wId, hId, lockBtnId, getLocked, setLocked) {
+    const wInput = document.getElementById(wId);
+    const hInput = document.getElementById(hId);
+    const lockBtn = document.getElementById(lockBtnId);
+
+    wInput?.addEventListener("input", () => {
+      if (getLocked() && wInput.value && aspectRatio) {
+        hInput.value = Math.max(1, Math.round(Number(wInput.value) / aspectRatio));
+      }
+    });
+
+    hInput?.addEventListener("input", () => {
+      if (getLocked() && hInput.value && aspectRatio) {
+        wInput.value = Math.max(1, Math.round(Number(hInput.value) * aspectRatio));
+      }
+    });
+
+    lockBtn?.addEventListener("click", () => {
+      setLocked(!getLocked());
+      lockBtn.classList.toggle("active", getLocked());
+    });
+  }
+
+  // Resize Percentage Preset Scale Chips
+  document.querySelectorAll(".resizeScaleBtn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const scale = Number(btn.dataset.scale);
+      if (originalWidth && originalHeight) {
+        document.getElementById("resizeWidth").value = Math.round(originalWidth * scale);
+        document.getElementById("resizeHeight").value = Math.round(originalHeight * scale);
+      }
+    });
+  });
+
+  // Quality Segment Buttons
+  setupSegmentGroup(".optQualityBtn", (val) => optQuality = Number(val));
+  setupSegmentGroup(".compressQualityBtn", (val) => compressQuality = Number(val));
+  setupSegmentGroup(".optFormatBtn", (val) => optFormat = val);
+
+  function setupSegmentGroup(selector, onSelect) {
+    document.querySelectorAll(selector).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(selector).forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        onSelect(btn.dataset.q || btn.dataset.fmt);
+      });
+    });
+  }
+
+  // Convert Format Choice Cards
+  document.querySelectorAll(".convertFmtChoice").forEach((card) => {
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".convertFmtChoice").forEach((c) => c.classList.remove("active"));
+      card.classList.add("active");
+      convertFormat = card.dataset.fmt;
+    });
+  });
+
+  // Submissions
+  document.getElementById("optSubmitBtn")?.addEventListener("click", async () => {
+    if (!activeImage || !activeFile) return;
+    const w = Number(document.getElementById("optWidth").value) || originalWidth;
+    const h = Number(document.getElementById("optHeight").value) || originalHeight;
+    const targetVal = Number(document.getElementById("optTargetVal").value);
+    const unit = document.getElementById("optTargetUnit").value;
+    const targetBytes = targetVal ? (unit === "MB" ? targetVal * 1024 * 1024 : targetVal * 1024) : null;
+
+    await executeProcessing(w, h, optQuality, optFormat, targetBytes, "optimized");
+  });
+
+  document.getElementById("resizeSubmitBtn")?.addEventListener("click", async () => {
+    if (!activeImage || !activeFile) return;
+    const w = Number(document.getElementById("resizeWidth").value) || originalWidth;
+    const h = Number(document.getElementById("resizeHeight").value) || originalHeight;
+
+    await executeProcessing(w, h, 0.92, activeFile.type || "image/jpeg", null, "resized");
+  });
+
+  document.getElementById("compressSubmitBtn")?.addEventListener("click", async () => {
+    if (!activeImage || !activeFile) return;
+    const targetVal = Number(document.getElementById("compressTargetVal").value);
+    const unit = document.getElementById("compressTargetUnit").value;
+    const targetBytes = targetVal ? (unit === "MB" ? targetVal * 1024 * 1024 : targetVal * 1024) : null;
+
+    await executeProcessing(originalWidth, originalHeight, compressQuality, activeFile.type || "image/jpeg", targetBytes, "compressed");
+  });
+
+  document.getElementById("convertSubmitBtn")?.addEventListener("click", async () => {
+    if (!activeImage || !activeFile) return;
+    await executeProcessing(originalWidth, originalHeight, 0.92, convertFormat, null, "converted");
+  });
+
+  // Canvas Image Processing Engine
+  async function executeProcessing(targetW, targetH, quality, type, targetBytes, actionLabel) {
+    switchView("viewProcessing");
+
+    await new Promise((r) => setTimeout(r, 100)); // Smooth UI transition
+
+    const canvas = document.createElement("canvas");
+    canvas.width = targetW;
+    canvas.height = targetH;
+    const ctx = canvas.getContext("2d");
+
+    if (type === "image/jpeg") {
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, targetW, targetH);
+    }
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(activeImage, 0, 0, targetW, targetH);
+
+    let blob = null;
+    if (targetBytes && type !== "image/png") {
+      blob = await compressToTargetSize(canvas, type, targetBytes);
+    } else {
+      blob = await canvasToBlob(canvas, type, quality);
+    }
+
+    displayResults(blob, activeFile, `${targetW} × ${targetH}px`, actionLabel, type);
+  }
+
+  function canvasToBlob(canvas, type, quality) {
+    return new Promise((resolve) => canvas.toBlob((blob) => resolve(blob), type, quality));
+  }
+
+  async function compressToTargetSize(canvas, type, targetBytes) {
+    let minQ = 0.05;
+    let maxQ = 0.98;
+    let bestBlob = null;
+    for (let i = 0; i < 7; i++) {
+      const midQ = (minQ + maxQ) / 2;
+      const blob = await canvasToBlob(canvas, type, midQ);
+      if (!blob) break;
+      bestBlob = blob;
+      if (blob.size > targetBytes) maxQ = midQ;
+      else {
+        minQ = midQ;
+        if (targetBytes - blob.size < 2048) break;
+      }
+    }
+    return bestBlob;
+  }
+
+  function displayResults(blob, origFile, newSpecs, actionLabel, outFormat) {
+    processedBlob = blob;
+    const ext = outFormat === "image/png" ? "png" : outFormat === "image/webp" ? "webp" : "jpg";
+    const baseName = origFile.name.replace(/\.[^/.]+$/, "");
+    processedFilename = `${baseName}-${actionLabel}.${ext}`;
+
+    const origBytes = origFile.size;
+    const outBytes = blob.size;
+    const savedPct = origBytes > outBytes ? Math.round(((origBytes - outBytes) / origBytes) * 100) : 0;
+
+    document.getElementById("appResultBadge").textContent = savedPct > 0 ? `Saved ${savedPct}%` : "Processed";
+    document.getElementById("appResultOriginalSpecs").textContent = `${formatBytes(origBytes)}`;
+    document.getElementById("appResultNewSpecs").textContent = `${formatBytes(outBytes)} (${newSpecs})`;
+
+    saveHistoryRecord(origFile.name, actionLabel, formatBytes(outBytes));
+    switchView("viewResult");
+  }
+
+  // Download Action & Toast Confirmation
+  document.getElementById("appDownloadMainBtn")?.addEventListener("click", () => {
+    if (!processedBlob) return;
+    const url = URL.createObjectURL(processedBlob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = processedFilename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+    showToast("✓ Saved to your device");
+  });
+
+  document.getElementById("appShareBtn")?.addEventListener("click", async () => {
+    if (!processedBlob || !navigator.share) {
+      alert("Web Share API is not supported on this browser.");
+      return;
+    }
+    try {
+      const file = new File([processedBlob], processedFilename, { type: processedBlob.type });
+      await navigator.share({ files: [file], title: "Processed Image" });
+    } catch {}
+  });
+
+  function showToast(msg) {
+    const toast = document.getElementById("appToast");
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add("visible");
+    setTimeout(() => toast.classList.remove("visible"), 2500);
+  }
+
+  // History System
+  function getHistory() {
+    try {
+      return JSON.parse(localStorage.getItem("pwa_app_history_v2") || "[]");
+    } catch { return []; }
+  }
+
+  function saveHistoryRecord(filename, action, weight) {
+    const list = getHistory();
+    list.unshift({
+      name: filename,
+      action: action,
+      weight: weight,
+      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    });
+    if (list.length > 20) list.pop();
+    try { localStorage.setItem("pwa_app_history_v2", JSON.stringify(list)); } catch {}
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const list = getHistory();
+    const recentEl = document.getElementById("appRecentList");
+    const historyEl = document.getElementById("appHistoryList");
+
+    const html = list.length
+      ? list.map((item) => `
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <strong style="font-size:0.86rem; color:#fff; display:block;">${item.name}</strong>
+            <span style="font-size:0.75rem; color:#94a3b8;">${item.action} · ${item.weight}</span>
+          </div>
+          <span style="font-size:0.75rem; color:#64748b;">${item.time}</span>
+        </div>
+      `).join("")
+      : `<div style="text-align: center; padding: 24px; color: #64748b; font-size: 0.84rem; background: rgba(255,255,255,0.02); border-radius: 16px;">No processed images yet</div>`;
+
+    if (recentEl) recentEl.innerHTML = html;
+    if (historyEl) historyEl.innerHTML = html;
+  }
+
+  function clearHistory() {
+    try { localStorage.removeItem("pwa_app_history_v2"); } catch {}
+    renderHistory();
+  }
+
+  document.getElementById("appClearRecentBtn")?.addEventListener("click", clearHistory);
+  document.getElementById("appClearHistoryBtn")?.addEventListener("click", clearHistory);
 
   // Helper Utilities
   function formatBytes(bytes) {
@@ -96,364 +422,11 @@
     return new Promise((resolve, reject) => {
       const img = new Image();
       const url = URL.createObjectURL(file);
-      img.onload = () => {
-        URL.revokeObjectURL(url);
-        resolve(img);
-      };
-      img.onerror = () => {
-        URL.revokeObjectURL(url);
-        reject(new Error("Unable to load image."));
-      };
+      img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Image load failed")); };
       img.src = url;
     });
   }
-
-  function canvasToBlob(canvas, type, quality) {
-    return new Promise((resolve) => canvas.toBlob((blob) => resolve(blob), type, quality));
-  }
-
-  async function compressToTargetSize(canvas, type, targetBytes) {
-    if (!targetBytes || type === "image/png") {
-      const blob = await canvasToBlob(canvas, type, 0.92);
-      return { blob, quality: 0.92 };
-    }
-
-    let minQ = 0.05;
-    let maxQ = 0.98;
-    let bestBlob = null;
-    let bestQ = 0.92;
-
-    for (let i = 0; i < 7; i++) {
-      const midQ = (minQ + maxQ) / 2;
-      const blob = await canvasToBlob(canvas, type, midQ);
-      if (!blob) break;
-      bestBlob = blob;
-      bestQ = midQ;
-      if (blob.size > targetBytes) {
-        maxQ = midQ;
-      } else {
-        minQ = midQ;
-        if (targetBytes - blob.size < 2048) break;
-      }
-    }
-    return { blob: bestBlob, quality: bestQ };
-  }
-
-  // --- WORKFLOW 1: RESIZE ---
-  const pwaResizeUploadBox = document.getElementById("pwaResizeUploadBox");
-  const pwaResizeFileInput = document.getElementById("pwaResizeFileInput");
-  const pwaResizePreviewArea = document.getElementById("pwaResizePreviewArea");
-  const pwaResizeWidth = document.getElementById("pwaResizeWidth");
-  const pwaResizeHeight = document.getElementById("pwaResizeHeight");
-  const pwaResizeLockBtn = document.getElementById("pwaResizeLockBtn");
-
-  pwaResizeUploadBox?.addEventListener("click", () => pwaResizeFileInput?.click());
-  document.getElementById("pwaResizeChangeFileBtn")?.addEventListener("click", () => pwaResizeFileInput?.click());
-
-  pwaResizeFileInput?.addEventListener("change", async () => {
-    if (!pwaResizeFileInput.files?.length) return;
-    activeFile = pwaResizeFileInput.files[0];
-    activeImage = await loadImage(activeFile);
-    originalWidth = activeImage.naturalWidth;
-    originalHeight = activeImage.naturalHeight;
-    aspectRatio = originalWidth / originalHeight;
-
-    document.getElementById("pwaResizeFileName").textContent = activeFile.name;
-    document.getElementById("pwaResizeFileMeta").textContent = `Original: ${originalWidth} × ${originalHeight}px · ${formatBytes(activeFile.size)}`;
-    pwaResizeWidth.value = originalWidth;
-    pwaResizeHeight.value = originalHeight;
-
-    pwaResizeUploadBox.style.display = "none";
-    pwaResizePreviewArea.style.display = "flex";
-  });
-
-  pwaResizeWidth?.addEventListener("input", () => {
-    if (aspectLocked && pwaResizeWidth.value && aspectRatio) {
-      pwaResizeHeight.value = Math.max(1, Math.round(Number(pwaResizeWidth.value) / aspectRatio));
-    }
-  });
-
-  pwaResizeHeight?.addEventListener("input", () => {
-    if (aspectLocked && pwaResizeHeight.value && aspectRatio) {
-      pwaResizeWidth.value = Math.max(1, Math.round(Number(pwaResizeHeight.value) * aspectRatio));
-    }
-  });
-
-  pwaResizeLockBtn?.addEventListener("click", () => {
-    aspectLocked = !aspectLocked;
-    pwaResizeLockBtn.classList.toggle("active", aspectLocked);
-  });
-
-  document.querySelectorAll(".app-preset-chip").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const w = Number(btn.dataset.width);
-      const h = Number(btn.dataset.height);
-      pwaResizeWidth.value = w;
-      pwaResizeHeight.value = h;
-    });
-  });
-
-  document.getElementById("pwaResizeSubmitBtn")?.addEventListener("click", async () => {
-    if (!activeImage || !activeFile) return;
-    const targetW = Number(pwaResizeWidth.value) || originalWidth;
-    const targetH = Number(pwaResizeHeight.value) || originalHeight;
-
-    switchView("viewProcessing");
-    const canvas = document.createElement("canvas");
-    canvas.width = targetW;
-    canvas.height = targetH;
-    const ctx = canvas.getContext("2d");
-    if (activeFile.type === "image/jpeg") {
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, targetW, targetH);
-    }
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(activeImage, 0, 0, targetW, targetH);
-
-    const blob = await canvasToBlob(canvas, activeFile.type || "image/jpeg", 0.92);
-    displayResult(blob, activeFile, `${targetW} × ${targetH}px`, "resized");
-  });
-
-  // --- WORKFLOW 2: COMPRESS ---
-  const pwaCompressUploadBox = document.getElementById("pwaCompressUploadBox");
-  const pwaCompressFileInput = document.getElementById("pwaCompressFileInput");
-  const pwaCompressPreviewArea = document.getElementById("pwaCompressPreviewArea");
-
-  pwaCompressUploadBox?.addEventListener("click", () => pwaCompressFileInput?.click());
-  document.getElementById("pwaCompressChangeFileBtn")?.addEventListener("click", () => pwaCompressFileInput?.click());
-
-  pwaCompressFileInput?.addEventListener("change", async () => {
-    if (!pwaCompressFileInput.files?.length) return;
-    activeFile = pwaCompressFileInput.files[0];
-    activeImage = await loadImage(activeFile);
-    document.getElementById("pwaCompressFileName").textContent = activeFile.name;
-    document.getElementById("pwaCompressFileMeta").textContent = `Original Size: ${formatBytes(activeFile.size)}`;
-    pwaCompressUploadBox.style.display = "none";
-    pwaCompressPreviewArea.style.display = "flex";
-  });
-
-  document.getElementById("pwaCompressSubmitBtn")?.addEventListener("click", async () => {
-    if (!activeImage || !activeFile) return;
-    const targetVal = Number(document.getElementById("pwaCompressTargetSize").value);
-    const unit = document.getElementById("pwaCompressTargetUnit").value;
-    let targetBytes = null;
-    if (targetVal && targetVal > 0) {
-      targetBytes = unit === "MB" ? targetVal * 1024 * 1024 : targetVal * 1024;
-    }
-
-    switchView("viewProcessing");
-    const canvas = document.createElement("canvas");
-    canvas.width = activeImage.naturalWidth;
-    canvas.height = activeImage.naturalHeight;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(activeImage, 0, 0);
-
-    const { blob } = await compressToTargetSize(canvas, activeFile.type || "image/jpeg", targetBytes);
-    displayResult(blob, activeFile, `${activeImage.naturalWidth} × ${activeImage.naturalHeight}px`, "compressed");
-  });
-
-  // --- WORKFLOW 3: CONVERT ---
-  const pwaConvertUploadBox = document.getElementById("pwaConvertUploadBox");
-  const pwaConvertFileInput = document.getElementById("pwaConvertFileInput");
-  const pwaConvertPreviewArea = document.getElementById("pwaConvertPreviewArea");
-
-  pwaConvertUploadBox?.addEventListener("click", () => pwaConvertFileInput?.click());
-  document.getElementById("pwaConvertChangeFileBtn")?.addEventListener("click", () => pwaConvertFileInput?.click());
-
-  pwaConvertFileInput?.addEventListener("change", async () => {
-    if (!pwaConvertFileInput.files?.length) return;
-    activeFile = pwaConvertFileInput.files[0];
-    activeImage = await loadImage(activeFile);
-    document.getElementById("pwaConvertFileName").textContent = activeFile.name;
-    document.getElementById("pwaConvertFileMeta").textContent = `Format: ${activeFile.type || "Image"} · ${formatBytes(activeFile.size)}`;
-    pwaConvertUploadBox.style.display = "none";
-    pwaConvertPreviewArea.style.display = "flex";
-  });
-
-  document.querySelectorAll(".pwaFormatOption").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".pwaFormatOption").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      selectedFormat = btn.dataset.format;
-    });
-  });
-
-  document.getElementById("pwaConvertSubmitBtn")?.addEventListener("click", async () => {
-    if (!activeImage || !activeFile) return;
-    switchView("viewProcessing");
-    const canvas = document.createElement("canvas");
-    canvas.width = activeImage.naturalWidth;
-    canvas.height = activeImage.naturalHeight;
-    const ctx = canvas.getContext("2d");
-    if (selectedFormat === "image/jpeg") {
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-    ctx.drawImage(activeImage, 0, 0);
-    const blob = await canvasToBlob(canvas, selectedFormat, 0.92);
-    displayResult(blob, activeFile, `${activeImage.naturalWidth} × ${activeImage.naturalHeight}px`, "converted", selectedFormat);
-  });
-
-  // --- WORKFLOW 4: QUICK OPTIMIZE ---
-  const pwaOptimizeUploadBox = document.getElementById("pwaOptimizeUploadBox");
-  const pwaOptimizeFileInput = document.getElementById("pwaOptimizeFileInput");
-  const pwaOptimizePreviewArea = document.getElementById("pwaOptimizePreviewArea");
-
-  pwaOptimizeUploadBox?.addEventListener("click", () => pwaOptimizeFileInput?.click());
-  document.getElementById("pwaOptimizeChangeFileBtn")?.addEventListener("click", () => pwaOptimizeFileInput?.click());
-
-  pwaOptimizeFileInput?.addEventListener("change", async () => {
-    if (!pwaOptimizeFileInput.files?.length) return;
-    activeFile = pwaOptimizeFileInput.files[0];
-    activeImage = await loadImage(activeFile);
-    originalWidth = activeImage.naturalWidth;
-    originalHeight = activeImage.naturalHeight;
-    aspectRatio = originalWidth / originalHeight;
-
-    document.getElementById("pwaOptimizeFileName").textContent = activeFile.name;
-    document.getElementById("pwaOptimizeFileMeta").textContent = `Original: ${originalWidth} × ${originalHeight}px · ${formatBytes(activeFile.size)}`;
-    document.getElementById("pwaOptimizeWidth").value = originalWidth;
-    document.getElementById("pwaOptimizeHeight").value = originalHeight;
-
-    pwaOptimizeUploadBox.style.display = "none";
-    pwaOptimizePreviewArea.style.display = "flex";
-  });
-
-  document.querySelectorAll(".pwaOptFormatOption").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".pwaOptFormatOption").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      selectedOptFormat = btn.dataset.format;
-    });
-  });
-
-  document.getElementById("pwaOptimizeSubmitBtn")?.addEventListener("click", async () => {
-    if (!activeImage || !activeFile) return;
-    const targetW = Number(document.getElementById("pwaOptimizeWidth").value) || originalWidth;
-    const targetH = Number(document.getElementById("pwaOptimizeHeight").value) || originalHeight;
-    const targetVal = Number(document.getElementById("pwaOptimizeTargetSize").value);
-    const unit = document.getElementById("pwaOptimizeTargetUnit").value;
-    let targetBytes = null;
-    if (targetVal && targetVal > 0) {
-      targetBytes = unit === "MB" ? targetVal * 1024 * 1024 : targetVal * 1024;
-    }
-
-    switchView("viewProcessing");
-    const canvas = document.createElement("canvas");
-    canvas.width = targetW;
-    canvas.height = targetH;
-    const ctx = canvas.getContext("2d");
-    if (selectedOptFormat === "image/jpeg") {
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, targetW, targetH);
-    }
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(activeImage, 0, 0, targetW, targetH);
-
-    const { blob } = await compressToTargetSize(canvas, selectedOptFormat, targetBytes);
-    displayResult(blob, activeFile, `${targetW} × ${targetH}px`, "optimized", selectedOptFormat);
-  });
-
-  // --- RESULT DISPLAY & DOWNLOAD ---
-  function displayResult(blob, originalFile, newSpecs, actionName, formatMime) {
-    processedBlob = blob;
-    const ext = formatMime ? (formatMime === "image/png" ? "png" : formatMime === "image/webp" ? "webp" : "jpg") : (originalFile.name.split(".").pop() || "jpg");
-    const nameWithoutExt = originalFile.name.replace(/\.[^/.]+$/, "");
-    processedFilename = `${nameWithoutExt}-${actionName}.${ext}`;
-
-    const origBytes = originalFile.size;
-    const outBytes = blob.size;
-    const savedPct = origBytes > outBytes ? Math.round(((origBytes - outBytes) / origBytes) * 100) : 0;
-
-    document.getElementById("pwaResultSavedBadge").textContent = savedPct > 0 ? `Saved ${savedPct}%` : "Processed";
-    document.getElementById("pwaResultOriginalMeta").textContent = `${formatBytes(origBytes)}`;
-    document.getElementById("pwaResultOutputMeta").textContent = `${formatBytes(outBytes)} (${newSpecs})`;
-
-    saveHistoryRecord(originalFile.name, actionName, formatBytes(outBytes));
-    switchView("viewResult");
-  }
-
-  document.getElementById("pwaDownloadBtn")?.addEventListener("click", () => {
-    if (!processedBlob) return;
-    const url = URL.createObjectURL(processedBlob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = processedFilename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 2000);
-  });
-
-  document.getElementById("pwaShareBtn")?.addEventListener("click", async () => {
-    if (!processedBlob || !navigator.share) {
-      alert("Sharing is not supported on this browser.");
-      return;
-    }
-    try {
-      const file = new File([processedBlob], processedFilename, { type: processedBlob.type });
-      await navigator.share({ files: [file], title: "Processed Image" });
-    } catch (e) {
-      console.log("Share error/cancelled:", e);
-    }
-  });
-
-  // --- LOCAL HISTORY SYSTEM ---
-  function getHistory() {
-    try {
-      return JSON.parse(localStorage.getItem("pwa_app_history") || "[]");
-    } catch {
-      return [];
-    }
-  }
-
-  function saveHistoryRecord(filename, action, outputWeight) {
-    const list = getHistory();
-    list.unshift({
-      name: filename,
-      action: action,
-      weight: outputWeight,
-      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-    });
-    if (list.length > 20) list.pop();
-    try {
-      localStorage.setItem("pwa_app_history", JSON.stringify(list));
-    } catch {}
-    renderHistory();
-  }
-
-  function renderHistory() {
-    const list = getHistory();
-    const recentContainer = document.getElementById("appRecentList");
-    const historyContainer = document.getElementById("pwaHistoryContainer");
-
-    const html = list.length
-      ? list.map((item) => `
-        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <strong style="font-size:0.88rem; color:#fff; display:block;">${item.name}</strong>
-            <span style="font-size:0.75rem; color:#94a3b8;">${item.action} · ${item.weight}</span>
-          </div>
-          <span style="font-size:0.75rem; color:#64748b;">${item.time}</span>
-        </div>
-      `).join("")
-      : `<div style="text-align: center; padding: 20px; color: #64748b; font-size: 0.85rem;">No recent activity</div>`;
-
-    if (recentContainer) recentContainer.innerHTML = html;
-    if (historyContainer) historyContainer.innerHTML = html;
-  }
-
-  function clearHistory() {
-    try {
-      localStorage.removeItem("pwa_app_history");
-    } catch {}
-    renderHistory();
-  }
-
-  document.getElementById("appClearRecentBtn")?.addEventListener("click", clearHistory);
-  document.getElementById("pwaClearHistoryViewBtn")?.addEventListener("click", clearHistory);
 
   renderHistory();
   switchView("viewHome");
