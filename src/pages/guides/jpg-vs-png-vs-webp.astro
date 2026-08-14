@@ -93,48 +93,139 @@ const articleSchema = {
         </ul>
 
         <h2>Comprehensive Feature Comparison Matrix</h2>
-        <table class="guide-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>JPG / JPEG</th>
-              <th>PNG</th>
-              <th>WebP</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Compression Type</td>
-              <td>Lossy</td>
-              <td>Lossless</td>
-              <td>Lossy & Lossless</td>
-            </tr>
-            <tr>
-              <td>Transparent Background</td>
-              <td>❌ No</td>
-              <td>✅ Yes</td>
-              <td>✅ Yes</td>
-            </tr>
-            <tr>
-              <td>Photographs</td>
-              <td>⭐⭐⭐⭐⭐ Excellent</td>
-              <td>⭐⭐ Fair (Large size)</td>
-              <td>⭐⭐⭐⭐⭐ Excellent</td>
-            </tr>
-            <tr>
-              <td>Logos & Icons</td>
-              <td>⭐⭐ Fair (Blurry edges)</td>
-              <td>⭐⭐⭐⭐⭐ Excellent</td>
-              <td>⭐⭐⭐⭐⭐ Excellent</td>
-            </tr>
-            <tr>
-              <td>Typical Relative File Weight</td>
-              <td>Medium</td>
-              <td>Heavy / Large</td>
-              <td>Lightest / Smallest</td>
-            </tr>
-          </tbody>
-        </table>
+
+        <!-- DESKTOP TABLE VIEW -->
+        <div class="desktop-format-table table-container">
+          <table class="guide-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>JPG / JPEG</th>
+                <th>PNG</th>
+                <th>WebP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Compression Type</td>
+                <td>Lossy</td>
+                <td>Lossless</td>
+                <td>Lossy & Lossless</td>
+              </tr>
+              <tr>
+                <td>Transparent Background</td>
+                <td>❌ No</td>
+                <td>✅ Yes</td>
+                <td>✅ Yes</td>
+              </tr>
+              <tr>
+                <td>Photographs</td>
+                <td>⭐⭐⭐⭐⭐ Excellent</td>
+                <td>⭐⭐ Fair (Large size)</td>
+                <td>⭐⭐⭐⭐⭐ Excellent</td>
+              </tr>
+              <tr>
+                <td>Logos & Icons</td>
+                <td>⭐⭐ Fair (Blurry edges)</td>
+                <td>⭐⭐⭐⭐⭐ Excellent</td>
+                <td>⭐⭐⭐⭐⭐ Excellent</td>
+              </tr>
+              <tr>
+                <td>Typical Relative File Weight</td>
+                <td>Medium</td>
+                <td>Heavy / Large</td>
+                <td>Lightest / Smallest</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- MOBILE STACKED COMPARISON CARDS -->
+        <div class="mobile-format-cards">
+          <div class="format-card">
+            <div class="format-card-header">
+              <h3 class="format-card-title">JPG / JPEG</h3>
+            </div>
+            <div class="format-card-body">
+              <div class="format-card-row">
+                <span class="format-card-label">Compression Type</span>
+                <span class="format-card-value">Lossy</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Transparent Background</span>
+                <span class="format-card-value">❌ No</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Photographs Rating</span>
+                <span class="format-card-value">⭐⭐⭐⭐⭐ Excellent</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Logos & Icons Rating</span>
+                <span class="format-card-value">⭐⭐ Fair (Blurry edges)</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Typical Relative File Weight</span>
+                <span class="format-card-value">Medium</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="format-card">
+            <div class="format-card-header">
+              <h3 class="format-card-title">PNG</h3>
+            </div>
+            <div class="format-card-body">
+              <div class="format-card-row">
+                <span class="format-card-label">Compression Type</span>
+                <span class="format-card-value">Lossless</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Transparent Background</span>
+                <span class="format-card-value">✅ Yes</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Photographs Rating</span>
+                <span class="format-card-value">⭐⭐ Fair (Large size)</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Logos & Icons Rating</span>
+                <span class="format-card-value">⭐⭐⭐⭐⭐ Excellent</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Typical Relative File Weight</span>
+                <span class="format-card-value">Heavy / Large</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="format-card">
+            <div class="format-card-header">
+              <h3 class="format-card-title">WebP</h3>
+            </div>
+            <div class="format-card-body">
+              <div class="format-card-row">
+                <span class="format-card-label">Compression Type</span>
+                <span class="format-card-value">Lossy & Lossless</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Transparent Background</span>
+                <span class="format-card-value">✅ Yes</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Photographs Rating</span>
+                <span class="format-card-value">⭐⭐⭐⭐⭐ Excellent</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Logos & Icons Rating</span>
+                <span class="format-card-value">⭐⭐⭐⭐⭐ Excellent</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Typical Relative File Weight</span>
+                <span class="format-card-value">Lightest / Smallest</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <h2>When Should You Convert Between Formats?</h2>
         <p>
