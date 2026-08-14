@@ -29,6 +29,7 @@
   let aspectLocked = true;
   let currentUnit = "pixels";
   let currentFormat = "image/jpeg";
+  let originalFormat = "";
   let currentImageWidth = 0;
   let currentImageHeight = 0;
   let aspectRatio = 1;
@@ -53,15 +54,43 @@
 
   function updateButtonLabel() {
     if (!resizeButton) return;
-    const targetBytes = getTargetBytes();
     const count = selectedFiles.length;
     const isMultiple = count > 1;
+    const itemLabel = isMultiple ? "Images" : "Image";
 
-    if (targetBytes !== null) {
-      resizeButton.innerHTML = `Resize & Compress ${isMultiple ? "Images" : "Image"} <span>↗</span>`;
+    const hasCompression = getTargetBytes() !== null;
+    const hasDimensionsChanged = (currentImageWidth > 0 && currentImageHeight > 0)
+      ? (currentUnit === "percent"
+          ? (Number(widthInput.value) !== 100 || Number(heightInput.value) !== 100)
+          : (Number(widthInput.value) !== currentImageWidth || Number(heightInput.value) !== currentImageHeight))
+      : Boolean(widthInput && widthInput.value !== "");
+
+    const defaultFormat = "image/jpeg";
+    const normOriginal = originalFormat ? ((originalFormat === "image/jpg") ? "image/jpeg" : originalFormat) : defaultFormat;
+    const normCurrent = (currentFormat === "image/jpg") ? "image/jpeg" : currentFormat;
+    const hasFormatChanged = normCurrent !== normOriginal;
+
+    let actionText = "Resize";
+
+    if (hasDimensionsChanged && hasCompression && hasFormatChanged) {
+      actionText = "Resize, Compress & Convert";
+    } else if (hasDimensionsChanged && hasFormatChanged) {
+      actionText = "Resize & Convert";
+    } else if (hasCompression && hasFormatChanged) {
+      actionText = "Compress & Convert";
+    } else if (hasFormatChanged) {
+      actionText = "Convert";
+    } else if (hasDimensionsChanged && hasCompression) {
+      actionText = "Resize & Compress";
+    } else if (hasCompression) {
+      actionText = "Resize & Compress";
+    } else if (hasDimensionsChanged) {
+      actionText = "Resize";
     } else {
-      resizeButton.innerHTML = `Resize ${isMultiple ? "Images" : "Image"} <span>↗</span>`;
+      actionText = "Resize";
     }
+
+    resizeButton.innerHTML = `${actionText} ${itemLabel} <span>↗</span>`;
   }
 
   function loadImage(file) {
@@ -91,6 +120,7 @@
     fileList.innerHTML = "";
     if (!selectedFiles.length) {
       fileList.hidden = true;
+      originalFormat = "";
       updateSelectedCount();
       return;
     }
@@ -137,6 +167,9 @@
     }
 
     selectedFiles = images;
+    if (selectedFiles.length > 0 && selectedFiles[0].type) {
+      originalFormat = selectedFiles[0].type;
+    }
     renderFiles();
 
     try {
@@ -151,6 +184,7 @@
     } catch {
       originalSize.textContent = "Could not read image dimensions.";
     }
+    updateButtonLabel();
   }
 
   function updateHeightFromWidth() {
@@ -158,6 +192,7 @@
     if (width && aspectRatio) {
       heightInput.value = Math.max(1, Math.round(width / aspectRatio));
     }
+    updateButtonLabel();
   }
 
   function updateWidthFromHeight() {
@@ -165,6 +200,7 @@
     if (height && aspectRatio) {
       widthInput.value = Math.max(1, Math.round(height * aspectRatio));
     }
+    updateButtonLabel();
   }
 
   browseButton.addEventListener("click", () => fileInput.click());
@@ -216,10 +252,12 @@
 
   widthInput.addEventListener("input", () => {
     if (aspectLocked && currentUnit === "pixels") updateHeightFromWidth();
+    else updateButtonLabel();
   });
 
   heightInput.addEventListener("input", () => {
     if (aspectLocked && currentUnit === "pixels") updateWidthFromHeight();
+    else updateButtonLabel();
   });
 
   lockButton.addEventListener("click", () => {
@@ -248,6 +286,7 @@
         widthInput.value = currentImageWidth;
         heightInput.value = currentImageHeight;
       }
+      updateButtonLabel();
     });
   });
 
@@ -262,6 +301,7 @@
       widthInput.value = width;
       heightInput.value = height;
       if (aspectLocked) aspectRatio = width / height;
+      updateButtonLabel();
     });
   });
 
@@ -270,6 +310,7 @@
       formatButtons.forEach((item) => item.classList.remove("active"));
       button.classList.add("active");
       currentFormat = button.dataset.format;
+      updateButtonLabel();
     });
   });
 
@@ -347,12 +388,20 @@
     const targetBytes = getTargetBytes();
     const isCompressing = targetBytes !== null;
 
+    const normOriginal = originalFormat ? ((originalFormat === "image/jpg") ? "image/jpeg" : originalFormat) : "image/jpeg";
+    const normCurrent = (currentFormat === "image/jpg") ? "image/jpeg" : currentFormat;
+    const isConverting = normCurrent !== normOriginal;
+
+    let actionVerb = "Processing";
+    if (isConverting && isCompressing) actionVerb = "Processing";
+    else if (isConverting) actionVerb = "Converting";
+    else if (isCompressing) actionVerb = "Compressing";
+    else actionVerb = "Resizing";
+
     try {
       for (let i = 0; i < selectedFiles.length; i++) {
         const file = selectedFiles[i];
-        progressText.textContent = isCompressing
-          ? `Compressing ${i + 1} of ${selectedFiles.length}…`
-          : `Resizing ${i + 1} of ${selectedFiles.length}…`;
+        progressText.textContent = `${actionVerb} ${i + 1} of ${selectedFiles.length}…`;
 
         const image = await loadImage(file);
         let outputWidth = Number(widthInput.value);
@@ -388,7 +437,10 @@
 
         const ext = getExtension(currentFormat);
         const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
-        const actionSuffix = isCompressing ? "compressed" : "resized";
+        let actionSuffix = "resized";
+        if (isConverting) actionSuffix = "converted";
+        else if (isCompressing) actionSuffix = "compressed";
+
         const newFilename = `${nameWithoutExt}-${actionSuffix}.${ext}`;
 
         downloadBlob(blob, newFilename);
