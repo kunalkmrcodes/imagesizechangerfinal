@@ -21,7 +21,7 @@
       <a href="/#faq">FAQ</a>
     </nav>
 
-    <div class="header-actions" style="display: flex; align-items: center; gap: 0.75rem;">
+    <div class="header-actions">
       <button id="pwaInstallBtn" class="pwa-install-btn" type="button" style="display: none;">
         Install App ⚡
       </button>
@@ -47,13 +47,28 @@
           Start resizing
         </a>
         <button id="pwaInstallBtnMobile" class="pwa-install-btn-mobile" type="button" style="display: none;">
-          Install App ⚡
+          ⚡ Install ImageSizeChanger App
         </button>
       </div>
     </details>
 
   </div>
 </header>
+
+<!-- ELEGANT FLOATING BOTTOM PWA INSTALL BANNER (MOBILE & TABLET) -->
+<div id="pwaInstallBanner" class="pwa-install-banner" style="display: none;">
+  <div class="pwa-banner-content">
+    <img src="/favicon.png" alt="App Icon" class="pwa-banner-icon" />
+    <div class="pwa-banner-text">
+      <strong>Install ImageSizeChanger</strong>
+      <span>Use offline directly from home screen</span>
+    </div>
+  </div>
+  <div class="pwa-banner-actions">
+    <button id="pwaBannerInstallBtn" class="pwa-banner-btn" type="button">Install</button>
+    <button id="pwaBannerCloseBtn" class="pwa-banner-close" type="button" aria-label="Dismiss">×</button>
+  </div>
+</div>
 
 <script>
   document.querySelectorAll('.mobile-menu a').forEach(link => {
@@ -67,40 +82,61 @@
   let deferredPrompt: any = null;
   const installBtn = document.getElementById('pwaInstallBtn');
   const installBtnMobile = document.getElementById('pwaInstallBtnMobile');
+  const installBanner = document.getElementById('pwaInstallBanner');
+  const bannerInstallBtn = document.getElementById('pwaBannerInstallBtn');
+  const bannerCloseBtn = document.getElementById('pwaBannerCloseBtn');
 
-  function showInstallButtons() {
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
-    if (isStandalone) return;
-    if (installBtn) installBtn.style.display = 'inline-flex';
-    if (installBtnMobile) installBtnMobile.style.display = 'block';
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
   }
 
-  function hideInstallButtons() {
+  function showInstallPrompt() {
+    if (isStandalone()) return;
+    if (sessionStorage.getItem('pwa_banner_dismissed') === 'true') return;
+
+    if (window.innerWidth > 768) {
+      if (installBtn) installBtn.style.display = 'inline-flex';
+    } else {
+      if (installBanner) installBanner.style.display = 'flex';
+      if (installBtnMobile) installBtnMobile.style.display = 'block';
+    }
+  }
+
+  function hideInstallPrompts() {
     if (installBtn) installBtn.style.display = 'none';
     if (installBtnMobile) installBtnMobile.style.display = 'none';
+    if (installBanner) installBanner.style.display = 'none';
   }
 
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    showInstallButtons();
+    showInstallPrompt();
   });
 
-  async function handleInstallClick() {
+  async function handleInstallTrigger() {
     if (!deferredPrompt) return;
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === 'accepted') {
-      hideInstallButtons();
+      hideInstallPrompts();
     }
     deferredPrompt = null;
   }
 
-  if (installBtn) installBtn.addEventListener('click', handleInstallClick);
-  if (installBtnMobile) installBtnMobile.addEventListener('click', handleInstallClick);
+  if (installBtn) installBtn.addEventListener('click', handleInstallTrigger);
+  if (installBtnMobile) installBtnMobile.addEventListener('click', handleInstallTrigger);
+  if (bannerInstallBtn) bannerInstallBtn.addEventListener('click', handleInstallTrigger);
+
+  if (bannerCloseBtn) {
+    bannerCloseBtn.addEventListener('click', () => {
+      hideInstallPrompts();
+      sessionStorage.setItem('pwa_banner_dismissed', 'true');
+    });
+  }
 
   window.addEventListener('appinstalled', () => {
-    hideInstallButtons();
+    hideInstallPrompts();
     deferredPrompt = null;
   });
 </script>
