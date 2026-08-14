@@ -1,0 +1,130 @@
+---
+// Footer.astro — Global Footer Navigation for ImageSizeChanger
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+
+    <div class="footer-brand-col">
+      <a class="brand footer-brand" href="/" aria-label="ImageSizeChanger home">
+        <img
+          src="/favicon.png"
+          alt="ImageSizeChanger Icon"
+          class="brand-icon"
+        />
+        <span>ImageSizeChanger</span>
+      </a>
+      <p>
+        Simple, browser-based image tools for everyone. Fast, private, and 100% client-side image processing.
+      </p>
+    </div>
+
+    <div class="footer-nav-grid">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="/resize-image">Resize Images</a>
+        <a href="/compress-image">Compress Images</a>
+        <a href="/convert-image">Convert Format</a>
+        <a href="/#features">Features</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="/guides">Guides & Tutorials</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="/about">About Us</a>
+        <a href="/contact">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container footer-bottom">
+    <span>© 2026 ImageSizeChanger. All rights reserved.</span>
+    <span>Fast · Private · Browser-based</span>
+  </div>
+</footer>
+
+<style>
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-brand-col {
+    max-width: 320px;
+  }
+
+  .footer-brand-col p {
+    margin-top: 1rem;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .footer-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(110px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-col h4 {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-col a {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-col a:hover {
+    color: #6366f1;
+  }
+
+  @media (max-width: 860px) {
+    .footer-inner {
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .footer-nav-grid {
+      grid-template-columns: repeat(2, 1fr);
+      width: 100%;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-nav-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,160 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "What Is Image Aspect Ratio?",
+      "item": "https://imagesizechanger-com.vercel.app/guides/what-is-image-aspect-ratio"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Is Image Aspect Ratio?",
+  "description": "Understand aspect ratio math (1:1, 4:3, 16:9), why locking proportions prevents image stretching or distortion, and how to crop cleanly.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  }
+};
+---
+
+<Layout
+  title="What Is Image Aspect Ratio? | Image Size Changer"
+  description="Learn what image aspect ratio means, how width and height proportions work (16:9, 4:3, 1:1), and why locking aspect ratio during resizing prevents distortion."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Fundamentals
+      </div>
+
+      <h1>What Is Image Aspect Ratio?</h1>
+
+      <p class="lead">
+        Have you ever resized a photo only to find the subject looking unnaturally stretched horizontally or squished vertically? That happens when the <strong>aspect ratio</strong> is altered incorrectly during resizing.
+      </p>
+
+      <div class="legal-card">
+        <h2>Defining Aspect Ratio</h2>
+        <p>
+          An image's <strong>aspect ratio</strong> is the proportional ratio of its width to its height. It is expressed as two numbers separated by a colon, such as <code>16:9</code> or <code>1:1</code>.
+        </p>
+        <p>
+          It is important to note that aspect ratio describes <em>proportions</em>, not physical measurement units. An image measuring <code>1920 × 1080 pixels</code> and an image measuring <code>1280 × 720 pixels</code> both share the exact same <strong>16:9 aspect ratio</strong> because:
+        </p>
+        <p style="text-align: center; font-weight: bold; color: #818cf8;">
+          1920 / 1080 = 1.777 &nbsp;&nbsp;|&nbsp;&nbsp; 1280 / 720 = 1.777
+        </p>
+
+        <h2>Common Standard Aspect Ratios</h2>
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Aspect Ratio</th>
+              <th>Common Dimensions</th>
+              <th>Typical Applications</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1:1 (Square)</strong></td>
+              <td>1080 × 1080, 500 × 500</td>
+              <td>Instagram feed posts, profile avatars, product grid thumbnails.</td>
+            </tr>
+            <tr>
+              <td><strong>16:9 (Widescreen)</strong></td>
+              <td>1920 × 1080, 1280 × 720</td>
+              <td>YouTube thumbnails, desktop monitors, TV screens, blog hero banners.</td>
+            </tr>
+            <tr>
+              <td><strong>4:3 (Standard Photo)</strong></td>
+              <td>1024 × 768, 1600 × 1200</td>
+              <td>Digital camera sensors, tablet displays, classic photography.</td>
+            </tr>
+            <tr>
+              <td><strong>9:16 (Vertical)</strong></td>
+              <td>1080 × 1920, 720 × 1280</td>
+              <td>Instagram Stories, TikTok videos, mobile portrait wallpapers.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Why You Must Lock Aspect Ratio When Resizing</h2>
+        <p>
+          When you resize an image, modifying the width without automatically adjusting the height breaks the original proportion ratio.
+        </p>
+        <p>
+          For instance, if your original photo is <code>2000 × 1000 pixels</code> (ratio 2:1) and you change the width to <code>1000 pixels</code> while keeping the height at <code>1000 pixels</code>, the ratio changes to 1:1. The image elements will appear squeezed.
+        </p>
+        <p>
+          By maintaining an <strong>Aspect Ratio Lock</strong> (represented by a lock icon 🔗 in tools like <a href="/resize-image">Image Size Changer</a>), typing <code>1000</code> for width automatically calculates <code>500</code> for height, preserving perfect visual proportions.
+        </p>
+
+        <h2>How Aspect Ratio Calculation Works</h2>
+        <p>
+          The math formula to find new height when changing width while locking aspect ratio is:
+        </p>
+        <p style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; font-family: monospace;">
+          New Height = (Original Height / Original Width) × New Width
+        </p>
+
+        <h2>Resize Images with Proportional Precision</h2>
+        <p>
+          Use our free <a href="/resize-image">Image Resizer Tool</a> with built-in aspect ratio locking and social media presets to resize your graphics flawlessly every time.
+        </p>
+      </div>
+
+      <a class="back-link" href="/guides">← Back to all guides</a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>

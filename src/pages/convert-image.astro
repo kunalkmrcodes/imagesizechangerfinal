@@ -1,0 +1,202 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Convert Images",
+      "item": "https://imagesizechanger-com.vercel.app/convert-image"
+    }
+  ]
+};
+
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Online Image Format Converter — ImageSizeChanger",
+  "url": "https://imagesizechanger-com.vercel.app/convert-image",
+  "description": "Convert images online between JPG, PNG, and WebP formats for free.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All"
+};
+---
+
+<Layout
+  title="Convert Images Online — JPG, PNG & WebP | Image Size Changer"
+  description="Convert images between JPG, PNG, and WebP formats online for free. Preserve transparency or optimize file size directly in your browser without uploading files."
+  structuredData={[breadcrumbSchema, toolSchema]}
+>
+  <Header />
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          Format Conversion · JPG · PNG · WebP
+        </div>
+
+        <h1>
+          Convert Images Online
+          <span>Between JPG, PNG & WebP</span>
+        </h1>
+
+        <p class="hero-description">
+          Convert photo and graphic formats in seconds. Change heavy PNG screenshots to lightweight JPGs or upgrade web assets to next-gen WebP format.
+        </p>
+      </div>
+    </section>
+
+    <!-- WORKSPACE -->
+    <section id="resize" class="workspace-section">
+      <div class="container">
+        <div class="section-label">IMAGE CONVERTER TOOL</div>
+        <div class="workspace">
+
+          <!-- UPLOAD -->
+          <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Upload images">
+            <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp" multiple hidden />
+            <div class="upload-icon"><span>↑</span></div>
+            <h2>Drop your images here to convert</h2>
+            <p class="upload-action">
+              <span>or</span>
+              <button id="browseButton" type="button" class="text-button">browse files</button>
+            </p>
+            <small>JPG, PNG, WebP, GIF or BMP · Multiple files supported</small>
+          </div>
+
+          <!-- FILE LIST -->
+          <div id="fileList" class="file-list" hidden></div>
+
+          <!-- CONTROLS -->
+          <div id="controls" class="controls" hidden>
+            <!-- FORMAT SELECTION HIGHLIGHTED -->
+            <div class="control-section">
+              <span class="control-eyebrow">TARGET FORMAT</span>
+              <h2>Select output format</h2>
+              <div class="format-grid">
+                <button class="format-button active" type="button" data-format="image/jpeg">
+                  <strong>JPG</strong>
+                  <span>Best for photos & small files</span>
+                </button>
+                <button class="format-button" type="button" data-format="image/png">
+                  <strong>PNG</strong>
+                  <span>Lossless & transparency</span>
+                </button>
+                <button class="format-button" type="button" data-format="image/webp">
+                  <strong>WebP</strong>
+                  <span>Modern next-gen web</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- DIMENSIONS (OPTIONAL) -->
+            <div class="control-section">
+              <div class="control-heading">
+                <div>
+                  <span class="control-eyebrow">DIMENSIONS</span>
+                  <h2>Output size <em>(optional)</em></h2>
+                </div>
+                <div class="unit-toggle">
+                  <button type="button" class="unit-button active" data-unit="pixels">Pixels</button>
+                  <button type="button" class="unit-button" data-unit="percent">Percent</button>
+                </div>
+              </div>
+
+              <div class="dimension-grid">
+                <label class="field">
+                  <span>Width</span>
+                  <div class="input-wrap">
+                    <input id="widthInput" type="number" min="1" max="10000" />
+                    <span id="widthUnit">px</span>
+                  </div>
+                </label>
+
+                <button id="lockButton" type="button" class="lock-button active" aria-pressed="true" title="Lock aspect ratio">🔗</button>
+
+                <label class="field">
+                  <span>Height</span>
+                  <div class="input-wrap">
+                    <input id="heightInput" type="number" min="1" max="10000" />
+                    <span id="heightUnit">px</span>
+                  </div>
+                </label>
+              </div>
+              <p id="originalSize" class="dimension-note">Original size will appear here.</p>
+            </div>
+
+            <!-- TARGET SIZE (OPTIONAL) -->
+            <div class="control-section">
+              <div class="target-size-box">
+                <label class="field target-field">
+                  <span>Target file size <em>(optional)</em></span>
+                  <div class="target-size-row">
+                    <input id="targetSizeInput" type="number" min="1" step="1" placeholder="40" />
+                    <select id="targetSizeUnit" aria-label="Target file size unit">
+                      <option value="KB">KB</option>
+                      <option value="MB">MB</option>
+                    </select>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="action-area">
+              <div>
+                <strong id="selectedCount">0 images selected</strong>
+                <span>Convert locally in your browser.</span>
+              </div>
+              <button id="resizeButton" type="button" class="primary-button">
+                Convert format <span>↗</span>
+              </button>
+            </div>
+
+            <div id="progressArea" class="progress-area" hidden>
+              <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+              <span id="progressText">Preparing...</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATIONAL SECTION -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">CONVERSION GUIDE</div>
+        <div class="section-heading">
+          <h2>When to Convert Image Formats</h2>
+          <p>Learn how format choice impacts color channels, transparency, and browser compatibility.</p>
+        </div>
+
+        <div class="legal-card" style="margin-top: 1.5rem;">
+          <h2>PNG to JPG: Handling Transparent Backgrounds</h2>
+          <p>
+            JPG does not support transparent backgrounds. When converting transparent PNG logos or overlays to JPG, the browser engine automatically fills transparent regions with clean solid white. Read our <a href="/guides/how-to-convert-png-to-jpg/">PNG to JPG Conversion Guide</a>.
+          </p>
+          <h2>Upgrading to Modern WebP</h2>
+          <p>
+            WebP combines the lossy photographic compression of JPEG with the alpha transparency of PNG. For detailed format recommendations, see our <a href="/guides/jpg-vs-png-vs-webp/">JPG vs PNG vs WebP Guide</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script src="../scripts/resizer.js"></script>
+</Layout>

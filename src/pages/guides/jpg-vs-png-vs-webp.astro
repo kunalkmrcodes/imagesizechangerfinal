@@ -1,0 +1,180 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "JPG vs PNG vs WebP",
+      "item": "https://imagesizechanger-com.vercel.app/guides/jpg-vs-png-vs-webp"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "JPG vs PNG vs WebP: Which Image Format Should You Use?",
+  "description": "A complete side-by-side comparison of JPG, PNG, and WebP image formats, color handling, transparency support, and ideal use cases.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  }
+};
+---
+
+<Layout
+  title="JPG vs PNG vs WebP: Which Image Format Should You Use? | Image Size Changer"
+  description="Compare JPG, PNG, and WebP image formats. Learn which format delivers the best balance of file size, image quality, and transparency for your website or design project."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Formats
+      </div>
+
+      <h1>JPG vs PNG vs WebP: Which Image Format Should You Use?</h1>
+
+      <p class="lead">
+        Choosing the right image format is one of the most effective decisions you can make for website speed and visual quality. The three most prevalent web image formats—JPG (JPEG), PNG, and WebP—each serve distinct purposes.
+      </p>
+
+      <div class="legal-card">
+        <h2>1. JPG / JPEG (Joint Photographic Experts Group)</h2>
+        <p>
+          Introduced in 1992, JPG is the most widely supported image format on the planet. It uses <strong>lossy compression</strong> designed specifically for full-color photographs.
+        </p>
+        <ul>
+          <li><strong>Best For:</strong> High-detail photographs, camera shots, complex gradients.</li>
+          <li><strong>Pros:</strong> Extremely small file sizes for complex photos; universal browser and device compatibility.</li>
+          <li><strong>Cons:</strong> Does NOT support transparent backgrounds. Re-saving JPEG files repeatedly accumulates compression artifacts.</li>
+        </ul>
+
+        <h2>2. PNG (Portable Network Graphics)</h2>
+        <p>
+          PNG is an uncompressed or losslessly compressed raster format created as an open alternative to GIF. It uses <strong>lossless compression</strong>, meaning every single pixel color value is perfectly preserved.
+        </p>
+        <ul>
+          <li><strong>Best For:</strong> Logos, website icons, UI screenshots, text overlays, and graphics requiring transparent backgrounds (alpha channel).</li>
+          <li><strong>Pros:</strong> Crisp text edges; full alpha transparency support; zero loss in image quality.</li>
+          <li><strong>Cons:</strong> File sizes can become extremely large for high-resolution photographs.</li>
+        </ul>
+
+        <h2>3. WebP (Google Next-Generation Format)</h2>
+        <p>
+          Developed by Google, WebP provides both lossy and lossless compression. It was created to replace JPEG, PNG, and GIF on modern web platforms.
+        </p>
+        <ul>
+          <li><strong>Best For:</strong> Modern websites, e-commerce product catalogs, blog hero images.</li>
+          <li><strong>Pros:</strong> Supports transparency AND lossy compression simultaneously. WebP can often produce smaller files than JPEG or PNG at comparable visual quality, depending on the image content and compression settings.</li>
+          <li><strong>Cons:</strong> Supported by over 97% of modern web browsers, though legacy graphics software or very old devices may occasionally require conversion back to JPG or PNG.</li>
+        </ul>
+
+        <h2>Comprehensive Feature Comparison Matrix</h2>
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>JPG / JPEG</th>
+              <th>PNG</th>
+              <th>WebP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Compression Type</td>
+              <td>Lossy</td>
+              <td>Lossless</td>
+              <td>Lossy & Lossless</td>
+            </tr>
+            <tr>
+              <td>Transparent Background</td>
+              <td>❌ No</td>
+              <td>✅ Yes</td>
+              <td>✅ Yes</td>
+            </tr>
+            <tr>
+              <td>Photographs</td>
+              <td>⭐⭐⭐⭐⭐ Excellent</td>
+              <td>⭐⭐ Fair (Large size)</td>
+              <td>⭐⭐⭐⭐⭐ Excellent</td>
+            </tr>
+            <tr>
+              <td>Logos & Icons</td>
+              <td>⭐⭐ Fair (Blurry edges)</td>
+              <td>⭐⭐⭐⭐⭐ Excellent</td>
+              <td>⭐⭐⭐⭐⭐ Excellent</td>
+            </tr>
+            <tr>
+              <td>Typical Relative File Weight</td>
+              <td>Medium</td>
+              <td>Heavy / Large</td>
+              <td>Lightest / Smallest</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>When Should You Convert Between Formats?</h2>
+        <p>
+          Converting between formats depends on your end goal:
+        </p>
+        <ul>
+          <li><strong>PNG to JPG:</strong> Convert heavy screenshot or camera PNGs to JPG when transparency isn't required and you need smaller file sizes.</li>
+          <li><strong>JPG/PNG to WebP:</strong> Convert website assets to WebP to improve Google PageSpeed Insights scores and decrease page load time.</li>
+        </ul>
+
+        <h2>Convert & Format Images Easily</h2>
+        <p>
+          Convert your files between JPG, PNG, and WebP instantly using our free <a href="/convert-image">Online Format Converter</a>. All processing occurs 100% inside your browser.
+        </p>
+      </div>
+
+      <a class="back-link" href="/guides">← Back to all guides</a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>

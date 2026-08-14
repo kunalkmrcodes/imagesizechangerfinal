@@ -1,0 +1,47 @@
+---
+// Header.astro — Global Header Navigation for ImageSizeChanger
+---
+
+<header class="site-header">
+  <div class="container nav-inner">
+
+    <a class="brand" href="/" aria-label="ImageSizeChanger home">
+      <img
+        src="/favicon.png"
+        alt="ImageSizeChanger Icon"
+        class="brand-icon"
+      />
+      <span>ImageSizeChanger</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="/resize-image">Resize</a>
+      <a href="/#features">Features</a>
+      <a href="/guides">Guides</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+
+    <a class="nav-cta" href="/#resize">
+      Start resizing
+    </a>
+
+    <details class="mobile-nav">
+      <summary aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </summary>
+
+      <div class="mobile-menu">
+        <a href="/resize-image">Resize</a>
+        <a href="/#features">Features</a>
+        <a href="/guides">Guides</a>
+        <a href="/#faq">FAQ</a>
+        <a class="mobile-menu-cta" href="/#resize">
+          Start resizing
+        </a>
+      </div>
+    </details>
+
+  </div>
+</header>

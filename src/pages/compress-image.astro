@@ -1,0 +1,200 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Compress Images",
+      "item": "https://imagesizechanger-com.vercel.app/compress-image"
+    }
+  ]
+};
+
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Online Image Compressor — ImageSizeChanger",
+  "url": "https://imagesizechanger-com.vercel.app/compress-image",
+  "description": "Compress image file size online in KB or MB for free.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All"
+};
+---
+
+<Layout
+  title="Compress Images Online — Reduce Image File Size | Image Size Changer"
+  description="Compress image file size online in KB or MB for free. Target specific file limits for passport forms, job portals, or website speed directly in your browser."
+  structuredData={[breadcrumbSchema, toolSchema]}
+>
+  <Header />
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          File Weight Reduction · Target KB & MB
+        </div>
+
+        <h1>
+          Compress Images Online
+          <span>Reduce File Size in KB or MB</span>
+        </h1>
+
+        <p class="hero-description">
+          Shrink image file weight without losing noticeable visual quality. Set an exact target file size (e.g. 50 KB or 1 MB) for portal uploads or website performance.
+        </p>
+      </div>
+    </section>
+
+    <!-- WORKSPACE -->
+    <section id="resize" class="workspace-section">
+      <div class="container">
+        <div class="section-label">IMAGE COMPRESSOR TOOL</div>
+        <div class="workspace">
+
+          <!-- UPLOAD -->
+          <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Upload images">
+            <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp" multiple hidden />
+            <div class="upload-icon"><span>↑</span></div>
+            <h2>Drop your images here to compress</h2>
+            <p class="upload-action">
+              <span>or</span>
+              <button id="browseButton" type="button" class="text-button">browse files</button>
+            </p>
+            <small>JPG, PNG, WebP, GIF or BMP · Multiple files supported</small>
+          </div>
+
+          <!-- FILE LIST -->
+          <div id="fileList" class="file-list" hidden></div>
+
+          <!-- CONTROLS -->
+          <div id="controls" class="controls" hidden>
+            <!-- TARGET FILE SIZE HIGHLIGHTED -->
+            <div class="control-section">
+              <div class="control-heading">
+                <div>
+                  <span class="control-eyebrow">TARGET COMPRESSION</span>
+                  <h2>Desired maximum file size</h2>
+                  <p class="compression-description">Enter your required limit (e.g. 50 KB for online forms or 300 KB for web photos).</p>
+                </div>
+              </div>
+
+              <div class="target-size-box">
+                <label class="field target-field">
+                  <span>Target file size</span>
+                  <div class="target-size-row">
+                    <input id="targetSizeInput" type="number" min="1" step="1" placeholder="50" />
+                    <select id="targetSizeUnit" aria-label="Target file size unit">
+                      <option value="KB">KB</option>
+                      <option value="MB">MB</option>
+                    </select>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- DIMENSIONS (OPTIONAL) -->
+            <div class="control-section">
+              <div class="control-heading">
+                <div>
+                  <span class="control-eyebrow">DIMENSIONS</span>
+                  <h2>Output size</h2>
+                </div>
+                <div class="unit-toggle">
+                  <button type="button" class="unit-button active" data-unit="pixels">Pixels</button>
+                  <button type="button" class="unit-button" data-unit="percent">Percent</button>
+                </div>
+              </div>
+
+              <div class="dimension-grid">
+                <label class="field">
+                  <span>Width</span>
+                  <div class="input-wrap">
+                    <input id="widthInput" type="number" min="1" max="10000" />
+                    <span id="widthUnit">px</span>
+                  </div>
+                </label>
+
+                <button id="lockButton" type="button" class="lock-button active" aria-pressed="true" title="Lock aspect ratio">🔗</button>
+
+                <label class="field">
+                  <span>Height</span>
+                  <div class="input-wrap">
+                    <input id="heightInput" type="number" min="1" max="10000" />
+                    <span id="heightUnit">px</span>
+                  </div>
+                </label>
+              </div>
+              <p id="originalSize" class="dimension-note">Original size will appear here.</p>
+            </div>
+
+            <!-- FORMAT -->
+            <div class="control-section">
+              <span class="control-eyebrow">OUTPUT FORMAT</span>
+              <div class="format-grid">
+                <button class="format-button active" type="button" data-format="image/jpeg"><strong>JPG</strong><span>Best compression</span></button>
+                <button class="format-button" type="button" data-format="image/png"><strong>PNG</strong><span>Lossless</span></button>
+                <button class="format-button" type="button" data-format="image/webp"><strong>WebP</strong><span>Next-Gen Web</span></button>
+              </div>
+            </div>
+
+            <div class="action-area">
+              <div>
+                <strong id="selectedCount">0 images selected</strong>
+                <span>Compress locally in your browser.</span>
+              </div>
+              <button id="resizeButton" type="button" class="primary-button">
+                Compress images <span>↗</span>
+              </button>
+            </div>
+
+            <div id="progressArea" class="progress-area" hidden>
+              <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+              <span id="progressText">Preparing...</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATIONAL SECTION -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">COMPRESSION GUIDE</div>
+        <div class="section-heading">
+          <h2>Understanding Image Compression</h2>
+          <p>Learn how target size tuning and format selection reduce file weight.</p>
+        </div>
+
+        <div class="legal-card" style="margin-top: 1.5rem;">
+          <h2>How Target Size Compression Works</h2>
+          <p>
+            When you set a target size (such as 50 KB), our browser engine uses a binary search algorithm to test encoding quality factors. It iteratively calculates the optimal quality setting that delivers the highest visual clarity while staying strictly beneath your target kilobytes.
+          </p>
+          <h2>Lossy vs Lossless Compression</h2>
+          <p>
+            JPEG and WebP use lossy compression to discard imperceptible color details, cutting file size up to 80%. Read our <a href="/guides/how-to-reduce-image-file-size/">File Size Reduction Guide</a> for in-depth optimization advice.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script src="../scripts/resizer.js"></script>
+</Layout>

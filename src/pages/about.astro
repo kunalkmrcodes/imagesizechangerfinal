@@ -1,178 +1,92 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "About",
+      "item": "https://imagesizechanger-com.vercel.app/about"
+    }
+  ]
+};
 ---
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
+<Layout
+  title="About Us — ImageSizeChanger"
+  description="Learn about ImageSizeChanger, our client-side browser image processing philosophy, built for privacy, simplicity, and everyday use."
+  structuredData={breadcrumbSchema}
+>
+  <Header />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  <main class="legal-page">
+    <div class="container narrow-container">
 
-  <title>About — ImageSizeChanger</title>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        About ImageSizeChanger
+      </div>
 
-  <meta
-    name="description"
-    content="Learn more about ImageSizeChanger and our simple browser-based image tools."
-  />
+      <h1>Simple, Browser-Based Image Tools Built for Everyday Use</h1>
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="/favicon.png"
-  />
-</head>
-
-<body>
-
-<header class="site-header">
-  <div class="container nav-inner">
-
-    <a class="brand" href="/">
-      <img
-        src="/favicon.png"
-        alt=""
-        class="brand-icon"
-      />
-
-      <span>
-        ImageSizeChanger
-      </span>
-    </a>
-
-
-    <nav class="nav-links">
-      <a href="/#resize">
-        Resize
-      </a>
-
-      <a href="/#features">
-        Features
-      </a>
-
-      <a href="/#faq">
-        FAQ
-      </a>
-    </nav>
-
-
-    <a
-      class="nav-cta"
-      href="/#resize"
-    >
-      Start resizing
-    </a>
-
-  </div>
-</header>
-
-
-<main class="legal-page">
-
-  <div class="container narrow-container">
-
-    <div class="status-pill">
-      <span class="status-dot"></span>
-      About ImageSizeChanger
-    </div>
-
-
-    <h1>
-      Simple image tools,
-      built for everyday use.
-    </h1>
-
-
-    <p class="lead">
-      ImageSizeChanger is designed to make common image tasks quick,
-      straightforward and accessible from your browser.
-    </p>
-
-
-    <div class="legal-card">
-
-      <h2>
-        Our goal
-      </h2>
-
-      <p>
-        We want image editing tools to feel simple. You shouldn't need
-        complicated software just to change an image's dimensions or format.
+      <p class="lead">
+        ImageSizeChanger is an accessible online image editor designed to make common image tasks—such as dimension resizing, file size compression, and format conversion—fast, simple, and completely private.
       </p>
 
+      <div class="legal-card">
+        <h2>About ImageSizeChanger</h2>
+        <p>
+          ImageSizeChanger provides straightforward web tools for scaling photo dimensions, reducing file weight in kilobytes (KB) or megabytes (MB), and converting between common raster file formats (JPG, PNG, WebP).
+        </p>
 
-      <h2>
-        Built for simplicity
-      </h2>
+        <h2>Why We Built It</h2>
+        <p>
+          People frequently need to resize a photo for a social media banner, compress a scanned document under a 100 KB limit for a job portal, or convert a PNG screenshot to JPG without installing bulky software or registering an account.
+        </p>
+        <p>
+          Many online tools require account signups or upload your personal images to remote servers. We built ImageSizeChanger to solve these daily tasks cleanly directly inside your web browser.
+        </p>
 
-      <p>
-        ImageSizeChanger focuses on practical image operations such as
-        resizing, changing output quality and converting between common
-        image formats.
-      </p>
+        <h2>What You Can Do</h2>
+        <ul>
+          <li><strong>Resize Pixel Dimensions:</strong> Set exact width and height values in pixels or percentages.</li>
+          <li><strong>Proportional Aspect Ratio Lock:</strong> Maintain natural visual proportions to prevent image distortion.</li>
+          <li><strong>Target File Size Compression:</strong> Specify an exact target limit (e.g. 50 KB or 1 MB) to meet strict submission requirements.</li>
+          <li><strong>Format Conversion:</strong> Convert files between JPG, PNG, and WebP formats.</li>
+          <li><strong>Batch Processing:</strong> Select and process multiple image files simultaneously.</li>
+        </ul>
 
+        <h2>Our Privacy Approach</h2>
+        <p>
+          Privacy is at the core of our technical architecture. ImageSizeChanger uses HTML5 Canvas technology to perform 100% client-side image processing. Your selected image files stay inside your local browser memory and are never uploaded to or stored on our servers.
+        </p>
 
-      <h2>
-        Privacy-focused processing
-      </h2>
+        <h2>Who It Is For</h2>
+        <p>
+          ImageSizeChanger is designed for practical everyday users:
+        </p>
+        <ul>
+          <li>Students & Applicants submitting documents to passport or government application portals.</li>
+          <li>Website Owners & Bloggers optimizing images for fast page load times and Core Web Vitals.</li>
+          <li>Content Creators & Marketers resizing social media banners and post graphics.</li>
+          <li>Designers & Professionals needing quick format conversions without launching heavy desktop software.</li>
+        </ul>
+      </div>
 
-      <p>
-        The image resizer is designed to process images directly in your
-        browser, so you can resize files without intentionally uploading
-        them to our servers.
-      </p>
-
+      <a class="back-link" href="/">← Back to ImageSizeChanger</a>
     </div>
+  </main>
 
-
-    <a
-      class="back-link"
-      href="/"
-    >
-      ← Back to ImageSizeChanger
-    </a>
-
-
-  </div>
-
-</main>
-
-
-<footer class="site-footer">
-
-  <div class="container footer-bottom">
-
-    <span>
-      © 2026 ImageSizeChanger
-    </span>
-
-
-    <div class="footer-links">
-
-      <a href="/about">
-        About
-      </a>
-
-      <a href="/privacy">
-        Privacy
-      </a>
-
-      <a href="/terms">
-        Terms
-      </a>
-
-      <a href="/contact">
-        Contact
-      </a>
-
-    </div>
-
-  </div>
-
-</footer>
-
-
-</body>
-</html>
+  <Footer />
+</Layout>

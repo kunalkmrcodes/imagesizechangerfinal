@@ -1,0 +1,159 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Image Resolution vs Dimensions",
+      "item": "https://imagesizechanger-com.vercel.app/guides/image-resolution-vs-dimensions"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Image Resolution vs Image Dimensions: What's the Difference?",
+  "description": "Demystify pixel dimensions (width × height) vs PPI/DPI resolution, print vs digital display requirements, and common misconceptions.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  }
+};
+---
+
+<Layout
+  title="Image Resolution vs Image Dimensions: What's the Difference? | Image Size Changer"
+  description="Understand the fundamental distinction between pixel dimensions (1920x1080) and resolution density (DPI/PPI). Learn what matters for web displays vs physical printing."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Fundamentals
+      </div>
+
+      <h1>Image Resolution vs Image Dimensions: What's the Difference?</h1>
+
+      <p class="lead">
+        The terms "resolution" and "dimensions" are frequently used interchangeably in everyday conversation, leading to significant confusion when preparing graphics for websites or physical printing. Here is a clear breakdown of how they differ.
+      </p>
+
+      <div class="legal-card">
+        <h2>1. Image Dimensions (Pixel Count)</h2>
+        <p>
+          <strong>Dimensions</strong> refer to the absolute pixel count along an image's horizontal width and vertical height.
+        </p>
+        <p>
+          For digital displays (monitors, smartphones, tablets, TVs), dimensions are all that matters. An image measuring <code>1920 × 1080 pixels</code> will occupy 1,920 pixel columns and 1,080 pixel rows on your screen regardless of DPI settings.
+        </p>
+
+        <h2>2. Image Resolution (DPI / PPI Density)</h2>
+        <p>
+          <strong>Resolution</strong> measures density—how tightly pixels or ink dots are packed into a physical inch of space.
+        </p>
+        <ul>
+          <li><strong>PPI (Pixels Per Inch):</strong> Refers to digital display screens.</li>
+          <li><strong>DPI (Dots Per Inch):</strong> Refers to physical printer ink density.</li>
+        </ul>
+        <p>
+          Resolution density dictates physical print size. A <code>3000 × 2000 pixel</code> image printed at 300 DPI will produce a crisp <code>10 × 6.6 inch</code> physical photograph. If printed at 72 DPI, that same image would stretch across <code>41.6 × 27.7 inches</code>, resulting in noticeable graininess.
+        </p>
+
+        <h2>Direct Comparison Matrix</h2>
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Dimensions</th>
+              <th>Resolution (DPI/PPI)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Measurement Unit</td>
+              <td>Pixels (e.g. 1200 × 800 px)</td>
+              <td>Dots/Pixels per inch (e.g. 72 PPI or 300 DPI)</td>
+            </tr>
+            <tr>
+              <td>Primary Medium</td>
+              <td>Digital Screens & Websites</td>
+              <td>Physical Paper & Merchandise Printing</td>
+            </tr>
+            <tr>
+              <td>Web Impact</td>
+              <td>Determines file size & layout rendering</td>
+              <td>Has ZERO effect on web display size</td>
+            </tr>
+            <tr>
+              <td>Standard Target</td>
+              <td>Matching layout container (e.g. 1920px)</td>
+              <td>300 DPI for high-quality printing</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Common Myth: "72 DPI Makes Websites Faster"</h2>
+        <p>
+          A common myth from early web design is that changing an image header from 300 DPI to 72 DPI makes it load faster.
+        </p>
+        <p>
+          In reality, web browsers ignore DPI tags entirely! A <code>1000 × 1000 pixel</code> image saved at 300 DPI has the exact same number of pixels and identical file size as a <code>1000 × 1000 pixel</code> image saved at 72 DPI. To make a web image load faster, you must reduce its pixel dimensions or apply <a href="/compress-image">file size compression</a>.
+        </p>
+
+        <h2>Summary: Preparing Images Correctly</h2>
+        <ul>
+          <li><strong>For Web & Digital Screens:</strong> Focus strictly on pixel dimensions (width × height) and format compression. Use <a href="/resize-image">Image Size Changer</a> to set exact display dimensions.</li>
+          <li><strong>For Physical Printing:</strong> Divide total pixel dimensions by 300 to find maximum print inches at professional photo quality.</li>
+        </ul>
+      </div>
+
+      <a class="back-link" href="/guides">← Back to all guides</a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>

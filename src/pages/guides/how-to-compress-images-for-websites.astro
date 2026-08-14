@@ -1,0 +1,147 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to Compress Images for Websites",
+      "item": "https://imagesizechanger-com.vercel.app/guides/how-to-compress-images-for-websites"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Compress Images for Faster Websites",
+  "description": "Boost Core Web Vitals, reduce server bandwidth costs, and accelerate browser rendering through smart image compression strategies.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  }
+};
+---
+
+<Layout
+  title="How to Compress Images for Faster Websites | Image Size Changer"
+  description="Accelerate your site load time and improve Google Core Web Vitals (LCP) by compressing images. Learn lossy vs lossless compression, quality thresholds, and WebP encoding."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Web Performance
+      </div>
+
+      <h1>How to Compress Images for Faster Websites</h1>
+
+      <p class="lead">
+        Website performance directly impacts bounce rates, user engagement, and conversion rates. Large uncompressed images are the single biggest cause of slow Largest Contentful Paint (LCP) scores.
+      </p>
+
+      <div class="legal-card">
+        <h2>Why Image Compression Matters for Web Performance</h2>
+        <p>
+          According to performance research, 53% of mobile site visitors abandon pages that take longer than 3 seconds to load. Compressing images shrinks network transfer payloads, saving bandwidth costs for servers and data usage for mobile users.
+        </p>
+
+        <h2>Lossy vs. Lossless Web Compression</h2>
+
+        <h3>1. Lossy Compression (Best for Photos)</h3>
+        <p>
+          Lossy compression algorithmically strips invisible or redundant color detail. Reducing JPEG or WebP quality from 100% down to 80% cuts file size by up to 60% while remaining visually identical to human eyes.
+        </p>
+
+        <h3>2. Lossless Compression (Best for Graphics)</h3>
+        <p>
+          Lossless compression reduces file size by restructuring file data without altering pixel color values. Used primarily for PNG graphics, transparency overlays, and vector icons.
+        </p>
+
+        <h2>Target Weight Guidelines for Web Assets</h2>
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Asset Type</th>
+              <th>Recommended Target Size</th>
+              <th>Optimization Tip</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hero Banners / Backgrounds</td>
+              <td>150 KB – 300 KB</td>
+              <td>Resize to 1920px max width + convert to WebP.</td>
+            </tr>
+            <tr>
+              <td>In-Article Photos</td>
+              <td>50 KB – 120 KB</td>
+              <td>Compress at 80% quality factor.</td>
+            </tr>
+            <tr>
+              <td>Thumbnails & Avatars</td>
+              <td>15 KB – 40 KB</td>
+              <td>Downscale pixel dimensions to exact rendering size.</td>
+            </tr>
+            <tr>
+              <td>Logos & Icons</td>
+              <td>10 KB – 30 KB</td>
+              <td>Use transparent PNG or vector SVG.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Compress Your Site Images in Seconds</h2>
+        <p>
+          Accelerate your website performance now. Use our free <a href="/compress-image">Web Image Compressor</a> to set target file sizes in KB or MB and convert assets directly in your browser.
+        </p>
+      </div>
+
+      <a class="back-link" href="/guides">← Back to all guides</a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>

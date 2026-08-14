@@ -1,0 +1,160 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to Reduce Image File Size",
+      "item": "https://imagesizechanger-com.vercel.app/guides/how-to-reduce-image-file-size"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Reduce Image File Size Without Losing Too Much Quality",
+  "description": "Discover practical strategies to shrink image weight in KB or MB using dimension tuning, lossy vs lossless compression, and modern codecs.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  }
+};
+---
+
+<Layout
+  title="How to Reduce Image File Size Without Losing Too Much Quality | Image Size Changer"
+  description="Learn how to significantly shrink image file sizes in KB or MB. Discover the balance between pixel dimensions, quality compression factor, and modern WebP encoding."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Compression
+      </div>
+
+      <h1>How to Reduce Image File Size Without Losing Too Much Quality</h1>
+
+      <p class="lead">
+        Large image files slow down website loading speeds, consume excessive mobile data, and trigger upload errors on passport and job application portals. Fortunately, you can drastically reduce an image's file weight in kilobytes (KB) or megabytes (MB) while keeping it looking great.
+      </p>
+
+      <div class="legal-card">
+        <h2>Three Key Factors That Dictate Image File Size</h2>
+        <p>
+          An image's file size (measured in KB or MB) is determined by three main elements:
+        </p>
+        <ol>
+          <li><strong>Pixel Dimensions (Resolution):</strong> The total number of pixels (Width × Height). A 6000×4000 photo from a digital camera contains 24 million pixels, resulting in file sizes of 8 MB to 15 MB.</li>
+          <li><strong>Compression Quality Factor:</strong> The amount of data discarded during lossy compression (such as JPEG or WebP quality settings from 0 to 100%).</li>
+          <li><strong>File Format Encoding:</strong> How color information is stored (e.g. uncompressed BMP vs. lossy JPEG vs. modern WebP).</li>
+        </ol>
+
+        <h2>Proven Strategies to Shrink Image Weight</h2>
+
+        <h3>Strategy 1: Downscale Oversized Pixel Dimensions</h3>
+        <p>
+          The fastest way to drop file size from 10 MB down to 300 KB is reducing oversized pixel dimensions. Most website hero banners only need to be 1920 pixels wide, while blog content areas only require 800 to 1200 pixels.
+        </p>
+        <p>
+          If you display a 6000px camera photo in an 800px webpage column, 85% of that pixel data is wasted. Downscaling dimensions first cuts total file weight dramatically before applying any quality compression.
+        </p>
+
+        <h3>Strategy 2: Adjust Quality Settings (80% Sweet Spot)</h3>
+        <p>
+          When saving JPEG or WebP images, compression algorithms group similar colored pixels together. Setting compression quality to <strong>80%–85%</strong> typically reduces file size by 50% to 70% with virtually no humanly discernible loss in visual clarity.
+        </p>
+
+        <h3>Strategy 3: Convert to Next-Gen WebP Format</h3>
+        <p>
+          WebP is an advanced open image format created by Google. Converting standard JPEG or PNG files to WebP can often produce smaller files at comparable visual quality, depending on the image content and compression settings.
+        </p>
+
+        <h3>Strategy 4: Use Target File Size Compression</h3>
+        <p>
+          When submitting online forms with strict submission rules (e.g. "File size must not exceed 100 KB"), trying to guess the exact quality slider percentage can take dozens of trial-and-error attempts. Using specialized tools like <a href="/compress-image">Image Size Changer's Target File Size tool</a> lets you specify "100 KB" directly, automatically tuning compression iterations for you.
+        </p>
+
+        <h2>Summary: Resizing vs. Compression vs. Format</h2>
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>How It Reduces Size</th>
+              <th>Typical Size Reduction</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dimension Reduction</td>
+              <td>Removes excess pixels (e.g. 4000px → 1200px)</td>
+              <td>70% – 90% reduction</td>
+            </tr>
+            <tr>
+              <td>Quality Compression</td>
+              <td>Groups similar color blocks (100% → 80% quality)</td>
+              <td>40% – 60% reduction</td>
+            </tr>
+            <tr>
+              <td>Format Conversion</td>
+              <td>Switches to efficient codecs (PNG → WebP)</td>
+              <td>30% – 50% reduction</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Compress Your Images Instantly</h2>
+        <p>
+          Need to reduce image files right now? Try our free <a href="/compress-image">Online Image Compressor</a>. It operates 100% in your browser for absolute privacy and lightning-fast speed.
+        </p>
+      </div>
+
+      <a class="back-link" href="/guides">← Back to all guides</a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>

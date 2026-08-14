@@ -1,2155 +1,623 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ImageSizeChanger",
+  "url": "https://imagesizechanger-com.vercel.app",
+  "description": "Resize and compress images online for free. Change dimensions, reduce file size and convert JPG, PNG and WebP images directly in your browser.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ImageSizeChanger",
+  "url": "https://imagesizechanger-com.vercel.app",
+  "logo": "https://imagesizechanger-com.vercel.app/favicon.png"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I resize an image?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Upload your image file, specify your target width or height in pixels or percentage, keep aspect ratio locked to prevent distortion, choose your output format, and click Resize & compress."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I resize an image without changing its proportions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Keep the aspect-ratio lock enabled while entering a new width or height. The tool automatically calculates the missing dimension proportionally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does aspect ratio mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aspect ratio is the proportional relationship between an image's width and height, such as 16:9 for widescreen monitors or 1:1 for square social posts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does resizing reduce image quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Downscaling (making an image smaller) preserves high visual sharpness. Upscaling (making a small image larger) requires software to guess missing pixels and can cause blurriness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I make an image larger?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can increase pixel dimensions, but enlarging very small images excessively will make them appear soft or pixelated because missing detail cannot be technically recreated."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I reduce an image's file size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can reduce file size by downscaling pixel dimensions, adjusting quality compression factor, converting to modern WebP format, or specifying a target file size in KB or MB."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between JPG, PNG and WebP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JPG uses lossy compression best for photos; PNG uses lossless compression supporting transparency; WebP is a modern web codec that produces smaller files at comparable visual quality."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I process multiple images at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Select or drag multiple supported image files into the workspace to batch process them together."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I target a specific file size in KB or MB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Enter a target like 50 KB or 1 MB. The tool's search algorithm automatically adjusts JPEG or WebP compression to get as close as possible under your target limit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are my images uploaded to a server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All image processing occurs locally inside your web browser using HTML5 Canvas APIs. Your images are never sent to or stored on our servers."
+      }
+    }
+  ]
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Resize and Compress Images Online",
+  "description": "Step-by-step guide to resizing dimensions, reducing file size in KB or MB, and converting image formats directly in your web browser.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Upload Images",
+      "text": "Drag and drop single or multiple image files into the workspace area or click browse files."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Configure Output Dimensions & Target Size",
+      "text": "Enter custom width and height in pixels or percentage, or pick a preset. Set an optional target file size in KB or MB."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Select Output Format & Export",
+      "text": "Choose between JPG, PNG, or WebP format and click Resize & compress to save your processed images."
+    }
+  ]
+};
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-
-    <title>ImageSizeChanger — Resize & Compress Images Online</title>
-
-    <meta
-      name="description"
-      content="Resize and compress images online for free. Change dimensions, reduce file size and convert JPG, PNG and WebP images directly in your browser."
-    />
-
-    <meta
-      name="theme-color"
-      content="#07080d"
-    />
-
-    <link
-      rel="icon"
-      type="image/png"
-      href="/favicon.png"
-    />
-
-    <link
-      rel="apple-touch-icon"
-      href="/favicon.png"
-    />
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <header class="site-header">
-      <div class="container nav-inner">
-
-        <a
-          class="brand"
-          href="/"
-          aria-label="ImageSizeChanger home"
-        >
-          <img
-            src="/favicon.png"
-            alt=""
-            class="brand-icon"
-          />
-
-          <span>ImageSizeChanger</span>
-        </a>
-
-        <nav
-          class="nav-links"
-          aria-label="Main navigation"
-        >
-          <a href="/#resize">Resize</a>
-          <a href="/#features">Features</a>
-          <a href="/#faq">FAQ</a>
-        </nav>
-
-        <a
-          class="nav-cta"
-          href="#resize"
-        >
-          Start resizing
-        </a>
-
-        <details class="mobile-nav">
-          <summary aria-label="Open navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </summary>
-
-          <div class="mobile-menu">
-            <a href="/#resize">Resize</a>
-            <a href="/#features">Features</a>
-            <a href="/#faq">FAQ</a>
-
-            <a
-              class="mobile-menu-cta"
-              href="#resize"
-            >
-              Start resizing
-            </a>
-          </div>
-        </details>
-
-      </div>
-    </header>
-
-    <main>
-
-      <!-- HERO -->
-      <section class="hero">
-        <div class="container hero-inner">
-
-          <div class="status-pill">
-            <span class="status-dot"></span>
-            Fast · Private · Browser-based
-          </div>
-
-          <h1>
-            Resize your
-            <br />
-            images.
-            <span>
-              Exactly how you want.
-            </span>
-          </h1>
-
-          <p class="hero-description">
-            Change image dimensions, quality and format
-            in seconds. No account. No complicated
-            software. Your images stay on your device.
-          </p>
-
-          <div class="hero-tags">
-            <span>JPG</span>
-            <span>PNG</span>
-            <span>WebP</span>
-            <span>Batch ready</span>
-          </div>
-
-        </div>
-      </section>
-
-
-      <!-- WORKSPACE -->
-      <section
-        id="resize"
-        class="workspace-section"
-      >
-        <div class="container">
-
-          <div class="section-label">
-            IMAGE RESIZER
-          </div>
-
-          <div class="workspace">
-
-            <!-- UPLOAD -->
-            <div
-              class="drop-zone"
-              id="dropZone"
-              tabindex="0"
-              role="button"
-              aria-label="Upload images"
-            >
-
-              <input
-                id="fileInput"
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif,image/bmp"
-                multiple
-                hidden
-              />
-
-              <div class="upload-icon">
-                <span>↑</span>
-              </div>
-
-              <h2>
-                Drop your images here
-              </h2>
-
-              <p class="upload-action">
-                <span>or</span>
-
-                <button
-                  id="browseButton"
-                  type="button"
-                  class="text-button"
-                >
-                  browse files
-                </button>
-              </p>
-
-              <small>
-                JPG, PNG, WebP, GIF or BMP ·
-                Multiple files supported
-              </small>
-
-            </div>
-
-
-            <!-- FILE LIST -->
-            <div
-              id="fileList"
-              class="file-list"
-              hidden
-            ></div>
-
-
-            <!-- CONTROLS -->
-            <div
-              id="controls"
-              class="controls"
-              hidden
-            >
-
-              <!-- RESIZE -->
-              <div class="control-section">
-
-                <div class="control-heading">
-
-                  <div>
-                    <span class="control-eyebrow">
-                      RESIZE
-                    </span>
-
-                    <h2>
-                      Output size
-                    </h2>
-                  </div>
-
-                  <div class="unit-toggle">
-
-                    <button
-                      type="button"
-                      class="unit-button active"
-                      data-unit="pixels"
-                    >
-                      Pixels
-                    </button>
-
-                    <button
-                      type="button"
-                      class="unit-button"
-                      data-unit="percent"
-                    >
-                      Percent
-                    </button>
-
-                  </div>
-
-                </div>
-
-
-                <div class="dimension-grid">
-
-                  <label class="field">
-                    <span>Width</span>
-
-                    <div class="input-wrap">
-                      <input
-                        id="widthInput"
-                        type="number"
-                        min="1"
-                        max="10000"
-                      />
-
-                      <span id="widthUnit">
-                        px
-                      </span>
-                    </div>
-                  </label>
-
-
-                  <button
-                    id="lockButton"
-                    type="button"
-                    class="lock-button active"
-                    aria-pressed="true"
-                    title="Lock aspect ratio"
-                  >
-                    🔗
-                  </button>
-
-
-                  <label class="field">
-                    <span>Height</span>
-
-                    <div class="input-wrap">
-                      <input
-                        id="heightInput"
-                        type="number"
-                        min="1"
-                        max="10000"
-                      />
-
-                      <span id="heightUnit">
-                        px
-                      </span>
-                    </div>
-                  </label>
-
-                </div>
-
-
-                <p
-                  id="originalSize"
-                  class="dimension-note"
-                >
-                  Original size will appear here.
-                </p>
-
-              </div>
-
-
-              <!-- PRESETS -->
-              <div class="control-section">
-
-                <span class="control-eyebrow">
-                  PRESETS
-                </span>
-
-                <h2>
-                  Popular sizes
-                </h2>
-
-                <div class="preset-grid">
-
-                  <button
-                    class="preset"
-                    type="button"
-                    data-width="1080"
-                    data-height="1080"
-                  >
-                    <strong>Instagram</strong>
-                    <span>1080 × 1080</span>
-                  </button>
-
-                  <button
-                    class="preset"
-                    type="button"
-                    data-width="1200"
-                    data-height="630"
-                  >
-                    <strong>Facebook</strong>
-                    <span>1200 × 630</span>
-                  </button>
-
-                  <button
-                    class="preset"
-                    type="button"
-                    data-width="1280"
-                    data-height="720"
-                  >
-                    <strong>YouTube</strong>
-                    <span>1280 × 720</span>
-                  </button>
-
-                  <button
-                    class="preset"
-                    type="button"
-                    data-width="1500"
-                    data-height="500"
-                  >
-                    <strong>Twitter / X</strong>
-                    <span>1500 × 500</span>
-                  </button>
-
-                  <button
-                    class="preset"
-                    type="button"
-                    data-width="1200"
-                    data-height="675"
-                  >
-                    <strong>Blog image</strong>
-                    <span>1200 × 675</span>
-                  </button>
-
-                  <button
-                    class="preset"
-                    type="button"
-                    data-width="1920"
-                    data-height="1080"
-                  >
-                    <strong>Full HD</strong>
-                    <span>1920 × 1080</span>
-                  </button>
-
-                </div>
-
-              </div>
-
-
-              <!-- EXPORT SETTINGS -->
-              <div class="control-section">
-
-                <div class="control-heading">
-
-                  <div>
-                    <span class="control-eyebrow">
-                      COMPRESS
-                    </span>
-
-                    <h2>
-                      Export settings
-                    </h2>
-
-                    <p class="compression-description">
-                      Set an optional maximum file size.
-                    </p>
-                  </div>
-
-                </div>
-
-
-                <!-- TARGET SIZE -->
-                <div class="target-size-box">
-
-                  <label class="field target-field">
-
-                    <span>
-                      Target file size
-                      <em>(optional)</em>
-                    </span>
-
-                    <div class="target-size-row">
-
-                      <input
-                        id="targetSizeInput"
-                        type="number"
-                        min="1"
-                        step="1"
-                        placeholder="40"
-                      />
-
-                      <select
-                        id="targetSizeUnit"
-                        aria-label="Target file size unit"
-                      >
-                        <option value="KB">
-                          KB
-                        </option>
-
-                        <option value="MB">
-                          MB
-                        </option>
-                      </select>
-
-                    </div>
-
-                  </label>
-
-
-                  <p class="target-help">
-                    Try <strong>40 KB</strong> for a small image
-                    or <strong>1 MB</strong> for a larger image.
-                    The browser will automatically adjust compression.
-                  </p>
-
-                </div>
-
-
-                <!-- FORMAT -->
-                <div class="format-area">
-
-                  <span class="control-eyebrow">
-                    OUTPUT FORMAT
-                  </span>
-
-                  <div class="format-grid">
-
-                    <button
-                      class="format-button active"
-                      type="button"
-                      data-format="image/jpeg"
-                    >
-                      <strong>JPG</strong>
-
-                      <span>
-                        Best for photos
-                      </span>
-                    </button>
-
-
-                    <button
-                      class="format-button"
-                      type="button"
-                      data-format="image/png"
-                    >
-                      <strong>PNG</strong>
-
-                      <span>
-                        Lossless quality
-                      </span>
-                    </button>
-
-
-                    <button
-                      class="format-button"
-                      type="button"
-                      data-format="image/webp"
-                    >
-                      <strong>WebP</strong>
-
-                      <span>
-                        Modern & efficient
-                      </span>
-                    </button>
-
-                  </div>
-
-                </div>
-
-
-                <div class="compression-info">
-
-                  <div class="compression-info-item">
-                    <strong>Resize</strong>
-
-                    <span>
-                      Change dimensions
-                    </span>
-                  </div>
-
-                  <div class="compression-info-item">
-                    <strong>Target size</strong>
-
-                    <span>
-                      KB or MB
-                    </span>
-                  </div>
-
-                  <div class="compression-info-item">
-                    <strong>Format</strong>
-
-                    <span>
-                      JPG · PNG · WebP
-                    </span>
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <!-- ACTION -->
-              <div class="action-area">
-
-                <div>
-                  <strong id="selectedCount">
-                    0 images selected
-                  </strong>
-
-                  <span>
-                    Resize and compress locally
-                    in your browser.
-                  </span>
-                </div>
-
-                <button
-                  id="resizeButton"
-                  type="button"
-                  class="primary-button"
-                >
-                  Resize & compress
-                  <span>↗</span>
-                </button>
-
-              </div>
-
-
-              <!-- PROGRESS -->
-              <div
-                id="progressArea"
-                class="progress-area"
-                hidden
-              >
-
-                <div class="progress-track">
-                  <div
-                    id="progressBar"
-                    class="progress-bar"
-                  ></div>
-                </div>
-
-                <span id="progressText">
-                  Preparing...
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-
-      <!-- FEATURES -->
-      <section
-        id="features"
-        class="content-section"
-      >
-        <div class="container">
-
-          <div class="section-label">
-            WHY USE IT
-          </div>
-
-          <div class="section-heading">
-
-            <h2>
-              Resize and compress without uploading.
-            </h2>
-
-            <p>
-              Everything happens directly in your browser.
-              Your images don't need to leave your device.
-            </p>
-
-          </div>
-
-
-          <div class="feature-grid">
-
-            <article class="feature-card">
-              <div class="feature-number">
-                01
-              </div>
-
-              <h3>
-                100% browser-based
-              </h3>
-
-              <p>
-                Images are processed locally on your
-                device instead of being uploaded to a server.
-              </p>
-            </article>
-
-
-            <article class="feature-card">
-              <div class="feature-number">
-                02
-              </div>
-
-              <h3>
-                Precise resizing
-              </h3>
-
-              <p>
-                Set exact width and height values or
-                preserve the original aspect ratio.
-              </p>
-            </article>
-
-
-            <article class="feature-card">
-              <div class="feature-number">
-                03
-              </div>
-
-              <h3>
-                Target file size
-              </h3>
-
-              <p>
-                Set a target such as 40 KB or 1 MB
-                and automatically compress your image.
-              </p>
-            </article>
-
-
-            <article class="feature-card">
-              <div class="feature-number">
-                04
-              </div>
-
-              <h3>
-                Batch processing
-              </h3>
-
-              <p>
-                Select multiple images and process them
-                together.
-              </p>
-            </article>
-
-          </div>
-        </div>
-      </section>
-
-
-      <!-- FAQ -->
-      <section
-        id="faq"
-        class="faq-section"
-      >
-        <div class="container">
-
-          <div class="section-label">
-            FAQ
-          </div>
-
-          <div class="section-heading">
-
-            <h2>
-              Frequently asked questions
-            </h2>
-
-          </div>
-
-
-          <div class="faq-list">
-
-            <details>
-              <summary>
-                Are my images uploaded anywhere?
-              </summary>
-
-              <p>
-                No. Image processing happens inside
-                your browser. Your images don't need
-                to be uploaded to our servers.
-              </p>
-            </details>
-
-
-            <details>
-              <summary>
-                Can I resize and compress at the same time?
-              </summary>
-
-              <p>
-                Yes. Choose your dimensions, target file
-                size and output format, then click
-                Resize & compress.
-              </p>
-            </details>
-
-
-            <details>
-              <summary>
-                Can I target a specific file size?
-              </summary>
-
-              <p>
-                Yes. Enter a target such as 40 KB or
-                1 MB. The tool automatically adjusts
-                JPEG or WebP compression to get as close
-                as possible to your target.
-              </p>
-            </details>
-
-
-            <details>
-              <summary>
-                Can I process multiple images?
-              </summary>
-
-              <p>
-                Yes. You can select multiple supported
-                image files and process them together.
-              </p>
-            </details>
-
-
-            <details>
-              <summary>
-                Can I preserve the aspect ratio?
-              </summary>
-
-              <p>
-                Yes. Keep the aspect-ratio lock enabled
-                while changing the width or height.
-              </p>
-            </details>
-
-
-            <details>
-              <summary>
-                Which formats can I export?
-              </summary>
-
-              <p>
-                You can export your images as JPG, PNG
-                or WebP.
-              </p>
-            </details>
-
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-
-      <div class="container footer-inner">
-
-        <div>
-
-          <a
-            class="brand footer-brand"
-            href="/"
-          >
-            <img
-              src="/favicon.png"
-              alt=""
-              class="brand-icon"
-            />
-
-            <span>
-              ImageSizeChanger
-            </span>
-          </a>
-
-          <p>
-            Simple image tools for everyone.
-          </p>
-
-        </div>
-
-
-        <div class="footer-links">
-
-          <a href="/#resize">
-            Resize
-          </a>
-
-          <a href="/#features">
-            Features
-          </a>
-
-          <a href="/#faq">
-            FAQ
-          </a>
-
-          <a href="/about">
-            About
-          </a>
-
-          <a href="/privacy">
-            Privacy
-          </a>
-
-          <a href="/terms">
-            Terms
-          </a>
-
-          <a href="/contact">
-            Contact
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="container footer-bottom">
-
-        <span>
-          © 2026 ImageSizeChanger
-        </span>
-
-        <span>
+<Layout
+  title="ImageSizeChanger — Resize & Compress Images Online"
+  description="Resize and compress images online for free. Change dimensions, reduce file size and convert JPG, PNG and WebP images directly in your browser."
+  structuredData={[webAppSchema, organizationSchema, faqSchema, howToSchema]}
+>
+  <Header />
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="status-pill">
+          <span class="status-dot"></span>
           Fast · Private · Browser-based
-        </span>
+        </div>
 
+        <h1>
+          Resize your
+          <br />
+          images.
+          <span>Exactly how you want.</span>
+        </h1>
+
+        <p class="hero-description">
+          Change image dimensions, quality and format in seconds. No account. No complicated software. Your images stay on your device.
+        </p>
+
+        <div class="hero-tags">
+          <span>JPG</span>
+          <span>PNG</span>
+          <span>WebP</span>
+          <span>Batch ready</span>
+        </div>
       </div>
-
-    </footer>
-
-
-    <script>
-      const fileInput =
-        document.getElementById("fileInput");
-
-      const browseButton =
-        document.getElementById("browseButton");
-
-      const dropZone =
-        document.getElementById("dropZone");
-
-      const fileList =
-        document.getElementById("fileList");
-
-      const controls =
-        document.getElementById("controls");
-
-      const widthInput =
-        document.getElementById("widthInput");
-
-      const heightInput =
-        document.getElementById("heightInput");
-
-      const widthUnit =
-        document.getElementById("widthUnit");
-
-      const heightUnit =
-        document.getElementById("heightUnit");
-
-      const lockButton =
-        document.getElementById("lockButton");
-
-      const originalSize =
-        document.getElementById("originalSize");
-
-      const targetSizeInput =
-        document.getElementById("targetSizeInput");
-
-      const targetSizeUnit =
-        document.getElementById("targetSizeUnit");
-
-      const resizeButton =
-        document.getElementById("resizeButton");
-
-      const selectedCount =
-        document.getElementById("selectedCount");
-
-      const progressArea =
-        document.getElementById("progressArea");
-
-      const progressBar =
-        document.getElementById("progressBar");
-
-      const progressText =
-        document.getElementById("progressText");
-
-      const unitButtons =
-        document.querySelectorAll(".unit-button");
-
-      const presetButtons =
-        document.querySelectorAll(".preset");
-
-      const formatButtons =
-        document.querySelectorAll(".format-button");
-
-
-      let selectedFiles = [];
-
-      let currentImageWidth = 0;
-      let currentImageHeight = 0;
-
-      let aspectRatio = 1;
-
-      let aspectLocked = true;
-
-      let currentUnit = "pixels";
-
-      let currentFormat = "image/jpeg";
-
-
-      /* --------------------------------
-         HELPERS
-      -------------------------------- */
-
-      function formatBytes(bytes) {
-
-        if (!bytes) {
-          return "0 B";
-        }
-
-        const units = [
-          "B",
-          "KB",
-          "MB",
-          "GB"
-        ];
-
-        const index =
-          Math.min(
-            Math.floor(
-              Math.log(bytes) /
-              Math.log(1024)
-            ),
-            units.length - 1
-          );
-
-        return `${(
-          bytes /
-          Math.pow(1024, index)
-        ).toFixed(
-          index === 0 ? 0 : 1
-        )} ${units[index]}`;
-      }
-
-
-      function getTargetBytes() {
-
-        const value =
-          Number(
-            targetSizeInput.value
-          );
-
-        if (
-          !value ||
-          !Number.isFinite(value) ||
-          value <= 0
-        ) {
-          return null;
-        }
-
-        if (
-          targetSizeUnit.value === "MB"
-        ) {
-          return value * 1024 * 1024;
-        }
-
-        return value * 1024;
-      }
-
-
-      function loadImage(file) {
-
-        return new Promise(
-          (resolve, reject) => {
-
-            const url =
-              URL.createObjectURL(file);
-
-            const image =
-              new Image();
-
-            image.onload = () => {
-
-              URL.revokeObjectURL(url);
-
-              resolve(image);
-            };
-
-            image.onerror = () => {
-
-              URL.revokeObjectURL(url);
-
-              reject(
-                new Error(
-                  `Unable to read ${file.name}`
-                )
-              );
-            };
-
-            image.src = url;
-
-          }
-        );
-      }
-
-
-      function canvasToBlob(
-        canvas,
-        format,
-        quality
-      ) {
-
-        return new Promise(
-          (resolve, reject) => {
-
-            canvas.toBlob(
-              (blob) => {
-
-                if (blob) {
-                  resolve(blob);
-                } else {
-                  reject(
-                    new Error(
-                      "Could not create output image."
-                    )
-                  );
-                }
-
-              },
-              format,
-              quality
-            );
-
-          }
-        );
-      }
-
-
-      /*
-       * Automatically searches for a JPEG/WebP
-       * quality that gets closest to the requested
-       * target size.
-       */
-      async function compressToTarget(
-        canvas,
-        format,
-        targetBytes
-      ) {
-
-        if (!targetBytes) {
-
-          return canvasToBlob(
-            canvas,
-            format,
-            0.85
-          );
-        }
-
-
-        /*
-         * PNG doesn't have the same browser quality
-         * control as JPEG/WebP.
-         */
-        if (
-          format === "image/png"
-        ) {
-
-          return canvasToBlob(
-            canvas,
-            format,
-            1
-          );
-        }
-
-
-        let low = 0.05;
-        let high = 0.95;
-
-        let bestBlob = null;
-
-        let bestDifference =
-          Infinity;
-
-
-        /*
-         * 8 iterations gives a good balance
-         * between accuracy and speed.
-         */
-        for (
-          let i = 0;
-          i < 9;
-          i++
-        ) {
-
-          const quality =
-            (low + high) / 2;
-
-          const blob =
-            await canvasToBlob(
-              canvas,
-              format,
-              quality
-            );
-
-          const difference =
-            Math.abs(
-              blob.size -
-              targetBytes
-            );
-
-
-          if (
-            difference <
-            bestDifference
-          ) {
-
-            bestDifference =
-              difference;
-
-            bestBlob =
-              blob;
-          }
-
-
-          if (
-            blob.size >
-            targetBytes
-          ) {
-
-            high =
-              quality;
-
-          } else {
-
-            low =
-              quality;
-          }
-
-        }
-
-
-        return bestBlob;
-      }
-
-
-      function updateSelectedCount() {
-
-        const count =
-          selectedFiles.length;
-
-        selectedCount.textContent =
-          count === 1
-            ? "1 image selected"
-            : `${count} images selected`;
-      }
-
-
-      function renderFiles() {
-
-        fileList.innerHTML = "";
-
-
-        selectedFiles.forEach(
-          (file, index) => {
-
-            const item =
-              document.createElement(
-                "div"
-              );
-
-            item.className =
-              "file-item";
-
-
-            const thumb =
-              document.createElement(
-                "div"
-              );
-
-            thumb.className =
-              "file-thumb";
-
-            thumb.textContent =
-              "IMG";
-
-
-            const info =
-              document.createElement(
-                "div"
-              );
-
-            info.className =
-              "file-info";
-
-
-            const name =
-              document.createElement(
-                "strong"
-              );
-
-            name.textContent =
-              file.name;
-
-
-            const size =
-              document.createElement(
-                "span"
-              );
-
-            size.textContent =
-              formatBytes(
-                file.size
-              );
-
-
-            const removeButton =
-              document.createElement(
-                "button"
-              );
-
-            removeButton.type =
-              "button";
-
-            removeButton.className =
-              "remove-file";
-
-            removeButton.dataset.index =
-              String(index);
-
-            removeButton.setAttribute(
-              "aria-label",
-              `Remove ${file.name}`
-            );
-
-            removeButton.textContent =
-              "×";
-
-
-            info.appendChild(name);
-            info.appendChild(size);
-
-            item.appendChild(thumb);
-            item.appendChild(info);
-            item.appendChild(
-              removeButton
-            );
-
-            fileList.appendChild(item);
-
-          }
-        );
-
-
-        fileList.hidden =
-          selectedFiles.length === 0;
-
-        controls.hidden =
-          selectedFiles.length === 0;
-
-        updateSelectedCount();
-      }
-
-
-      async function handleFiles(files) {
-
-        const images =
-          Array.from(files).filter(
-            (file) =>
-              file.type.startsWith(
-                "image/"
-              )
-          );
-
-
-        if (!images.length) {
-
-          alert(
-            "Please select a valid image file."
-          );
-
-          return;
-        }
-
-
-        selectedFiles =
-          images;
-
-        renderFiles();
-
-
-        try {
-
-          const image =
-            await loadImage(
-              selectedFiles[0]
-            );
-
-
-          currentImageWidth =
-            image.naturalWidth;
-
-          currentImageHeight =
-            image.naturalHeight;
-
-
-          aspectRatio =
-            currentImageWidth /
-            currentImageHeight;
-
-
-          widthInput.value =
-            currentImageWidth;
-
-          heightInput.value =
-            currentImageHeight;
-
-
-          originalSize.textContent =
-            `Original: ${currentImageWidth} × ${currentImageHeight}px · ${formatBytes(selectedFiles[0].size)}`;
-
-        } catch {
-
-          originalSize.textContent =
-            "Could not read image dimensions.";
-        }
-
-      }
-
-
-      function updateHeightFromWidth() {
-
-        const width =
-          Number(
-            widthInput.value
-          );
-
-
-        if (
-          width &&
-          aspectRatio
-        ) {
-
-          heightInput.value =
-            Math.max(
-              1,
-              Math.round(
-                width /
-                aspectRatio
-              )
-            );
-        }
-      }
-
-
-      function updateWidthFromHeight() {
-
-        const height =
-          Number(
-            heightInput.value
-          );
-
-
-        if (
-          height &&
-          aspectRatio
-        ) {
-
-          widthInput.value =
-            Math.max(
-              1,
-              Math.round(
-                height *
-                aspectRatio
-              )
-            );
-        }
-      }
-
-
-      /* --------------------------------
-         UPLOAD
-      -------------------------------- */
-
-      browseButton.addEventListener(
-        "click",
-        () => {
-          fileInput.click();
-        }
-      );
-
-
-      dropZone.addEventListener(
-        "click",
-        (event) => {
-
-          if (
-            event.target.closest(
-              "button"
-            )
-          ) {
-            return;
-          }
-
-          fileInput.click();
-        }
-      );
-
-
-      dropZone.addEventListener(
-        "keydown",
-        (event) => {
-
-          if (
-            event.key === "Enter" ||
-            event.key === " "
-          ) {
-
-            event.preventDefault();
-
-            fileInput.click();
-          }
-
-        }
-      );
-
-
-      fileInput.addEventListener(
-        "change",
-        () => {
-
-          if (
-            fileInput.files?.length
-          ) {
-
-            handleFiles(
-              fileInput.files
-            );
-          }
-
-        }
-      );
-
-
-      ["dragenter", "dragover"].forEach(
-        (eventName) => {
-
-          dropZone.addEventListener(
-            eventName,
-            (event) => {
-
-              event.preventDefault();
-
-              dropZone.classList.add(
-                "dragging"
-              );
-
-            }
-          );
-
-        }
-      );
-
-
-      ["dragleave", "drop"].forEach(
-        (eventName) => {
-
-          dropZone.addEventListener(
-            eventName,
-            (event) => {
-
-              event.preventDefault();
-
-              dropZone.classList.remove(
-                "dragging"
-              );
-
-            }
-          );
-
-        }
-      );
-
-
-      dropZone.addEventListener(
-        "drop",
-        (event) => {
-
-          const files =
-            event.dataTransfer?.files;
-
-          if (files?.length) {
-
-            handleFiles(files);
-          }
-
-        }
-      );
-
-
-      /* --------------------------------
-         REMOVE FILE
-      -------------------------------- */
-
-      fileList.addEventListener(
-        "click",
-        (event) => {
-
-          const button =
-            event.target.closest(
-              ".remove-file"
-            );
-
-
-          if (!button) {
-            return;
-          }
-
-
-          selectedFiles.splice(
-            Number(
-              button.dataset.index
-            ),
-            1
-          );
-
-
-          renderFiles();
-
-
-          if (
-            !selectedFiles.length
-          ) {
-
-            fileInput.value = "";
-
-            originalSize.textContent =
-              "Original size will appear here.";
-          }
-
-        }
-      );
-
-
-      /* --------------------------------
-         DIMENSIONS
-      -------------------------------- */
-
-      widthInput.addEventListener(
-        "input",
-        () => {
-
-          if (
-            aspectLocked &&
-            currentUnit ===
-              "pixels"
-          ) {
-
-            updateHeightFromWidth();
-          }
-
-        }
-      );
-
-
-      heightInput.addEventListener(
-        "input",
-        () => {
-
-          if (
-            aspectLocked &&
-            currentUnit ===
-              "pixels"
-          ) {
-
-            updateWidthFromHeight();
-          }
-
-        }
-      );
-
-
-      lockButton.addEventListener(
-        "click",
-        () => {
-
-          aspectLocked =
-            !aspectLocked;
-
-
-          lockButton.classList.toggle(
-            "active",
-            aspectLocked
-          );
-
-
-          lockButton.setAttribute(
-            "aria-pressed",
-            String(aspectLocked)
-          );
-
-
-          if (aspectLocked) {
-
-            const width =
-              Number(
-                widthInput.value
-              );
-
-            const height =
-              Number(
-                heightInput.value
-              );
-
-
-            if (
-              width &&
-              height
-            ) {
-
-              aspectRatio =
-                width / height;
-            }
-
-          }
-
-        }
-      );
-
-
-      /* --------------------------------
-         PIXELS / PERCENT
-      -------------------------------- */
-
-      unitButtons.forEach(
-        (button) => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              unitButtons.forEach(
-                (item) =>
-                  item.classList.remove(
-                    "active"
-                  )
-              );
-
-
-              button.classList.add(
-                "active"
-              );
-
-
-              currentUnit =
-                button.dataset.unit;
-
-
-              widthUnit.textContent =
-                currentUnit ===
-                "pixels"
-                  ? "px"
-                  : "%";
-
-
-              heightUnit.textContent =
-                currentUnit ===
-                "pixels"
-                  ? "px"
-                  : "%";
-
-
-              if (
-                currentUnit ===
-                "percent"
-              ) {
-
-                widthInput.value =
-                  100;
-
-                heightInput.value =
-                  100;
-
-              } else if (
-                currentImageWidth &&
-                currentImageHeight
-              ) {
-
-                widthInput.value =
-                  currentImageWidth;
-
-                heightInput.value =
-                  currentImageHeight;
-              }
-
-            }
-          );
-
-        }
-      );
-
-
-      /* --------------------------------
-         PRESETS
-      -------------------------------- */
-
-      presetButtons.forEach(
-        (button) => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              const width =
-                Number(
-                  button.dataset.width
-                );
-
-              const height =
-                Number(
-                  button.dataset.height
-                );
-
-
-              currentUnit =
-                "pixels";
-
-
-              unitButtons.forEach(
-                (item) =>
-                  item.classList.toggle(
-                    "active",
-                    item.dataset.unit ===
-                      "pixels"
-                  )
-              );
-
-
-              widthUnit.textContent =
-                "px";
-
-              heightUnit.textContent =
-                "px";
-
-
-              widthInput.value =
-                width;
-
-              heightInput.value =
-                height;
-
-
-              if (aspectLocked) {
-
-                aspectRatio =
-                  width / height;
-              }
-
-            }
-          );
-
-        }
-      );
-
-
-      /* --------------------------------
-         FORMAT
-      -------------------------------- */
-
-      formatButtons.forEach(
-        (button) => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              formatButtons.forEach(
-                (item) =>
-                  item.classList.remove(
-                    "active"
-                  )
-              );
-
-
-              button.classList.add(
-                "active"
-              );
-
-
-              currentFormat =
-                button.dataset.format;
-
-            }
-          );
-
-        }
-      );
-
-
-      /* --------------------------------
-         PROCESS IMAGE
-      -------------------------------- */
-
-      resizeButton.addEventListener(
-        "click",
-        async () => {
-
-          if (
-            !selectedFiles.length
-          ) {
-
-            alert(
-              "Please select at least one image."
-            );
-
-            return;
-          }
-
-
-          resizeButton.disabled =
-            true;
-
-
-          progressArea.hidden =
-            false;
-
-
-          progressBar.style.width =
-            "0%";
-
-
-          const targetBytes =
-            getTargetBytes();
-
-
-          try {
-
-            for (
-              let i = 0;
-              i <
-              selectedFiles.length;
-              i++
-            ) {
-
-              const file =
-                selectedFiles[i];
-
-
-              progressText.textContent =
-                `Processing ${i + 1} of ${selectedFiles.length}…`;
-
-
-              const image =
-                await loadImage(file);
-
-
-              let outputWidth =
-                Number(
-                  widthInput.value
-                );
-
-
-              let outputHeight =
-                Number(
-                  heightInput.value
-                );
-
-
-              /* Percent mode */
-
-              if (
-                currentUnit ===
-                "percent"
-              ) {
-
-                outputWidth =
-                  Math.round(
-                    image.naturalWidth *
-                    outputWidth /
-                    100
-                  );
-
-
-                outputHeight =
-                  Math.round(
-                    image.naturalHeight *
-                    outputHeight /
-                    100
-                  );
-              }
-
-
-              if (
-                outputWidth < 1 ||
-                outputHeight < 1 ||
-                !Number.isFinite(
-                  outputWidth
-                ) ||
-                !Number.isFinite(
-                  outputHeight
-                )
-              ) {
-
-                throw new Error(
-                  "Please enter valid dimensions."
-                );
-              }
-
-
-              const canvas =
-                document.createElement(
-                  "canvas"
-                );
-
-
-              canvas.width =
-                outputWidth;
-
-              canvas.height =
-                outputHeight;
-
-
-              const context =
-                canvas.getContext(
-                  "2d"
-                );
-
-
-              if (!context) {
-
-                throw new Error(
-                  "Canvas is not supported."
-                );
-              }
-
-
-              /*
-               * JPG doesn't support transparency.
-               */
-              if (
-                currentFormat ===
-                "image/jpeg"
-              ) {
-
-                context.fillStyle =
-                  "#ffffff";
-
-                context.fillRect(
-                  0,
-                  0,
-                  outputWidth,
-                  outputHeight
-                );
-              }
-
-
-              context.imageSmoothingEnabled =
-                true;
-
-              context.imageSmoothingQuality =
-                "high";
-
-
-              context.drawImage(
-                image,
-                0,
-                0,
-                outputWidth,
-                outputHeight
-              );
-
-
-              progressText.textContent =
-                targetBytes
-                  ? `Compressing ${i + 1} of ${selectedFiles.length}…`
-                  : `Creating ${i + 1} of ${selectedFiles.length}…`;
-
-
-              let blob =
-                await compressToTarget(
-                  canvas,
-                  currentFormat,
-                  targetBytes
-                );
-
-
-              /*
-               * PNG target size warning.
-               * PNG doesn't expose quality compression
-               * through canvas.toBlob().
-               */
-              if (
-                targetBytes &&
-                currentFormat ===
-                  "image/png" &&
-                blob.size >
-                  targetBytes
-              ) {
-
-                const proceed =
-                  confirm(
-                    `The PNG output is ${formatBytes(blob.size)}, which is larger than your ${formatBytes(targetBytes)} target.\n\nPNG is lossless, so the browser cannot reliably force it below a target size using quality settings.\n\nContinue downloading the PNG?`
-                  );
-
-
-                if (!proceed) {
-
-                  continue;
-                }
-              }
-
-
-              const extension =
-                currentFormat ===
-                "image/png"
-                  ? "png"
-                  : currentFormat ===
-                      "image/webp"
-                    ? "webp"
-                    : "jpg";
-
-
-              const originalName =
-                file.name.replace(
-                  /\.[^/.]+$/,
-                  ""
-                );
-
-
-              const outputName =
-                `${originalName}-${outputWidth}x${outputHeight}.${extension}`;
-
-
-              const url =
-                URL.createObjectURL(
-                  blob
-                );
-
-
-              const link =
-                document.createElement(
-                  "a"
-                );
-
-
-              link.href =
-                url;
-
-
-              link.download =
-                outputName;
-
-
-              document.body.appendChild(
-                link
-              );
-
-
-              link.click();
-
-
-              link.remove();
-
-
-              setTimeout(
-                () =>
-                  URL.revokeObjectURL(
-                    url
-                  ),
-                1500
-              );
-
-
-              const percentage =
-                Math.round(
-                  ((i + 1) /
-                    selectedFiles.length) *
-                    100
-                );
-
-
-              progressBar.style.width =
-                `${percentage}%`;
-
-            }
-
-
-            progressText.textContent =
-              targetBytes
-                ? "Done — your resized and compressed images are ready."
-                : "Done — your images are ready.";
-
-          } catch (error) {
-
-            console.error(error);
-
-
-            progressText.textContent =
-              "Something went wrong.";
-
-
-            alert(
-              error instanceof Error
-                ? error.message
-                : "Unable to process the image."
-            );
-
-          } finally {
-
-            resizeButton.disabled =
-              false;
-          }
-
-        }
-      );
-    </script>
-
-  </body>
-</html>
+    </section>
+
+    <!-- WORKSPACE TOOL -->
+    <section id="resize" class="workspace-section">
+      <div class="container">
+        <div class="section-label">IMAGE RESIZER TOOL</div>
+        <div class="workspace">
+
+          <!-- UPLOAD -->
+          <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Upload images">
+            <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp" multiple hidden />
+            <div class="upload-icon"><span>↑</span></div>
+            <h2>Drop your images here</h2>
+            <p class="upload-action">
+              <span>or</span>
+              <button id="browseButton" type="button" class="text-button">browse files</button>
+            </p>
+            <small>JPG, PNG, WebP, GIF or BMP · Multiple files supported</small>
+          </div>
+
+          <!-- FILE LIST -->
+          <div id="fileList" class="file-list" hidden></div>
+
+          <!-- CONTROLS -->
+          <div id="controls" class="controls" hidden>
+            <div class="control-section">
+              <div class="control-heading">
+                <div>
+                  <span class="control-eyebrow">RESIZE</span>
+                  <h2>Output size</h2>
+                </div>
+                <div class="unit-toggle">
+                  <button type="button" class="unit-button active" data-unit="pixels">Pixels</button>
+                  <button type="button" class="unit-button" data-unit="percent">Percent</button>
+                </div>
+              </div>
+
+              <div class="dimension-grid">
+                <label class="field">
+                  <span>Width</span>
+                  <div class="input-wrap">
+                    <input id="widthInput" type="number" min="1" max="10000" />
+                    <span id="widthUnit">px</span>
+                  </div>
+                </label>
+
+                <button id="lockButton" type="button" class="lock-button active" aria-pressed="true" title="Lock aspect ratio">🔗</button>
+
+                <label class="field">
+                  <span>Height</span>
+                  <div class="input-wrap">
+                    <input id="heightInput" type="number" min="1" max="10000" />
+                    <span id="heightUnit">px</span>
+                  </div>
+                </label>
+              </div>
+              <p id="originalSize" class="dimension-note">Original size will appear here.</p>
+            </div>
+
+            <!-- PRESETS -->
+            <div class="control-section">
+              <span class="control-eyebrow">PRESETS</span>
+              <h2>Popular sizes</h2>
+              <div class="preset-grid">
+                <button class="preset" type="button" data-width="1080" data-height="1080"><strong>Instagram</strong><span>1080 × 1080</span></button>
+                <button class="preset" type="button" data-width="1200" data-height="630"><strong>Facebook</strong><span>1200 × 630</span></button>
+                <button class="preset" type="button" data-width="1280" data-height="720"><strong>YouTube</strong><span>1280 × 720</span></button>
+                <button class="preset" type="button" data-width="1500" data-height="500"><strong>Twitter / X</strong><span>1500 × 500</span></button>
+                <button class="preset" type="button" data-width="1200" data-height="675"><strong>Blog image</strong><span>1200 × 675</span></button>
+                <button class="preset" type="button" data-width="1920" data-height="1080"><strong>Full HD</strong><span>1920 × 1080</span></button>
+              </div>
+            </div>
+
+            <!-- EXPORT SETTINGS -->
+            <div class="control-section">
+              <div class="control-heading">
+                <div>
+                  <span class="control-eyebrow">COMPRESS</span>
+                  <h2>Export settings</h2>
+                  <p class="compression-description">Set an optional maximum file size.</p>
+                </div>
+              </div>
+
+              <div class="target-size-box">
+                <label class="field target-field">
+                  <span>Target file size <em>(optional)</em></span>
+                  <div class="target-size-row">
+                    <input id="targetSizeInput" type="number" min="1" step="1" placeholder="40" />
+                    <select id="targetSizeUnit" aria-label="Target file size unit">
+                      <option value="KB">KB</option>
+                      <option value="MB">MB</option>
+                    </select>
+                  </div>
+                </label>
+              </div>
+
+              <div class="format-area">
+                <span class="control-eyebrow">OUTPUT FORMAT</span>
+                <div class="format-grid">
+                  <button class="format-button active" type="button" data-format="image/jpeg"><strong>JPG</strong><span>Best for photos</span></button>
+                  <button class="format-button" type="button" data-format="image/png"><strong>PNG</strong><span>Lossless quality</span></button>
+                  <button class="format-button" type="button" data-format="image/webp"><strong>WebP</strong><span>Modern & efficient</span></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-area">
+              <div>
+                <strong id="selectedCount">0 images selected</strong>
+                <span>Resize and compress locally in your browser.</span>
+              </div>
+              <button id="resizeButton" type="button" class="primary-button">
+                Resize & compress <span>↗</span>
+              </button>
+            </div>
+
+            <div id="progressArea" class="progress-area" hidden>
+              <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+              <span id="progressText">Preparing...</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: WHAT DOES IMAGE RESIZING MEAN? -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">FUNDAMENTALS</div>
+        <div class="section-heading">
+          <h2>What Does Image Resizing Mean?</h2>
+          <p>Learn how pixel dimensions and file weight interact during image editing.</p>
+        </div>
+
+        <div class="legal-card" style="margin-top: 1.5rem;">
+          <p>
+            Image resizing refers to changing the physical <strong>pixel dimensions</strong> of a digital image—its horizontal width and vertical height measured in pixels (px).
+          </p>
+          <p>
+            When you scale down an image (for instance, from <code>4000 × 3000</code> pixels down to <code>1200 × 900</code> pixels), your computer reorganizes pixel data across a smaller matrix. Because fewer total pixels must be stored, the overall file weight in kilobytes (KB) or megabytes (MB) drops significantly.
+          </p>
+          <p>
+            It is important to recognize that increasing pixel dimensions (upscaling) does not automatically increase image clarity or recreate missing fine detail. If you attempt to stretch a small <code>200 × 200</code> pixel thumbnail up to <code>2000 × 2000</code> pixels, software must fill in unknown pixels by averaging surrounding colors, resulting in soft or blurry visual edges.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: HOW TO RESIZE AN IMAGE -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">TUTORIAL</div>
+        <div class="section-heading">
+          <h2>How to Resize an Image: Step-by-Step</h2>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-number">01</div>
+            <h3>1. Select your files</h3>
+            <p>Drag and drop your images into the dropzone or click browse files. Select single or multiple photos.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">02</div>
+            <h3>2. Enter width & height</h3>
+            <p>Type your desired output width or height in pixels or percentage. Or pick a social preset.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">03</div>
+            <h3>3. Lock aspect ratio</h3>
+            <p>Keep aspect ratio locked to preserve proportions and prevent distorted or stretched subjects.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">04</div>
+            <h3>4. Export & Save</h3>
+            <p>Pick your output format (JPG, PNG, WebP) and click Resize & compress to save your processed files.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: HOW TO RESIZE WITHOUT LOSING QUALITY -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">SHARPNESS TIPS</div>
+        <div class="section-heading">
+          <h2>How to Resize an Image Without Losing Quality</h2>
+        </div>
+
+        <div class="legal-card" style="margin-top: 1.5rem;">
+          <p>
+            While technically all raster downscaling alters original pixel data, you can preserve maximum visual sharpness by following these practical rules:
+          </p>
+          <ul>
+            <li><strong>Always Lock Aspect Ratio:</strong> Unlocked dimensions force unequal scaling, distorting text and subject shapes.</li>
+            <li><strong>Avoid Excessive Upscaling:</strong> Avoid enlarging very small images significantly. Always resize from original high-resolution master files.</li>
+            <li><strong>Match Container Dimensions:</strong> Resize graphics to match the actual display container (e.g. 1200px width for blog content) rather than oversized dimensions.</li>
+            <li><strong>Choose the Right Format:</strong> Use PNG for graphics requiring crisp line art or transparency; use WebP or JPG for rich color photographs.</li>
+            <li><strong>Avoid Repeated JPEG Re-saving:</strong> Re-compressing JPEG files multiple times causes cumulative lossy artifacts. Edit from raw or PNG files and export JPEG once as final output.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: IMAGE SIZE VS FILE SIZE -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">COMPARISON</div>
+        <div class="section-heading">
+          <h2>Image Size vs File Size: Understanding the Difference</h2>
+        </div>
+
+        <div class="legal-card" style="margin-top: 1.5rem;">
+          <p>
+            A common source of confusion is the difference between <strong>image dimensions</strong> and <strong>file weight</strong>:
+          </p>
+          <ul>
+            <li><strong>Image Dimensions (Pixel Size):</strong> Measured in pixels (e.g. <code>1920 × 1080 pixels</code>). This describes screen real estate and proportion.</li>
+            <li><strong>File Size (Storage Weight):</strong> Measured in Kilobytes (KB) or Megabytes (MB) (e.g. <code>450 KB</code>). This describes hard drive or network bandwidth consumption.</li>
+          </ul>
+          <p>
+            Because of file encoding differences, a <code>1920 × 1080</code> pixel uncompressed PNG graphic containing high detail might weigh <strong>2.5 MB</strong>, while a <code>1920 × 1080</code> pixel WebP photograph might weigh only <strong>250 KB</strong>!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: COMMON IMAGE DIMENSIONS -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">REFERENCE TABLE</div>
+        <div class="section-heading">
+          <h2>Common Image Dimensions Reference</h2>
+          <p>Recommended standard dimensions for digital displays and social sharing.</p>
+        </div>
+
+        <table class="guide-table" style="margin-top: 1.5rem;">
+          <thead>
+            <tr>
+              <th>Dimension (px)</th>
+              <th>Common Name / Format</th>
+              <th>Typical Application</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1920 × 1080</td>
+              <td>Full HD (16:9)</td>
+              <td>Desktop wallpapers, hero banners, YouTube video thumbnails</td>
+            </tr>
+            <tr>
+              <td>1280 × 720</td>
+              <td>HD (16:9)</td>
+              <td>Standard blog content photos, video thumbnails</td>
+            </tr>
+            <tr>
+              <td>1080 × 1080</td>
+              <td>Square (1:1)</td>
+              <td>Social media feed posts, profile avatars, product thumbnails</td>
+            </tr>
+            <tr>
+              <td>1200 × 630</td>
+              <td>Social Sharing (1.91:1)</td>
+              <td>Open Graph link preview graphics for websites</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 0.75rem;">
+          <em>Note: Social platform dimension guidelines can change over time. Verify current specs on official platform developer pages.</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION: JPG VS PNG VS WEBP -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">FORMAT GUIDE</div>
+        <div class="section-heading">
+          <h2>JPG vs PNG vs WebP</h2>
+        </div>
+
+        <table class="guide-table" style="margin-top: 1.5rem;">
+          <thead>
+            <tr>
+              <th>Format</th>
+              <th>Compression Type</th>
+              <th>Transparency</th>
+              <th>Ideal Use Cases</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>JPG / JPEG</strong></td>
+              <td>Lossy</td>
+              <td>No</td>
+              <td>Photographs, complex color scenes, lightweight web photos</td>
+            </tr>
+            <tr>
+              <td><strong>PNG</strong></td>
+              <td>Lossless</td>
+              <td>Yes</td>
+              <td>Logos, UI icons, screenshots, graphics needing transparent backdrops</td>
+            </tr>
+            <tr>
+              <td><strong>WebP</strong></td>
+              <td>Lossy & Lossless</td>
+              <td>Yes</td>
+              <td>Modern websites seeking smaller file sizes at comparable visual quality</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION: WHY COMPRESS IMAGES? -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">ADVANTAGES</div>
+        <div class="section-heading">
+          <h2>Why Compress Images?</h2>
+        </div>
+
+        <div class="feature-grid" style="margin-top: 1.5rem;">
+          <article class="feature-card">
+            <h3>Faster Website Load Times</h3>
+            <p>Smaller image payloads accelerate browser rendering and improve mobile user experience.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Reduced Bandwidth & Storage</h3>
+            <p>Compressed assets consume less server transfer data and decrease storage footprints.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Easier Email & Form Submissions</h3>
+            <p>Meets strict email attachment limits and job application portal upload requirements.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Faster Social Sharing</h3>
+            <p>Lightweight image files upload rapidly over cellular networks.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: BROWSER-BASED PROCESSING -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">PRIVACY GUARANTEE</div>
+        <div class="section-heading">
+          <h2>100% Client-Side In-Browser Processing</h2>
+        </div>
+
+        <div class="legal-card" style="margin-top: 1.5rem;">
+          <p>
+            Image processing takes place entirely inside your web browser using modern HTML5 Canvas APIs. Your selected image files are <strong>never uploaded to our server</strong>. All resizing, compression calculations, and format conversions execute locally on your device for absolute privacy and security.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: HOMEPAGE FAQ -->
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <div class="section-label">FAQ</div>
+        <div class="section-heading">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>How do I resize an image?</summary>
+            <p>Upload your image file, specify your target width or height in pixels or percentage, keep aspect ratio locked to prevent distortion, choose your output format, and click Resize & compress.</p>
+          </details>
+
+          <details>
+            <summary>Can I resize an image without changing its proportions?</summary>
+            <p>Yes. Keep the aspect-ratio lock enabled while entering a new width or height. The tool automatically calculates the missing dimension proportionally.</p>
+          </details>
+
+          <details>
+            <summary>What does aspect ratio mean?</summary>
+            <p>Aspect ratio is the proportional relationship between an image's width and height, such as 16:9 for widescreen monitors or 1:1 for square social posts.</p>
+          </details>
+
+          <details>
+            <summary>Does resizing reduce image quality?</summary>
+            <p>Downscaling (making an image smaller) preserves high visual sharpness. Upscaling (making a small image larger) requires software to guess missing pixels and can cause blurriness.</p>
+          </details>
+
+          <details>
+            <summary>Can I make an image larger?</summary>
+            <p>Yes, you can increase pixel dimensions, but enlarging very small images excessively will make them appear soft or pixelated because missing detail cannot be technically recreated.</p>
+          </details>
+
+          <details>
+            <summary>How can I reduce an image's file size?</summary>
+            <p>You can reduce file size by downscaling pixel dimensions, adjusting quality compression factor, converting to modern WebP format, or specifying a target file size in KB or MB.</p>
+          </details>
+
+          <details>
+            <summary>What is the difference between JPG, PNG and WebP?</summary>
+            <p>JPG uses lossy compression best for photos; PNG uses lossless compression supporting transparency; WebP is a modern web codec that produces smaller files at comparable visual quality.</p>
+          </details>
+
+          <details>
+            <summary>Can I process multiple images at once?</summary>
+            <p>Yes. Select or drag multiple supported image files into the workspace to batch process them together.</p>
+          </details>
+
+          <details>
+            <summary>Can I target a specific file size in KB or MB?</summary>
+            <p>Yes. Enter a target like 50 KB or 1 MB. The tool's search algorithm automatically adjusts JPEG or WebP compression to get as close as possible under your target limit.</p>
+          </details>
+
+          <details>
+            <summary>Are my images uploaded to a server?</summary>
+            <p>No. All image processing occurs locally inside your web browser using HTML5 Canvas APIs. Your images are never sent to or stored on our servers.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script src="../scripts/resizer.js"></script>
+</Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>

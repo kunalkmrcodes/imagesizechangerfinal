@@ -1,0 +1,103 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to Convert PNG to JPG",
+      "item": "https://imagesizechanger-com.vercel.app/guides/how-to-convert-png-to-jpg"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Convert PNG to JPG",
+  "description": "Step-by-step instructions on converting large PNG screenshots or graphics to lightweight JPGs, including handling transparent backgrounds.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  }
+};
+---
+
+<Layout
+  title="How to Convert PNG to JPG | Image Size Changer"
+  description="Convert PNG images to JPG format quickly and safely. Learn why converting PNGs reduces file size, how transparency is handled, and step-by-step browser conversion."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Conversion
+      </div>
+
+      <h1>How to Convert PNG to JPG</h1>
+
+      <p class="lead">
+        PNG files are fantastic for lossless graphics and transparent overlays, but their heavy file size can quickly fill up hard drive storage and slow down website page rendering. Converting PNGs to JPG is an easy way to shrink file weight.
+      </p>
+
+      <div class="legal-card">
+        <h2>Why Convert PNG to JPG?</h2>
+        <ul>
+          <li><strong>Substantial File Size Reduction:</strong> A desktop screenshot saved as a PNG might weigh 3 MB to 6 MB. Converting that exact image to JPG reduces its file size to 300 KB–600 KB (an 80% to 90% reduction).</li>
+          <li><strong>Universal Platform Compatibility:</strong> Some legacy portals or strict upload forms only accept <code>.jpg</code> or <code>.jpeg</code> extensions.</li>
+        </ul>
+
+        <h2>Understanding the Transparency Issue</h2>
+        <p>
+          The most critical distinction between PNG and JPG is <strong>transparent background support</strong>:
+        </p>
+        <ul>
+          <li><strong>PNG:</strong> Supports an alpha channel transparency layer.</li>
+          <li><strong>JPG:</strong> Does NOT support transparency.</li>
+        </ul>
+        <p>
+          When you convert a transparent PNG (such as a company logo with no background) to JPG, the browser canvas engine automatically fills the transparent pixels with a solid background color (typically solid white). If your graphic requires a transparent background, keep it as PNG or convert it to WebP instead.
+        </p>
+
+        <h2>Step-by-Step Conversion Guide</h2>
+        <ol>
+          <li>Open the <a href="/convert-image">Image Size Changer Format Converter</a>.</li>
+          <li>Drag and drop your PNG files into the upload dropzone.</li>
+          <li>Select <strong>JPG</strong> as your target output format.</li>
+          <li>Optionally adjust target file size or pixel dimensions.</li>
+          <li>Click <strong>Resize & Compress</strong> to convert and save your new JPG files.</li>
+        </ol>
+
+        <h2>Convert PNG Files Privately Online</h2>
+        <p>
+          Convert your graphics securely without uploading them to remote servers. Try our 100% browser-based <a href="/convert-image">PNG to JPG Converter</a> today.
+        </p>
+      </div>
+
+      <a class="back-link" href="/guides">← Back to all guides</a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

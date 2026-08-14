@@ -1,0 +1,161 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to Resize Images for Social Media",
+      "item": "https://imagesizechanger-com.vercel.app/guides/how-to-resize-images-for-social-media"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Resize Images for Social Media",
+  "description": "Guide to profile photos, banner graphics, square posts, and story sizes for major social networks with formatting tips to avoid automatic cropping.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  }
+};
+---
+
+<Layout
+  title="How to Resize Images for Social Media | Image Size Changer"
+  description="Learn popular image dimensions for Instagram, Facebook, YouTube, Twitter/X, and LinkedIn. Prevent automatic cropping and loss of sharpness on social platforms."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Social Media
+      </div>
+
+      <h1>How to Resize Images for Social Media</h1>
+
+      <p class="lead">
+        Social media networks automatically compress and crop user uploads that don't match their recommended proportions. Sizing graphics properly beforehand ensures your posts, banners, and profile photos display crisp and centered.
+      </p>
+
+      <div class="legal-card">
+        <h2>Common Social Media Dimension Reference Table</h2>
+        <p>
+          <em>Note: Social media platform specifications change over time. Always check the official developer or help documentation of each platform for recent updates.</em>
+        </p>
+
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Platform & Post Type</th>
+              <th>Common Recommended Dimensions</th>
+              <th>Aspect Ratio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Instagram Feed Post (Square)</td>
+              <td>1080 × 1080 px</td>
+              <td>1:1</td>
+            </tr>
+            <tr>
+              <td>Instagram Portrait Post</td>
+              <td>1080 × 1350 px</td>
+              <td>4:5</td>
+            </tr>
+            <tr>
+              <td>Instagram Story / Reel</td>
+              <td>1080 × 1920 px</td>
+              <td>9:16</td>
+            </tr>
+            <tr>
+              <td>Facebook Shared Image / Ad</td>
+              <td>1200 × 630 px</td>
+              <td>1.91:1</td>
+            </tr>
+            <tr>
+              <td>YouTube Video Thumbnail</td>
+              <td>1280 × 720 px</td>
+              <td>16:9</td>
+            </tr>
+            <tr>
+              <td>Twitter / X Header Banner</td>
+              <td>1500 × 500 px</td>
+              <td>3:1</td>
+            </tr>
+            <tr>
+              <td>LinkedIn Company Cover Banner</td>
+              <td>1128 × 191 px</td>
+              <td>5.91:1</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Tips to Avoid Automatic Platform Compression Artifacts</h2>
+
+        <h3>1. Match Native Aspect Ratios</h3>
+        <p>
+          If you upload a 16:9 widescreen photo to an Instagram feed expecting a square format, Instagram will forcibly crop the left and right edges. Crop and lock your aspect ratio prior to uploading.
+        </p>
+
+        <h3>2. Upload PNGs for Graphics with Text</h3>
+        <p>
+          Social media re-encoding engines often introduce fuzzy artifacts around small typography in JPEG files. Saving graphics containing text overlays or line art as 24-bit PNG files yields noticeably cleaner results.
+        </p>
+
+        <h2>Use Built-in Social Media Presets</h2>
+        <p>
+          Skip memorizing pixel dimensions! Use our free <a href="/resize-image">Social Media Image Resizer</a> featuring one-click presets for Instagram, Facebook, YouTube, Twitter/X, and Full HD graphics.
+        </p>
+      </div>
+
+      <a class="back-link" href="/guides">← Back to all guides</a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>

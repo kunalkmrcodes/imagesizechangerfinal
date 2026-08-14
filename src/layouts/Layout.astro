@@ -1,15 +1,36 @@
 ---
 import "../styles/global.css";
+import CookieConsent from "../components/CookieConsent.astro";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  ogType?: string;
+  noindex?: boolean;
+  structuredData?: object | object[];
+  adSensePublisherId?: string;
 }
 
 const {
   title = "ImageSizeChanger — Resize & Compress Images Online",
-  description = "Resize and compress images online for free. Change dimensions, reduce file size and convert JPG, PNG and WebP images directly in your browser."
+  description = "Resize and compress images online for free. Change dimensions, reduce file size and convert JPG, PNG and WebP images directly in your browser.",
+  image = "/favicon.png",
+  ogType = "website",
+  noindex = false,
+  structuredData,
+  adSensePublisherId
 } = Astro.props;
+
+const siteUrl = Astro.site ? Astro.site.origin : "https://imagesizechanger-com.vercel.app";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
+const imageURL = new URL(image, siteUrl).href;
+
+const schemas = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
 ---
 
 <!doctype html>
@@ -18,37 +39,61 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="image resizer, compress image online, resize image free, change image dimensions, convert jpg to png, webp converter, free online photo resizer" />
+    <meta name="author" content="ImageSizeChanger" />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+    <meta name="theme-color" content="#07080d" />
+    <link rel="canonical" href={canonicalURL} />
 
-    <meta
-      name="description"
-      content={description}
-    />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="ImageSizeChanger" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:locale" content="en_US" />
 
-    <meta
-      name="theme-color"
-      content="#07080d"
-    />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL} />
 
-    <link
-      rel="icon"
-      type="image/png"
-      href="/favicon.png"
-    />
+    <!-- Icons & Manifest -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Structured Data (JSON-LD) -->
+    {schemas.map((sd) => (
+      <script type="application/ld+json" set:html={JSON.stringify(sd)} />
+    ))}
+
+    <!-- Google AdSense (Conditional) -->
+    {adSensePublisherId && (
+      <script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adSensePublisherId}`}
+        crossorigin="anonymous"
+      ></script>
+    )}
 
     <!-- Google Analytics -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-3PXQHDHWP2"
     ></script>
-
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-
       function gtag() {
         window.dataLayer.push(arguments);
       }
-
       gtag("js", new Date());
       gtag("config", "G-3PXQHDHWP2");
     </script>
@@ -56,5 +101,6 @@ const {
 
   <body>
     <slot />
+    <CookieConsent />
   </body>
 </html>

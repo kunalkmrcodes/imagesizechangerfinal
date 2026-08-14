@@ -1,0 +1,199 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    }
+  ]
+};
+
+const guides = [
+  {
+    title: "How to Resize an Image Without Losing Quality",
+    slug: "how-to-resize-an-image-without-losing-quality",
+    category: "Resizing",
+    description: "Learn how image dimensions, resampling, aspect ratios, and format choices affect visual sharpness when downscaling or upscaling images."
+  },
+  {
+    title: "How to Reduce Image File Size Without Losing Too Much Quality",
+    slug: "how-to-reduce-image-file-size",
+    category: "Compression",
+    description: "Discover practical strategies to shrink image weight in KB or MB using dimension tuning, lossy vs lossless compression, and modern codecs."
+  },
+  {
+    title: "JPG vs PNG vs WebP: Which Image Format Should You Use?",
+    slug: "jpg-vs-png-vs-webp",
+    category: "Formats",
+    description: "A complete side-by-side comparison of JPG, PNG, and WebP image formats, color handling, transparency support, and ideal use cases."
+  },
+  {
+    title: "What Is Image Aspect Ratio?",
+    slug: "what-is-image-aspect-ratio",
+    category: "Fundamentals",
+    description: "Understand aspect ratio math (1:1, 4:3, 16:9), why locking proportions prevents image stretching or distortion, and how to crop cleanly."
+  },
+  {
+    title: "Image Resolution vs Image Dimensions: What's the Difference?",
+    slug: "image-resolution-vs-dimensions",
+    category: "Fundamentals",
+    description: "Demystify pixel dimensions (width × height) vs PPI/DPI resolution, print vs digital display requirements, and common misconceptions."
+  },
+  {
+    title: "How to Resize Images for Websites",
+    slug: "how-to-resize-images-for-websites",
+    category: "Web Performance",
+    description: "Optimize web graphics, hero banners, and blog thumbnails for layout containers to speed up page load times and improve UX."
+  },
+  {
+    title: "How to Compress Images for Faster Websites",
+    slug: "how-to-compress-images-for-websites",
+    category: "Web Performance",
+    description: "Boost Core Web Vitals, reduce server bandwidth costs, and accelerate browser rendering through smart image compression strategies."
+  },
+  {
+    title: "How to Resize Images for Social Media",
+    slug: "how-to-resize-images-for-social-media",
+    category: "Social Media",
+    description: "Guide to profile photos, banner graphics, square posts, and story sizes for major social networks with formatting tips to avoid automatic cropping."
+  },
+  {
+    title: "How to Convert PNG to JPG",
+    slug: "how-to-convert-png-to-jpg",
+    category: "Conversion",
+    description: "Step-by-step instructions on converting large PNG screenshots or graphics to lightweight JPGs, including handling transparent backgrounds."
+  },
+  {
+    title: "How to Make an Image Smaller for Online Forms",
+    slug: "how-to-make-an-image-smaller-for-online-forms",
+    category: "Forms & Uploads",
+    description: "Learn how to meet strict file size limits (e.g. under 50 KB or 1 MB) for job applications, passport submissions, and government portal uploads."
+  }
+];
+---
+
+<Layout
+  title="Image Resizing & Compression Guides | Image Size Changer"
+  description="Explore comprehensive tutorials and guides on image dimensions, file compression, format conversion (JPG, PNG, WebP), aspect ratios, and web optimization."
+  structuredData={breadcrumbSchema}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Educational Library
+      </div>
+
+      <h1>Image Resizing & Compression Guides</h1>
+
+      <p class="lead">
+        Explore our in-depth tutorials to understand image dimensions, file compression techniques, format selection, aspect ratio math, and web performance best practices.
+      </p>
+
+      <div class="guides-grid">
+        {guides.map((guide) => (
+          <article class="guide-card">
+            <span class="guide-category">{guide.category}</span>
+            <h2>
+              <a href={`/guides/${guide.slug}/`}>
+                {guide.title}
+              </a>
+            </h2>
+            <p>{guide.description}</p>
+            <a class="read-link" href={`/guides/${guide.slug}/`}>
+              Read guide →
+            </a>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .guide-card {
+    background: rgba(18, 20, 29, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .guide-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
+  .guide-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6366f1;
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-card h2 {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-card h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .guide-card h2 a:hover {
+    color: #818cf8;
+  }
+
+  .guide-card p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+
+  .read-link {
+    color: #6366f1;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .read-link:hover {
+    text-decoration: underline;
+  }
+</style>

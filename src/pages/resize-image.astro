@@ -1,0 +1,213 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Resize Images",
+      "item": "https://imagesizechanger-com.vercel.app/resize-image"
+    }
+  ]
+};
+
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Online Image Resizer — ImageSizeChanger",
+  "url": "https://imagesizechanger-com.vercel.app/resize-image",
+  "description": "Resize image dimensions online in pixels or percentage while preserving aspect ratios.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All"
+};
+---
+
+<Layout
+  title="Resize Images Online — Free Image Resizer | Image Size Changer"
+  description="Resize image dimensions online for free. Change width and height in pixels or percentage while maintaining original aspect ratios directly in your browser."
+  structuredData={[breadcrumbSchema, toolSchema]}
+>
+  <Header />
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          Dimension Tuning · Aspect Ratio Lock
+        </div>
+
+        <h1>
+          Resize Images Online
+          <span>In Pixels or Percent</span>
+        </h1>
+
+        <p class="hero-description">
+          Adjust photo dimensions instantly. Scale width and height in exact pixels or percentages, lock aspect ratios to prevent stretching, and download optimized files.
+        </p>
+      </div>
+    </section>
+
+    <!-- WORKSPACE -->
+    <section id="resize" class="workspace-section">
+      <div class="container">
+        <div class="section-label">IMAGE RESIZER TOOL</div>
+        <div class="workspace">
+
+          <!-- UPLOAD -->
+          <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Upload images">
+            <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp" multiple hidden />
+            <div class="upload-icon"><span>↑</span></div>
+            <h2>Drop your images here</h2>
+            <p class="upload-action">
+              <span>or</span>
+              <button id="browseButton" type="button" class="text-button">browse files</button>
+            </p>
+            <small>JPG, PNG, WebP, GIF or BMP · Multiple files supported</small>
+          </div>
+
+          <!-- FILE LIST -->
+          <div id="fileList" class="file-list" hidden></div>
+
+          <!-- CONTROLS -->
+          <div id="controls" class="controls" hidden>
+            <div class="control-section">
+              <div class="control-heading">
+                <div>
+                  <span class="control-eyebrow">RESIZE</span>
+                  <h2>Output size</h2>
+                </div>
+                <div class="unit-toggle">
+                  <button type="button" class="unit-button active" data-unit="pixels">Pixels</button>
+                  <button type="button" class="unit-button" data-unit="percent">Percent</button>
+                </div>
+              </div>
+
+              <div class="dimension-grid">
+                <label class="field">
+                  <span>Width</span>
+                  <div class="input-wrap">
+                    <input id="widthInput" type="number" min="1" max="10000" />
+                    <span id="widthUnit">px</span>
+                  </div>
+                </label>
+
+                <button id="lockButton" type="button" class="lock-button active" aria-pressed="true" title="Lock aspect ratio">🔗</button>
+
+                <label class="field">
+                  <span>Height</span>
+                  <div class="input-wrap">
+                    <input id="heightInput" type="number" min="1" max="10000" />
+                    <span id="heightUnit">px</span>
+                  </div>
+                </label>
+              </div>
+
+              <p id="originalSize" class="dimension-note">Original size will appear here.</p>
+            </div>
+
+            <!-- PRESETS -->
+            <div class="control-section">
+              <span class="control-eyebrow">PRESETS</span>
+              <h2>Popular sizes</h2>
+              <div class="preset-grid">
+                <button class="preset" type="button" data-width="1080" data-height="1080"><strong>Instagram</strong><span>1080 × 1080</span></button>
+                <button class="preset" type="button" data-width="1200" data-height="630"><strong>Facebook</strong><span>1200 × 630</span></button>
+                <button class="preset" type="button" data-width="1280" data-height="720"><strong>YouTube</strong><span>1280 × 720</span></button>
+                <button class="preset" type="button" data-width="1500" data-height="500"><strong>Twitter / X</strong><span>1500 × 500</span></button>
+                <button class="preset" type="button" data-width="1200" data-height="675"><strong>Blog image</strong><span>1200 × 675</span></button>
+                <button class="preset" type="button" data-width="1920" data-height="1080"><strong>Full HD</strong><span>1920 × 1080</span></button>
+              </div>
+            </div>
+
+            <!-- EXPORT SETTINGS -->
+            <div class="control-section">
+              <div class="control-heading">
+                <div>
+                  <span class="control-eyebrow">COMPRESS</span>
+                  <h2>Export settings</h2>
+                  <p class="compression-description">Set an optional maximum file size.</p>
+                </div>
+              </div>
+
+              <div class="target-size-box">
+                <label class="field target-field">
+                  <span>Target file size <em>(optional)</em></span>
+                  <div class="target-size-row">
+                    <input id="targetSizeInput" type="number" min="1" step="1" placeholder="40" />
+                    <select id="targetSizeUnit" aria-label="Target file size unit">
+                      <option value="KB">KB</option>
+                      <option value="MB">MB</option>
+                    </select>
+                  </div>
+                </label>
+              </div>
+
+              <div class="format-area">
+                <span class="control-eyebrow">OUTPUT FORMAT</span>
+                <div class="format-grid">
+                  <button class="format-button active" type="button" data-format="image/jpeg"><strong>JPG</strong><span>Best for photos</span></button>
+                  <button class="format-button" type="button" data-format="image/png"><strong>PNG</strong><span>Lossless quality</span></button>
+                  <button class="format-button" type="button" data-format="image/webp"><strong>WebP</strong><span>Modern & efficient</span></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-area">
+              <div>
+                <strong id="selectedCount">0 images selected</strong>
+                <span>Resize locally in your browser.</span>
+              </div>
+              <button id="resizeButton" type="button" class="primary-button">
+                Resize images <span>↗</span>
+              </button>
+            </div>
+
+            <div id="progressArea" class="progress-area" hidden>
+              <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+              <span id="progressText">Preparing...</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATIONAL SECTION -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">RESIZING GUIDE</div>
+        <div class="section-heading">
+          <h2>Mastering Pixel Dimensions & Aspect Ratio</h2>
+          <p>Learn how changing image width and height affects visual display and file performance.</p>
+        </div>
+
+        <div class="legal-card" style="margin-top: 1.5rem;">
+          <h2>How Pixel Resizing Works</h2>
+          <p>
+            When you adjust the width or height of a raster photo, the browser canvas interpolates color values across the new pixel grid. Downscaling (reducing dimensions from 3000px to 1000px) preserves sharp visual contrast while significantly shrinking file weight.
+          </p>
+          <h2>Proportional Locking vs. Independent Scaling</h2>
+          <p>
+            Enabling the <strong>Aspect Ratio Lock 🔗</strong> ensures that modifying width calculates height proportionally, preventing squished or stretched subjects. Read our full <a href="/guides/what-is-image-aspect-ratio/">Aspect Ratio Guide</a> to learn more.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script src="../scripts/resizer.js"></script>
+</Layout>

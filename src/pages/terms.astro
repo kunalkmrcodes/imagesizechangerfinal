@@ -1,273 +1,106 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Terms of Use",
+      "item": "https://imagesizechanger-com.vercel.app/terms"
+    }
+  ]
+};
 ---
 
-<html lang="en">
+<Layout
+  title="Terms of Use — ImageSizeChanger"
+  description="Read the Terms of Use for ImageSizeChanger regarding appropriate use, service availability, user responsibilities, and content disclaimers."
+  structuredData={breadcrumbSchema}
+>
+  <Header />
 
-<head>
+  <main class="legal-page">
+    <div class="container narrow-container">
 
-  <meta charset="UTF-8" />
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Terms of Use
+      </div>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+      <h1>Terms of Use</h1>
 
-  <title>Terms of Use — ImageSizeChanger</title>
+      <p class="lead">
+        Welcome to ImageSizeChanger. By accessing or using our website and browser tools, you agree to comply with and be bound by the following Terms of Use.
+      </p>
 
-  <meta
-    name="description"
-    content="Read the Terms of Use for ImageSizeChanger."
-  />
+      <div class="legal-card">
+        <h2>1. Acceptance of Terms</h2>
+        <p>
+          By using ImageSizeChanger, you confirm that you have read, understood, and agreed to these Terms of Use. If you do not agree to these terms, please do not use our website or online tools.
+        </p>
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="/favicon.png"
-  />
+        <h2>2. Description of Service</h2>
+        <p>
+          ImageSizeChanger provides web-based utility tools that allow users to resize pixel dimensions, compress file sizes, and convert file formats for digital image files directly within their web browser.
+        </p>
 
-</head>
+        <h2>3. Appropriate Use</h2>
+        <p>
+          You agree to use ImageSizeChanger only for lawful purposes. You must not attempt to disrupt site functionality, introduce malicious code, probe site infrastructure vulnerability, or automatedly abuse the website.
+        </p>
 
+        <h2>4. User Content & File Responsibility</h2>
+        <p>
+          You retain full ownership and responsibility for any image files you select for processing using ImageSizeChanger. You represent and warrant that you own or have obtained all necessary licenses, permissions, and rights to use and process any files you upload or drop into the tool interface.
+        </p>
 
-<body>
+        <h2>5. In-Browser Local Processing</h2>
+        <p>
+          Image processing occurs locally within your web browser using client-side JavaScript APIs. Your image files are not stored on or uploaded to our servers.
+        </p>
 
+        <h2>6. Intellectual Property</h2>
+        <p>
+          All content on ImageSizeChanger—including software code, text documentation, articles, guides, visual designs, logos, and UI layout—is protected by applicable copyright, trademark, and intellectual property laws.
+        </p>
 
-<header class="site-header">
+        <h2>7. Service Availability & Output Accuracy</h2>
+        <p>
+          While we strive to maintain 99.9% site uptime and accurate image processing calculations, ImageSizeChanger is provided on an "AS IS" and "AS AVAILABLE" basis. We do not guarantee uninterrupted access or that output file sizes will satisfy every external third-party system's upload requirements.
+        </p>
 
-  <div class="container nav-inner">
+        <h2>8. Limitation of Liability</h2>
+        <p>
+          To the fullest extent permitted by applicable law, ImageSizeChanger and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the website.
+        </p>
 
+        <h2>9. Changes to Terms</h2>
+        <p>
+          We reserve the right to revise or update these Terms of Use at any time. Continued use of ImageSizeChanger following updates constitutes acceptance of the modified terms.
+        </p>
 
-    <a class="brand" href="/">
+        <h2>10. Contact Information</h2>
+        <p>
+          If you have questions regarding these Terms of Use, please contact us via email at <strong>imagesizechanger@gmail.com</strong> or visit our <a href="/contact">Contact Page</a>.
+        </p>
 
-      <img
-        src="/favicon.png"
-        alt=""
-        class="brand-icon"
-      />
+        <p class="updated">Last updated: August 2026</p>
+      </div>
 
-      <span>
-        ImageSizeChanger
-      </span>
-
-    </a>
-
-
-
-    <nav class="nav-links">
-
-      <a href="/#resize">
-        Resize
-      </a>
-
-      <a href="/#features">
-        Features
-      </a>
-
-      <a href="/#faq">
-        FAQ
-      </a>
-
-    </nav>
-
-
-
-    <a
-      class="nav-cta"
-      href="/#resize"
-    >
-      Start resizing
-    </a>
-
-
-  </div>
-
-</header>
-
-
-
-<main class="legal-page">
-
-
-  <div class="container narrow-container">
-
-
-    <div class="status-pill">
-
-      <span class="status-dot"></span>
-
-      Terms
-
+      <a class="back-link" href="/">← Back to ImageSizeChanger</a>
     </div>
+  </main>
 
-
-
-    <h1>
-      Terms of Use
-    </h1>
-
-
-
-    <p class="lead">
-
-      By using ImageSizeChanger, you agree to use the website responsibly
-      and in accordance with these terms.
-
-    </p>
-
-
-
-    <div class="legal-card">
-
-
-
-      <h2>
-        Use of the service
-      </h2>
-
-
-      <p>
-
-        ImageSizeChanger provides browser-based image tools for general
-        personal and professional use.
-
-      </p>
-
-
-
-      <h2>
-        Your files
-      </h2>
-
-
-      <p>
-
-        You are responsible for the images and other files you choose to
-        process using the website. You should only process files that you
-        have the right to use.
-
-      </p>
-
-
-
-      <h2>
-        Acceptable use
-      </h2>
-
-
-      <p>
-
-        You agree not to misuse the website, attempt to disrupt its
-        operation, or use it for unlawful activities.
-
-      </p>
-
-
-
-      <h2>
-        Availability
-      </h2>
-
-
-      <p>
-
-        We aim to keep the website available and functional, but we do not
-        guarantee uninterrupted access or that every feature will always
-        work on every browser or device.
-
-      </p>
-
-
-
-      <h2>
-        Changes
-      </h2>
-
-
-      <p>
-
-        Features, tools and these terms may change as ImageSizeChanger
-        develops.
-
-      </p>
-
-
-
-      <p class="updated">
-
-        Last updated: August 2026
-
-      </p>
-
-
-
-    </div>
-
-
-
-    <a
-      class="back-link"
-      href="/"
-    >
-
-      ← Back to ImageSizeChanger
-
-    </a>
-
-
-
-  </div>
-
-
-</main>
-
-
-
-
-<footer class="site-footer">
-
-
-  <div class="container footer-bottom">
-
-
-    <span>
-      © 2026 ImageSizeChanger
-    </span>
-
-
-
-    <div class="footer-links">
-
-
-      <a href="/about">
-        About
-      </a>
-
-
-      <a href="/privacy">
-        Privacy
-      </a>
-
-
-      <a href="/terms">
-        Terms
-      </a>
-
-
-      <a href="/contact">
-        Contact
-      </a>
-
-
-    </div>
-
-
-  </div>
-
-
-</footer>
-
-
-
-</body>
-
-</html>
+  <Footer />
+</Layout>

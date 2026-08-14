@@ -1,0 +1,156 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://imagesizechanger-com.vercel.app/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://imagesizechanger-com.vercel.app/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to Resize Images for Websites",
+      "item": "https://imagesizechanger-com.vercel.app/guides/how-to-resize-images-for-websites"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Resize Images for Websites",
+  "description": "Optimize web graphics, hero banners, and blog thumbnails for layout containers to speed up page load times and improve UX.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  }
+};
+---
+
+<Layout
+  title="How to Resize Images for Websites | Image Size Changer"
+  description="Master web image sizing. Learn ideal pixel dimensions for website hero banners, blog content, product galleries, and background graphics."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Web Performance
+      </div>
+
+      <h1>How to Resize Images for Websites</h1>
+
+      <p class="lead">
+        Images account for over 50% of the average webpage's total weight. Sizing your web graphics appropriately is essential for fast page loading, seamless responsive design, and smooth user experience across mobile and desktop devices.
+      </p>
+
+      <div class="legal-card">
+        <h2>Standard Pixel Dimensions for Web Elements</h2>
+        <p>
+          Instead of uploading raw camera photos directly to your CMS or website builder, scale images to match the maximum width of their display container:
+        </p>
+
+        <table class="guide-table">
+          <thead>
+            <tr>
+              <th>Webplace Location</th>
+              <th>Recommended Max Width</th>
+              <th>Optimal Format</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Full-width Hero Banners</td>
+              <td>1920 px to 2560 px</td>
+              <td>WebP or JPG (80% quality)</td>
+            </tr>
+            <tr>
+              <td>In-Content Blog Photos</td>
+              <td>800 px to 1200 px</td>
+              <td>WebP or JPG</td>
+            </tr>
+            <tr>
+              <td>Sidebar & Widget Images</td>
+              <td>300 px to 500 px</td>
+              <td>WebP or PNG</td>
+            </tr>
+            <tr>
+              <td>E-commerce Product Gallery</td>
+              <td>1000 px to 1500 px</td>
+              <td>WebP or PNG (if transparent)</td>
+            </tr>
+            <tr>
+              <td>Logos & Icons</td>
+              <td>200 px to 400 px</td>
+              <td>PNG or SVG</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Step-by-Step Web Sizing Workflow</h2>
+
+        <h3>1. Audit Your Content Container Width</h3>
+        <p>
+          Check your website layout max-width. If your blog post text area is 800px wide, uploading a 4000px photo causes browser layout engines to downscale 5 times more data than necessary.
+        </p>
+
+        <h3>2. Maintain Proportional Aspect Ratios</h3>
+        <p>
+          Consistency in aspect ratios creates clean visual symmetry. Use <code>16:9</code> for horizontal banners, <code>4:3</code> for blog thumbnails, and <code>1:1</code> for team portraits or square product grids.
+        </p>
+
+        <h3>3. Convert to Modern WebP Format</h3>
+        <p>
+          Convert your web images to WebP. WebP can often produce smaller files than traditional JPEGs or PNGs at comparable visual quality, depending on the image and encoding parameters.
+        </p>
+
+        <h2>Resize Web Images Instantly</h2>
+        <p>
+          Prepare all your website images in seconds with our free <a href="/resize-image">Web Image Resizer</a>. Lock aspect ratios, set exact pixel limits, and export lightweight WebP files directly in your browser.
+        </p>
+      </div>
+
+      <a class="back-link" href="/guides">← Back to all guides</a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>
