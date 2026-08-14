@@ -331,21 +331,29 @@
   flex-shrink: 0;
 }
 
-/* Form Controls */
+#pwaAppInterface,
+#pwaAppInterface * {
+  box-sizing: border-box !important;
+}
+
 .app-panel-card {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 20px;
-  padding: 18px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .app-field-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .app-field-label {
@@ -360,31 +368,41 @@
 .app-input-flex {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
-  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .app-text-input {
   flex: 1 1 0%;
   min-width: 0;
   width: 100%;
-  box-sizing: border-box;
+  max-width: 100%;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 11px 12px;
+  padding: 10px 8px;
   color: #fff;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
   outline: none;
 }
 
+.app-text-input[type=number]::-webkit-inner-spin-button,
+.app-text-input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.app-text-input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .app-select-input {
-  flex: 0 0 76px !important;
-  min-width: 68px !important;
-  max-width: 84px !important;
-  padding: 11px 6px !important;
+  flex: 0 0 68px !important;
+  min-width: 60px !important;
+  max-width: 76px !important;
+  padding: 10px 4px !important;
+  font-size: 0.85rem !important;
   text-align: center;
   appearance: auto;
   -webkit-appearance: auto;
@@ -397,8 +415,8 @@
 }
 
 .app-icon-toggle {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -406,7 +424,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -631,53 +649,57 @@
 
 @media (max-width: 480px) {
   .app-content {
-    padding: 14px 10px;
+    padding: 12px 8px !important;
   }
 
   .app-panel-card {
-    padding: 14px 10px;
+    padding: 12px 10px !important;
   }
 
   .app-input-flex {
-    gap: 6px;
+    gap: 5px !important;
   }
 
   .app-text-input {
-    padding: 10px 8px;
-    font-size: 0.88rem;
+    padding: 9px 6px !important;
+    font-size: 0.86rem !important;
   }
 
   .app-icon-toggle {
-    width: 40px;
-    height: 40px;
+    width: 38px !important;
+    height: 38px !important;
   }
 
   .app-select-input {
-    flex: 0 0 70px !important;
-    min-width: 64px !important;
-    padding: 10px 4px !important;
-    font-size: 0.85rem;
+    flex: 0 0 66px !important;
+    min-width: 58px !important;
+    padding: 9px 3px !important;
+    font-size: 0.82rem !important;
   }
 }
 
 @media (max-width: 360px) {
+  .app-content {
+    padding: 10px 4px !important;
+  }
+
   .app-panel-card {
-    padding: 12px 8px;
+    padding: 10px 6px !important;
   }
 
   .app-input-flex {
-    gap: 4px;
+    gap: 4px !important;
   }
 
   .app-text-input {
-    padding: 9px 6px;
-    font-size: 0.84rem;
+    padding: 8px 4px !important;
+    font-size: 0.82rem !important;
   }
 
   .app-select-input {
-    flex: 0 0 64px !important;
-    min-width: 58px !important;
-    padding: 9px 2px !important;
-    font-size: 0.8rem;
+    flex: 0 0 60px !important;
+    min-width: 54px !important;
+    padding: 8px 2px !important;
+    font-size: 0.78rem !important;
   }
 }
