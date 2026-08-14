@@ -99,14 +99,12 @@ const schemas = structuredData
       <script type="application/ld+json" set:html={JSON.stringify(sd)} />
     ))}
 
-    <!-- Google AdSense (Conditional) -->
-    {adSensePublisherId && (
-      <script
-        async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adSensePublisherId}`}
-        crossorigin="anonymous"
-      ></script>
-    )}
+    <!-- Google AdSense Site Verification -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6843466104107556"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Google Analytics -->
     <script
