@@ -361,18 +361,34 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .app-text-input {
-  flex: 1;
+  flex: 1 1 0%;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 11px 14px;
+  padding: 11px 12px;
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   outline: none;
+}
+
+.app-select-input {
+  flex: 0 0 76px !important;
+  min-width: 68px !important;
+  max-width: 84px !important;
+  padding: 11px 6px !important;
+  text-align: center;
+  appearance: auto;
+  -webkit-appearance: auto;
+  cursor: pointer;
 }
 
 .app-text-input:focus {
@@ -611,4 +627,57 @@
 .app-toast.visible {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .app-content {
+    padding: 14px 10px;
+  }
+
+  .app-panel-card {
+    padding: 14px 10px;
+  }
+
+  .app-input-flex {
+    gap: 6px;
+  }
+
+  .app-text-input {
+    padding: 10px 8px;
+    font-size: 0.88rem;
+  }
+
+  .app-icon-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .app-select-input {
+    flex: 0 0 70px !important;
+    min-width: 64px !important;
+    padding: 10px 4px !important;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .app-panel-card {
+    padding: 12px 8px;
+  }
+
+  .app-input-flex {
+    gap: 4px;
+  }
+
+  .app-text-input {
+    padding: 9px 6px;
+    font-size: 0.84rem;
+  }
+
+  .app-select-input {
+    flex: 0 0 64px !important;
+    min-width: 58px !important;
+    padding: 9px 2px !important;
+    font-size: 0.8rem;
+  }
 }
