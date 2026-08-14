@@ -65,10 +65,28 @@ const schemas = structuredData
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageURL} />
 
-    <!-- Icons & Manifest -->
+    <!-- Icons, PWA Metadata & Manifest -->
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ImageSizeChanger" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="ImageSizeChanger" />
+    <meta name="msapplication-TileColor" content="#07080d" />
+    <meta name="msapplication-TileImage" content="/icons/icon-192.png" />
+
+    <!-- Service Worker Registration -->
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch((err) => {
+            console.log('SW Registration failed: ', err);
+          });
+        });
+      }
+    </script>
 
     <!-- Structured Data (JSON-LD) -->
     {schemas.map((sd) => (

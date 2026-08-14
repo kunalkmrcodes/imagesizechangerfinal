@@ -21,9 +21,15 @@
       <a href="/#faq">FAQ</a>
     </nav>
 
-    <a class="nav-cta" href="/#resize">
-      Start resizing
-    </a>
+    <div class="header-actions" style="display: flex; align-items: center; gap: 0.75rem;">
+      <button id="pwaInstallBtn" class="pwa-install-btn" type="button" style="display: none;">
+        Install App ⚡
+      </button>
+
+      <a class="nav-cta" href="/#resize">
+        Start resizing
+      </a>
+    </div>
 
     <details class="mobile-nav">
       <summary aria-label="Open navigation menu">
@@ -40,6 +46,9 @@
         <a class="mobile-menu-cta" href="/#resize">
           Start resizing
         </a>
+        <button id="pwaInstallBtnMobile" class="pwa-install-btn-mobile" type="button" style="display: none;">
+          Install App ⚡
+        </button>
       </div>
     </details>
 
@@ -52,5 +61,46 @@
       const details = link.closest('details');
       if (details) details.removeAttribute('open');
     });
+  });
+
+  // PWA Installation Handler
+  let deferredPrompt: any = null;
+  const installBtn = document.getElementById('pwaInstallBtn');
+  const installBtnMobile = document.getElementById('pwaInstallBtnMobile');
+
+  function showInstallButtons() {
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
+    if (isStandalone) return;
+    if (installBtn) installBtn.style.display = 'inline-flex';
+    if (installBtnMobile) installBtnMobile.style.display = 'block';
+  }
+
+  function hideInstallButtons() {
+    if (installBtn) installBtn.style.display = 'none';
+    if (installBtnMobile) installBtnMobile.style.display = 'none';
+  }
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallButtons();
+  });
+
+  async function handleInstallClick() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      hideInstallButtons();
+    }
+    deferredPrompt = null;
+  }
+
+  if (installBtn) installBtn.addEventListener('click', handleInstallClick);
+  if (installBtnMobile) installBtnMobile.addEventListener('click', handleInstallClick);
+
+  window.addEventListener('appinstalled', () => {
+    hideInstallButtons();
+    deferredPrompt = null;
   });
 </script>

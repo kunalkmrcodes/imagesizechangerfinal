@@ -2548,3 +2548,41 @@ LEGAL PAGES
         overflow-wrap: break-word;
     }
 }
+
+/* =========================================================
+   PWA Install Buttons
+   ========================================================= */
+.pwa-install-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(156, 255, 0, 0.12);
+    border: 1px solid rgba(156, 255, 0, 0.3);
+    color: #9cff00;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pwa-install-btn:hover {
+    background: rgba(156, 255, 0, 0.22);
+    border-color: #9cff00;
+    transform: translateY(-1px);
+}
+
+.pwa-install-btn-mobile {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 12px;
+    background: rgba(156, 255, 0, 0.12);
+    border: 1px solid rgba(156, 255, 0, 0.3);
+    color: #9cff00;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+}
