@@ -499,7 +499,8 @@ const howToSchema = {
           <h2>JPG vs PNG vs WebP</h2>
         </div>
 
-        <div class="table-container">
+        <!-- DESKTOP TABLE VIEW -->
+        <div class="desktop-format-table table-container">
           <table class="guide-table">
             <thead>
               <tr>
@@ -530,6 +531,69 @@ const howToSchema = {
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- MOBILE STACKED COMPARISON CARDS -->
+        <div class="mobile-format-cards">
+          <div class="format-card">
+            <div class="format-card-header">
+              <h3 class="format-card-title">JPG / JPEG</h3>
+            </div>
+            <div class="format-card-body">
+              <div class="format-card-row">
+                <span class="format-card-label">Compression Type</span>
+                <span class="format-card-value">Lossy</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Transparency</span>
+                <span class="format-card-value">No</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Ideal Use Cases</span>
+                <span class="format-card-value">Photographs, complex color scenes, lightweight web photos</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="format-card">
+            <div class="format-card-header">
+              <h3 class="format-card-title">PNG</h3>
+            </div>
+            <div class="format-card-body">
+              <div class="format-card-row">
+                <span class="format-card-label">Compression Type</span>
+                <span class="format-card-value">Lossless</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Transparency</span>
+                <span class="format-card-value">Yes</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Ideal Use Cases</span>
+                <span class="format-card-value">Logos, UI icons, screenshots, graphics needing transparent backdrops</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="format-card">
+            <div class="format-card-header">
+              <h3 class="format-card-title">WebP</h3>
+            </div>
+            <div class="format-card-body">
+              <div class="format-card-row">
+                <span class="format-card-label">Compression Type</span>
+                <span class="format-card-value">Lossy & Lossless</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Transparency</span>
+                <span class="format-card-value">Yes</span>
+              </div>
+              <div class="format-card-row">
+                <span class="format-card-label">Ideal Use Cases</span>
+                <span class="format-card-value">Modern websites seeking smaller file sizes at comparable visual quality</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
