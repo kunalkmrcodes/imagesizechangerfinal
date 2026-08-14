@@ -60,7 +60,7 @@ const faqSchema = {
       "name": "Does resizing reduce image quality?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Downscaling generally preserves good visual sharpness when the source image has sufficient resolution and appropriate processing settings are used. Upscaling (making a small image larger) requires software to guess missing pixels and can cause blurriness."
+        "text": "Downscaling generally preserves good visual sharpness when the source image has sufficient resolution and appropriate processing settings are used. Upscaling a small image requires software to estimate missing pixels and can cause blurriness."
       }
     },
     {
@@ -522,12 +522,12 @@ const howToSchema = {
       <div class="container">
         <div class="section-label">BROWSER PRIVACY</div>
         <div class="section-heading">
-          <h2>100% Client-Side In-Browser Processing</h2>
+          <h2>Client-Side In-Browser Processing</h2>
         </div>
 
         <div class="legal-card" style="margin-top: 1.5rem;">
           <p>
-            Image processing takes place entirely inside your web browser using modern HTML5 Canvas APIs. Your selected image files are <strong>never uploaded to our server</strong>. All resizing, compression calculations, and format conversions execute locally on your device for greater privacy because image processing happens locally in your browser.
+            Image processing takes place locally in your web browser, so your selected image files are not uploaded to our server.
           </p>
         </div>
       </div>
@@ -559,7 +559,7 @@ const howToSchema = {
 
           <details>
             <summary>Does resizing reduce image quality?</summary>
-            <p>Downscaling generally preserves good visual sharpness when the source image has sufficient resolution and appropriate processing settings are used. Upscaling (making a small image larger) requires software to guess missing pixels and can cause blurriness.</p>
+            <p>Downscaling generally preserves good visual sharpness when the source image has sufficient resolution and appropriate processing settings are used. Upscaling a small image requires software to estimate missing pixels and can cause blurriness.</p>
           </details>
 
           <details>
