@@ -42,10 +42,26 @@
   }
 
   function getTargetBytes() {
-    const value = parseFloat(targetSizeInput.value);
-    if (!value || isNaN(value) || value <= 0) return null;
-    const unit = targetSizeUnit.value;
+    if (!targetSizeInput) return null;
+    const rawVal = targetSizeInput.value ? targetSizeInput.value.trim() : "";
+    if (rawVal === "") return null;
+    const value = Number(rawVal);
+    if (isNaN(value) || !Number.isFinite(value) || value <= 0) return null;
+    const unit = targetSizeUnit ? targetSizeUnit.value : "KB";
     return unit === "MB" ? Math.round(value * 1024 * 1024) : Math.round(value * 1024);
+  }
+
+  function updateButtonLabel() {
+    if (!resizeButton) return;
+    const targetBytes = getTargetBytes();
+    const count = selectedFiles.length;
+    const isMultiple = count > 1;
+
+    if (targetBytes !== null) {
+      resizeButton.innerHTML = `Resize & Compress ${isMultiple ? "Images" : "Image"} <span>↗</span>`;
+    } else {
+      resizeButton.innerHTML = `Resize ${isMultiple ? "Images" : "Image"} <span>↗</span>`;
+    }
   }
 
   function loadImage(file) {
@@ -68,6 +84,7 @@
     const count = selectedFiles.length;
     selectedCount.textContent = `${count} image${count === 1 ? "" : "s"} selected`;
     controls.hidden = count === 0;
+    updateButtonLabel();
   }
 
   function renderFiles() {
@@ -256,6 +273,14 @@
     });
   });
 
+  if (targetSizeInput) {
+    targetSizeInput.addEventListener("input", updateButtonLabel);
+    targetSizeInput.addEventListener("change", updateButtonLabel);
+  }
+  if (targetSizeUnit) {
+    targetSizeUnit.addEventListener("change", updateButtonLabel);
+  }
+
   function getExtension(mime) {
     if (mime === "image/png") return "png";
     if (mime === "image/webp") return "webp";
@@ -320,11 +345,14 @@
     progressArea.hidden = false;
     progressBar.style.width = "0%";
     const targetBytes = getTargetBytes();
+    const isCompressing = targetBytes !== null;
 
     try {
       for (let i = 0; i < selectedFiles.length; i++) {
         const file = selectedFiles[i];
-        progressText.textContent = `Processing ${i + 1} of ${selectedFiles.length}…`;
+        progressText.textContent = isCompressing
+          ? `Compressing ${i + 1} of ${selectedFiles.length}…`
+          : `Resizing ${i + 1} of ${selectedFiles.length}…`;
 
         const image = await loadImage(file);
         let outputWidth = Number(widthInput.value);
@@ -356,11 +384,12 @@
         ctx.drawImage(image, 0, 0, outputWidth, outputHeight);
 
         const { blob } = await compressToTargetSize(canvas, currentFormat, targetBytes);
-        if (!blob) throw new Error("Unable to compress image.");
+        if (!blob) throw new Error("Unable to process image.");
 
         const ext = getExtension(currentFormat);
         const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
-        const newFilename = `${nameWithoutExt}-resized.${ext}`;
+        const actionSuffix = isCompressing ? "compressed" : "resized";
+        const newFilename = `${nameWithoutExt}-${actionSuffix}.${ext}`;
 
         downloadBlob(blob, newFilename);
         progressBar.style.width = `${Math.round(((i + 1) / selectedFiles.length) * 100)}%`;
@@ -375,4 +404,6 @@
       resizeButton.disabled = false;
     }
   });
+
+  updateButtonLabel();
 })();
