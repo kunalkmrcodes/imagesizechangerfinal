@@ -45,3 +45,12 @@
 
   </div>
 </header>
+
+<script>
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      const details = link.closest('details');
+      if (details) details.removeAttribute('open');
+    });
+  });
+</script>
