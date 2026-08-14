@@ -2683,3 +2683,206 @@ LEGAL PAGES
         display: none !important;
     }
 }
+
+/* =========================================================
+   ERROR PAGES (404, 500, 403)
+   ========================================================= */
+
+.error-page-container {
+    padding: 100px 0 120px;
+    min-height: calc(100vh - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-hero-inner {
+    max-width: 860px;
+    margin-inline: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error-badge-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.error-code-glow {
+    font-size: clamp(100px, 20vw, 190px);
+    font-weight: 900;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    background: linear-gradient(180deg, #9cff00 20%, rgba(156, 255, 0, 0.15) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 45px rgba(156, 255, 0, 0.3));
+    user-select: none;
+}
+
+.error-status-pill {
+    margin-top: -15px;
+}
+
+.error-title {
+    margin: 20px auto 0;
+    max-width: 720px;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 850;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--text);
+}
+
+.error-description {
+    max-width: 600px;
+    margin: 16px auto 0;
+    color: var(--muted);
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.6;
+}
+
+.error-actions {
+    margin-top: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.error-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 26px;
+    min-height: 52px;
+    font-size: 15px;
+    border-radius: 14px;
+}
+
+.error-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 24px;
+    min-height: 52px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #dce0e8;
+    font-size: 15px;
+    font-weight: 700;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.error-secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--border-strong);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.error-tools-section {
+    margin-top: 70px;
+    width: 100%;
+    border-top: 1px solid var(--border);
+    padding-top: 50px;
+    text-align: left;
+}
+
+.error-tools-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    text-align: center;
+}
+
+.error-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.error-tool-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.error-tool-card:hover {
+    border-color: var(--accent-border);
+    background: rgba(156, 255, 0, 0.04);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.error-tool-icon {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--accent-border);
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
+.error-tool-content {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.error-tool-content h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 750;
+    color: var(--text);
+    line-height: 1.3;
+}
+
+.error-tool-content p {
+    margin: 4px 0 0;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.error-tool-arrow {
+    font-size: 18px;
+    color: var(--muted-2);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.error-tool-card:hover .error-tool-arrow {
+    color: var(--accent);
+    transform: translateX(4px);
+}
+
+@media (max-width: 860px) {
+    .error-tools-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .error-page-container {
+        padding: 60px 0 80px;
+    }
+}

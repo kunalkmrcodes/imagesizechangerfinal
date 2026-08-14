@@ -1,0 +1,16 @@
+---
+// 404.astro — Custom Page Not Found Error Page
+import ErrorLayout from "../components/ErrorLayout.astro";
+---
+
+<ErrorLayout
+  code="404"
+  badge="Page Not Found"
+  title="Oops! This page doesn't exist."
+  description="The page you're looking for may have been moved, deleted, or never existed."
+  primaryBtnText="Back to ImageSizeChanger"
+  primaryBtnHref="/"
+  secondaryBtnText="Start Resizing"
+  secondaryBtnHref="/resize-image"
+/>
+

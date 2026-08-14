@@ -1,0 +1,159 @@
+---
+// ErrorLayout.astro — Shared Layout Component for Error Pages
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  code: string;
+  badge: string;
+  title: string;
+  description: string;
+  showRetry?: boolean;
+  primaryBtnText?: string;
+  primaryBtnHref?: string;
+  secondaryBtnText?: string;
+  secondaryBtnHref?: string;
+}
+
+const {
+  code,
+  badge,
+  title,
+  description,
+  showRetry = false,
+  primaryBtnText = "Back to ImageSizeChanger",
+  primaryBtnHref = "/",
+  secondaryBtnText = "Start Resizing",
+  secondaryBtnHref = "/resize-image"
+} = Astro.props;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.imagesizechanger.info/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": `${code} Error`,
+      "item": `https://www.imagesizechanger.info/${code}`
+    }
+  ]
+};
+---
+
+<Layout
+  title={`${code} — ${badge} | ImageSizeChanger`}
+  description={description}
+  noindex={true}
+  structuredData={breadcrumbSchema}
+>
+  <Header />
+
+  <main class="error-page-container">
+    <div class="container error-hero-inner">
+      <!-- Glow & Badge Section -->
+      <div class="error-badge-wrapper">
+        <div class="error-code-glow" aria-hidden="true">{code}</div>
+        <div class="status-pill error-status-pill">
+          <span class="status-dot"></span>
+          <span>{code} Error · {badge}</span>
+        </div>
+      </div>
+
+      <!-- Heading & Explanation -->
+      <h1 class="error-title">{title}</h1>
+      <p class="error-description">{description}</p>
+
+      <!-- Action Buttons -->
+      <div class="error-actions">
+        <a href={primaryBtnHref} class="nav-cta error-primary-btn">
+          <span>{primaryBtnText}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </a>
+
+        {showRetry ? (
+          <button type="button" class="error-secondary-btn" onclick="window.location.reload()">
+            <span>Refresh Page</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+              <path d="M21 3v5h-5"/>
+              <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+              <path d="M3 21v-5h5"/>
+            </svg>
+          </button>
+        ) : (
+          <a href={secondaryBtnHref} class="error-secondary-btn">
+            <span>{secondaryBtnText}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/>
+              <path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        )}
+      </div>
+
+      <!-- Core Image Tools Quick Links Grid -->
+      <div class="error-tools-section">
+        <h2 class="error-tools-title">Looking for an image tool?</h2>
+        <div class="error-tools-grid">
+          <a href="/resize-image" class="error-tool-card">
+            <div class="error-tool-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 3H3v18h18V3z"/>
+                <path d="M15 3v6h6"/>
+                <path d="M9 21v-6H3"/>
+              </svg>
+            </div>
+            <div class="error-tool-content">
+              <h3>Resize Images</h3>
+              <p>Change pixel dimensions and percentage scaling offline in your browser.</p>
+            </div>
+            <span class="error-tool-arrow">→</span>
+          </a>
+
+          <a href="/compress-image" class="error-tool-card">
+            <div class="error-tool-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 14.89 12 3l8 11.89"/>
+                <path d="M12 21v-8"/>
+              </svg>
+            </div>
+            <div class="error-tool-content">
+              <h3>Compress Images</h3>
+              <p>Reduce image file size to target KB or MB without quality loss.</p>
+            </div>
+            <span class="error-tool-arrow">→</span>
+          </a>
+
+          <a href="/convert-image" class="error-tool-card">
+            <div class="error-tool-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="17 1 21 5 17 9"/>
+                <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                <polyline points="7 23 3 19 7 15"/>
+                <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+              </svg>
+            </div>
+            <div class="error-tool-content">
+              <h3>Convert Format</h3>
+              <p>Convert JPG, PNG, WebP and AVIF files fast and securely.</p>
+            </div>
+            <span class="error-tool-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

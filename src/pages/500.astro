@@ -1,0 +1,12 @@
+---
+// 500.astro — Custom Server / Internal Error Page
+import ErrorLayout from "../components/ErrorLayout.astro";
+---
+
+<ErrorLayout
+  code="500"
+  badge="Internal Error"
+  title="Something Went Wrong On Our End"
+  description="An unexpected internal server error occurred while processing your request. Please try refreshing the page or head back home."
+  showRetry={true}
+/>
