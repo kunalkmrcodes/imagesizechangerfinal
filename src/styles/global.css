@@ -3682,9 +3682,51 @@ html[data-theme="light"] .format-card {
     box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04);
 }
 
+html.light-theme .theme-toggle-btn,
+html[data-theme="light"] .theme-toggle-btn {
+    background: #ffffff;
+    border: 1px solid #e2e5e9;
+    color: #111827;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+html.light-theme .theme-toggle-btn:hover,
+html[data-theme="light"] .theme-toggle-btn:hover {
+    background: #ecfdf3;
+    border-color: #a6f4c5;
+    color: #16a34a;
+}
+
+html.light-theme .section-label,
+html[data-theme="light"] .section-label {
+    color: #16a34a;
+}
+
+html.light-theme .section-heading h2,
+html[data-theme="light"] .section-heading h2 {
+    color: #111827;
+}
+
+html.light-theme .section-heading p,
+html[data-theme="light"] .section-heading p {
+    color: #475467;
+}
+
+html.light-theme .content-section:nth-of-type(even),
+html[data-theme="light"] .content-section:nth-of-type(even) {
+    background: #f0f2f5;
+    border-top: 1px solid #e2e5e9;
+    border-bottom: 1px solid #e2e5e9;
+}
+
+html.light-theme .content-section,
+html[data-theme="light"] .content-section {
+    padding: 60px 0;
+}
+
 html.light-theme .site-footer,
 html[data-theme="light"] .site-footer {
-    background: #eef1f5;
+    background: #eef0f3;
     border-top: 1px solid #d8dde6;
 }
 
