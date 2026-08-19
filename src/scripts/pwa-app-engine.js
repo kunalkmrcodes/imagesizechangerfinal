@@ -387,15 +387,15 @@
 
     const html = list.length
       ? list.map((item) => `
-        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center;">
+        <div style="background:var(--surface-input); border:1px solid var(--border); border-radius:14px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <strong style="font-size:0.86rem; color:#fff; display:block;">${item.name}</strong>
-            <span style="font-size:0.75rem; color:#94a3b8;">${item.action} · ${item.weight}</span>
+            <strong style="font-size:0.86rem; color:var(--text-heading); display:block;">${item.name}</strong>
+            <span style="font-size:0.75rem; color:var(--muted);">${item.action} · ${item.weight}</span>
           </div>
-          <span style="font-size:0.75rem; color:#64748b;">${item.time}</span>
+          <span style="font-size:0.75rem; color:var(--muted-2);">${item.time}</span>
         </div>
       `).join("")
-      : `<div style="text-align: center; padding: 24px; color: #64748b; font-size: 0.84rem; background: rgba(255,255,255,0.02); border-radius: 16px;">No processed images yet</div>`;
+      : `<div style="text-align: center; padding: 24px; color: var(--muted-2); font-size: 0.84rem; background: var(--surface-input); border-radius: 16px;">No processed images yet</div>`;
 
     if (recentEl) recentEl.innerHTML = html;
     if (historyEl) historyEl.innerHTML = html;

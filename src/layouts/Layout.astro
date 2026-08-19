@@ -40,6 +40,23 @@ const schemas = structuredData
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Inline Theme Script (Early FOUT prevention) -->
+    <script is:inline>
+      (function() {
+        try {
+          var saved = localStorage.getItem('theme');
+          var theme = saved ? saved : 'dark';
+          if (theme === 'light') {
+            document.documentElement.classList.add('light-theme');
+            document.documentElement.setAttribute('data-theme', 'light');
+          } else {
+            document.documentElement.classList.remove('light-theme');
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -47,7 +64,7 @@ const schemas = structuredData
     <meta name="keywords" content="image resizer, compress image online, resize image free, change image dimensions, convert jpg to png, webp converter, free online photo resizer" />
     <meta name="author" content="ImageSizeChanger" />
     <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
-    <meta name="theme-color" content="#07080d" />
+    <meta name="theme-color" content="#07080d" id="meta-theme-color" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph / Facebook -->

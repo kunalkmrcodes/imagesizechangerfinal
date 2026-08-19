@@ -22,6 +22,33 @@
     </nav>
 
     <div class="header-actions">
+      <button
+        id="themeToggleBtn"
+        class="theme-toggle-btn"
+        type="button"
+        aria-label="Switch to light mode"
+        title="Toggle light or dark theme"
+      >
+        <span class="theme-icon-sun" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </span>
+        <span class="theme-icon-moon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </span>
+      </button>
+
       <button id="pwaInstallBtn" class="pwa-install-btn" type="button" style="display: none;">
         Install App ⚡
       </button>
@@ -43,6 +70,32 @@
         <a href="/#features">Features</a>
         <a href="/guides">Guides</a>
         <a href="/#faq">FAQ</a>
+        <button
+          id="themeToggleBtnMobile"
+          class="mobile-theme-toggle-btn"
+          type="button"
+          aria-label="Switch to light mode"
+        >
+          <span class="mobile-theme-icon theme-icon-sun" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+          </span>
+          <span class="mobile-theme-icon theme-icon-moon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </span>
+          <span class="theme-toggle-text">Toggle Theme</span>
+        </button>
         <a class="mobile-menu-cta" href="/#resize">
           Start resizing
         </a>
@@ -71,12 +124,73 @@
 </div>
 
 <script>
+  // Mobile Nav Dropdown Close Handler
   document.querySelectorAll('.mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
       const details = link.closest('details');
       if (details) details.removeAttribute('open');
     });
   });
+
+  // Theme Toggle Handler
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
+
+  function updateThemeUI(theme: string) {
+    const isLight = theme === 'light';
+    const label = isLight ? 'Switch to dark mode' : 'Switch to light mode';
+    const text = isLight ? 'Dark Mode 🌙' : 'Light Mode ☀️';
+
+    if (themeToggleBtn) {
+      themeToggleBtn.setAttribute('aria-label', label);
+      themeToggleBtn.setAttribute('title', label);
+    }
+    if (themeToggleBtnMobile) {
+      themeToggleBtnMobile.setAttribute('aria-label', label);
+      const textSpan = themeToggleBtnMobile.querySelector('.theme-toggle-text');
+      if (textSpan) textSpan.textContent = text;
+    }
+
+    const metaThemeColor = document.getElementById('meta-theme-color');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', isLight ? '#ffffff' : '#07080d');
+    }
+  }
+
+  function toggleTheme() {
+    const isCurrentLight = document.documentElement.classList.contains('light-theme') || 
+                           document.documentElement.getAttribute('data-theme') === 'light';
+    const newTheme = isCurrentLight ? 'dark' : 'light';
+
+    if (newTheme === 'light') {
+      document.documentElement.classList.add('light-theme');
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.classList.remove('light-theme');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    try {
+      localStorage.setItem('theme', newTheme);
+    } catch (e) {}
+
+    updateThemeUI(newTheme);
+  }
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+  }
+  if (themeToggleBtnMobile) {
+    themeToggleBtnMobile.addEventListener('click', toggleTheme);
+  }
+
+  // Initial Sync
+  try {
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    updateThemeUI(currentTheme);
+  } catch (e) {
+    updateThemeUI('dark');
+  }
 
   // PWA Installation Handler
   let deferredPrompt: any = null;

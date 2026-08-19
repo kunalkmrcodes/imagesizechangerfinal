@@ -69,7 +69,7 @@ const articleSchema = {
         <p>
           It is important to note that aspect ratio describes <em>proportions</em>, not physical measurement units. An image measuring <code>1920 × 1080 pixels</code> and an image measuring <code>1280 × 720 pixels</code> both share the exact same <strong>16:9 aspect ratio</strong> because:
         </p>
-        <p style="text-align: center; font-weight: bold; color: #818cf8;">
+        <p style="text-align: center; font-weight: bold; color: var(--accent);">
           1920 / 1080 = 1.777 &nbsp;&nbsp;|&nbsp;&nbsp; 1280 / 720 = 1.777
         </p>
 
@@ -80,29 +80,39 @@ const articleSchema = {
             <tr>
               <th>Aspect Ratio</th>
               <th>Common Dimensions</th>
-              <th>Typical Applications</th>
+              <th>Standard Use Cases</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>1:1 (Square)</strong></td>
-              <td>1080 × 1080, 500 × 500</td>
-              <td>Instagram feed posts, profile avatars, product grid thumbnails.</td>
+              <td><strong>16:9</strong> (Widescreen)</td>
+              <td>1920 × 1080, 1280 × 720, 3840 × 2160</td>
+              <td>YouTube thumbnails, landscape video, presentations, monitors</td>
             </tr>
             <tr>
-              <td><strong>16:9 (Widescreen)</strong></td>
-              <td>1920 × 1080, 1280 × 720</td>
-              <td>YouTube thumbnails, desktop monitors, TV screens, blog hero banners.</td>
+              <td><strong>1:1</strong> (Square)</td>
+              <td>1080 × 1080, 1200 × 1200, 500 × 500</td>
+              <td>Instagram feed posts, e-commerce product grids, profile avatars</td>
             </tr>
             <tr>
-              <td><strong>4:3 (Standard Photo)</strong></td>
-              <td>1024 × 768, 1600 × 1200</td>
-              <td>Digital camera sensors, tablet displays, classic photography.</td>
+              <td><strong>4:5</strong> (Portrait)</td>
+              <td>1080 × 1350</td>
+              <td>Instagram feed vertical portraits (takes maximum vertical screen space)</td>
             </tr>
             <tr>
-              <td><strong>9:16 (Vertical)</strong></td>
-              <td>1080 × 1920, 720 × 1280</td>
-              <td>Instagram Stories, TikTok videos, mobile portrait wallpapers.</td>
+              <td><strong>9:16</strong> (Vertical Story)</td>
+              <td>1080 × 1920</td>
+              <td>Instagram Stories, TikTok videos, YouTube Shorts, Reels</td>
+            </tr>
+            <tr>
+              <td><strong>4:3</strong> (Standard Photo)</td>
+              <td>1024 × 768, 4000 × 3000</td>
+              <td>Micro Four Thirds camera sensors, tablets, digital camera photos</td>
+            </tr>
+            <tr>
+              <td><strong>3:2</strong> (Classic 35mm)</td>
+              <td>6000 × 4000, 1080 × 720</td>
+              <td>Standard DSLR/mirrorless camera photos and print photo postcards</td>
             </tr>
           </tbody>
         </table>
@@ -123,7 +133,7 @@ const articleSchema = {
         <p>
           The math formula to find new height when changing width while locking aspect ratio is:
         </p>
-        <p style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; font-family: monospace;">
+        <p style="background: var(--surface-input); border: 1px solid var(--border); padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--text);">
           New Height = (Original Height / Original Width) × New Width
         </p>
 
@@ -146,24 +156,3 @@ const articleSchema = {
 
   <Footer />
 </Layout>
-
-<style>
-  .guide-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
-    font-size: 0.9rem;
-  }
-  .guide-table th, .guide-table td {
-    padding: 0.75rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: left;
-  }
-  .guide-table th {
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-  }
-  .guide-table td {
-    color: #94a3b8;
-  }
-</style>
