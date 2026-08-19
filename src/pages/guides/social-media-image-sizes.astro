@@ -1,0 +1,204 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.imagesizechanger.info/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://www.imagesizechanger.info/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Common Image Sizes for Social Media",
+      "item": "https://www.imagesizechanger.info/guides/social-media-image-sizes"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Common Image Sizes for Social Media (Cheat Sheet & Guidelines)",
+  "description": "Up-to-date dimensions cheat sheet for Instagram, Facebook, YouTube, Twitter/X, and LinkedIn. Prevent automatic cropping and compression blur.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.imagesizechanger.info/favicon.png"
+    }
+  }
+};
+---
+
+<Layout
+  title="Common Image Sizes for Social Media — Cheat Sheet | Image Size Changer"
+  description="Master social media image sizes for Instagram, Facebook, YouTube, X (Twitter), and LinkedIn. Prevent awkward cropping and severe compression."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Social Media Cheat Sheet
+      </div>
+
+      <h1>Common Image Sizes for Social Media</h1>
+
+      <p class="lead">
+        Uploading wrongly-sized images to social media platforms results in automatic cropping, blurry re-compression, and awkward framing. This reference guide provides the recommended dimensions and aspect ratios for all major platforms.
+      </p>
+
+      <div class="legal-card">
+        <h2>Why Sizing Ahead of Time Matters</h2>
+        <p>
+          Social media networks (like Instagram, Facebook, and LinkedIn) aggressively re-compress uploaded photos to save server storage and bandwidth. If you upload a massive 20 MB photo, their automated algorithms often crush the image into a fuzzy, artifact-heavy version.
+        </p>
+        <p>
+          By sizing your images to exact platform dimensions before uploading using <a href="/resize-image">ImageSizeChanger</a>, you maintain crisp detail and avoid arbitrary automated cropping.
+        </p>
+
+        <h2>Complete Social Media Sizing Cheat Sheet</h2>
+        <div class="table-container">
+          <table class="guide-table">
+            <thead>
+              <tr>
+                <th>Platform</th>
+                <th>Content Type</th>
+                <th>Recommended Dimensions (px)</th>
+                <th>Aspect Ratio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Instagram</strong></td>
+                <td>Square Feed Post</td>
+                <td>1080 × 1080</td>
+                <td>1:1</td>
+              </tr>
+              <tr>
+                <td><strong>Instagram</strong></td>
+                <td>Portrait / Vertical Post</td>
+                <td>1080 × 1350</td>
+                <td>4:5</td>
+              </tr>
+              <tr>
+                <td><strong>Instagram</strong></td>
+                <td>Stories & Reels</td>
+                <td>1080 × 1920</td>
+                <td>9:16</td>
+              </tr>
+              <tr>
+                <td><strong>Facebook</strong></td>
+                <td>Shared Link / OG Image</td>
+                <td>1200 × 630</td>
+                <td>1.91:1</td>
+              </tr>
+              <tr>
+                <td><strong>Facebook</strong></td>
+                <td>Cover Photo (Page/Group)</td>
+                <td>820 × 312</td>
+                <td>2.63:1</td>
+              </tr>
+              <tr>
+                <td><strong>YouTube</strong></td>
+                <td>Video Thumbnail (HD)</td>
+                <td>1280 × 720</td>
+                <td>16:9</td>
+              </tr>
+              <tr>
+                <td><strong>YouTube</strong></td>
+                <td>Channel Banner</td>
+                <td>2560 × 1440</td>
+                <td>16:9</td>
+              </tr>
+              <tr>
+                <td><strong>Twitter / X</strong></td>
+                <td>In-Feed Image Post</td>
+                <td>1600 × 900 / 1200 × 675</td>
+                <td>16:9</td>
+              </tr>
+              <tr>
+                <td><strong>Twitter / X</strong></td>
+                <td>Header Banner</td>
+                <td>1500 × 500</td>
+                <td>3:1</td>
+              </tr>
+              <tr>
+                <td><strong>LinkedIn</strong></td>
+                <td>Company Page Banner</td>
+                <td>1128 × 191</td>
+                <td>5.91:1</td>
+              </tr>
+              <tr>
+                <td><strong>LinkedIn</strong></td>
+                <td>Shared Link Graphic</td>
+                <td>1200 × 627</td>
+                <td>1.91:1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Platform-Specific Tips</h2>
+
+        <h3>Instagram</h3>
+        <ul>
+          <li><strong>Vertical Posts (1080 × 1350 px):</strong> Recommended over square posts because they take up more vertical screen space in user feeds, boosting engagement.</li>
+          <li><strong>Stories & Reels (1080 × 1920 px):</strong> Keep critical text within the center 1080 × 1420 safe zone to prevent interface icons from covering your message.</li>
+        </ul>
+
+        <h3>YouTube</h3>
+        <ul>
+          <li><strong>Thumbnails (1280 × 720 px):</strong> Keep file size under 2 MB (YouTube's upload limit). Use JPG or PNG.</li>
+          <li>Ensure high contrast and bold text so titles remain legible on small smartphone screens.</li>
+        </ul>
+
+        <h3>Facebook & LinkedIn Link Previews (Open Graph)</h3>
+        <ul>
+          <li>Use <strong>1200 × 630 px</strong> for website preview cards. This ensures sharp rendering on both mobile apps and desktop browsers.</li>
+        </ul>
+
+        <h2>How to Resize with Presets on ImageSizeChanger</h2>
+        <p>
+          Our <a href="/resize-image">Online Image Resizer</a> includes built-in one-click preset buttons for Instagram, Facebook, YouTube, and Twitter/X. Simply upload your graphic, click your desired preset button, and download your ready-to-publish image!
+        </p>
+
+        <h2>Related Guides</h2>
+        <ul>
+          <li><a href="/guides/image-aspect-ratio-guide/">Understanding Image Aspect Ratio</a></li>
+          <li><a href="/guides/how-to-resize-an-image-without-losing-quality/">How to Resize an Image Without Losing Quality</a></li>
+          <li><a href="/guides/jpg-vs-png-vs-webp/">JPG vs PNG vs WebP: Which Format Should You Use?</a></li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 2rem; display: flex; justify-content: space-between;">
+        <a class="back-link" href="/guides">← Back to all guides</a>
+        <a class="back-link" href="/resize-image">Resize with Presets →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

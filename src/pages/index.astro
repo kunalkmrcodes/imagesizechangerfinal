@@ -6,9 +6,9 @@ import Footer from "../components/Footer.astro";
 const webAppSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "ImageSizeChanger",
+  "name": "ImageSizeChanger — Free Online Image Size Changer",
   "url": "https://www.imagesizechanger.info",
-  "description": "Resize and compress images online for free. Change dimensions, reduce file size and convert JPG, PNG and WebP images directly in your browser.",
+  "description": "Free online image size changer. Resize image dimensions in pixels or percentage, lock aspect ratios to avoid distortion, compress file size in KB or MB, and convert JPG, PNG, and WebP directly in your browser.",
   "applicationCategory": "MultimediaApplication",
   "operatingSystem": "All",
   "browserRequirements": "Requires JavaScript",
@@ -33,82 +33,42 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do I resize an image?",
+      "name": "What is an image size changer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Upload your image file, specify your target width or height in pixels or percentage, keep aspect ratio locked to prevent distortion, choose your output format, and click Resize & compress."
+        "text": "An image size changer is an online tool that adjusts the width and height (pixel dimensions) of a digital image. It enables you to scale photos for web pages, social media, document uploads, or emails without distortion."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I resize an image without changing its proportions?",
+      "name": "How do I resize an image without distorting it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Keep the aspect-ratio lock enabled while entering a new width or height. The tool automatically calculates the missing dimension proportionally."
+        "text": "Keep the aspect ratio lock enabled (🔗). When you enter a new width or height, the other dimension automatically recalculates proportionally, ensuring your photo never looks stretched or squashed."
       }
     },
     {
       "@type": "Question",
-      "name": "What does aspect ratio mean?",
+      "name": "What is the difference between image size and image file size?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Aspect ratio is the proportional relationship between an image's width and height, such as 16:9 for widescreen monitors or 1:1 for square social posts."
+        "text": "Image size refers to pixel dimensions (such as 1920 × 1080 px) which describe how wide and tall the image displays on screen. Image file size refers to digital storage weight in Kilobytes (KB) or Megabytes (MB), which affects upload time and download bandwidth."
       }
     },
     {
       "@type": "Question",
-      "name": "Does resizing reduce image quality?",
+      "name": "Are my images uploaded to any server?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Downscaling generally preserves good visual sharpness when the source image has sufficient resolution and appropriate processing settings are used. Upscaling a small image requires software to estimate missing pixels and can cause blurriness."
+        "text": "No. All image resizing, compression, and conversion happens entirely in your web browser using HTML5 Canvas technology. Your files remain on your device and are never transmitted to our servers."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I make an image larger?",
+      "name": "What image formats are supported?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, you can increase pixel dimensions, but enlarging very small images excessively will make them appear soft or pixelated because missing detail cannot be technically recreated."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How can I reduce an image's file size?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "You can reduce file size by downscaling pixel dimensions, adjusting quality compression factor, converting to modern WebP format, or specifying a target file size in KB or MB."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the difference between JPG, PNG and WebP?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "JPG uses lossy compression best for photos; PNG uses lossless compression supporting transparency; WebP is a modern web codec that produces smaller files at comparable visual quality."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I process multiple images at once?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Select or drag multiple supported image files into the workspace to batch process them together."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I target a specific file size in KB or MB?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Enter a target like 50 KB or 1 MB. The tool's search algorithm automatically adjusts JPEG or WebP compression to get as close as possible under your target limit."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are my images uploaded to a server?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All image processing occurs locally inside your web browser using HTML5 Canvas APIs. Your images are never sent to or stored on our servers."
+        "text": "You can upload JPG, JPEG, PNG, WebP, GIF, and BMP files. Output files can be exported as JPG, PNG, or WebP."
       }
     }
   ]
@@ -117,31 +77,31 @@ const faqSchema = {
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  "name": "How to Resize and Compress Images Online",
-  "description": "Step-by-step guide to resizing dimensions, reducing file size in KB or MB, and converting image formats directly in your web browser.",
+  "name": "How to Resize an Image Online",
+  "description": "Step-by-step instructions for resizing image dimensions in pixels or percentage and downloading optimized files.",
   "step": [
     {
       "@type": "HowToStep",
-      "name": "Upload Images",
-      "text": "Drag and drop single or multiple image files into the workspace area or click browse files."
+      "name": "1. Upload Your Image",
+      "text": "Drag and drop your JPG, PNG, WebP, GIF, or BMP image into the workspace dropzone or click browse files."
     },
     {
       "@type": "HowToStep",
-      "name": "Configure Output Dimensions & Target Size",
-      "text": "Enter custom width and height in pixels or percentage, or pick a preset. Set an optional target file size in KB or MB."
+      "name": "2. Set Width and Height",
+      "text": "Enter your desired dimensions in pixels or percentage, or pick a preset like Instagram 1080x1080 or YouTube 1280x720. Keep the aspect ratio lock active to prevent distortion."
     },
     {
       "@type": "HowToStep",
-      "name": "Select Output Format & Export",
-      "text": "Choose between JPG, PNG, or WebP format and click Resize & compress to save your processed images."
+      "name": "3. Choose Export Settings & Download",
+      "text": "Select your output format (JPG, PNG, or WebP), optionally enter a target file size in KB, and click the Resize button to download your image."
     }
   ]
 };
 ---
 
 <Layout
-  title="ImageSizeChanger — Resize & Compress Images Online"
-  description="Resize and compress images online for free. Change dimensions, reduce file size and convert JPG, PNG and WebP images directly in your browser."
+  title="Free Online Image Size Changer — Resize Dimensions & Compress Images"
+  description="Free online image size changer. Resize image dimensions in pixels or percentage, lock aspect ratios to avoid distortion, compress file size in KB or MB, and convert JPG, PNG, and WebP directly in your browser."
   structuredData={[webAppSchema, organizationSchema, faqSchema, howToSchema]}
 >
   <Header />
@@ -152,25 +112,23 @@ const howToSchema = {
       <div class="container hero-inner">
         <div class="status-pill">
           <span class="status-dot"></span>
-          Fast · Private · Browser-based
+          100% In-Browser · Fast & Private · No Signup
         </div>
 
         <h1>
-          Resize your
-          <br />
-          images.
-          <span>Exactly how you want.</span>
+          Free Online Image Size Changer
         </h1>
 
         <p class="hero-description">
-          Change image dimensions, quality and format in seconds. No account. No complicated software. Your images stay on your device.
+          Easily resize image dimensions in pixels or percentages, lock aspect ratios to prevent distortion, compress file sizes to target KB limits, and convert formats directly inside your browser. No file uploads, no software installation, and no account needed.
         </p>
 
         <div class="hero-tags">
-          <span>JPG</span>
+          <span>JPG / JPEG</span>
           <span>PNG</span>
           <span>WebP</span>
-          <span>Batch ready</span>
+          <span>GIF / BMP</span>
+          <span>Batch Resizing</span>
         </div>
       </div>
     </section>
@@ -190,7 +148,7 @@ const howToSchema = {
               <span>or</span>
               <button id="browseButton" type="button" class="text-button">browse files</button>
             </p>
-            <small>JPG, PNG, WebP, GIF or BMP · Multiple files supported</small>
+            <small>JPG, PNG, WebP, GIF, or BMP · Multiple files supported · Processed locally on your device</small>
           </div>
 
           <!-- FILE LIST -->
@@ -237,12 +195,12 @@ const howToSchema = {
               <span class="control-eyebrow">PRESETS</span>
               <h2>Popular sizes</h2>
               <div class="preset-grid">
-                <button class="preset" type="button" data-width="1080" data-height="1080"><strong>Instagram</strong><span>1080 × 1080</span></button>
-                <button class="preset" type="button" data-width="1200" data-height="630"><strong>Facebook</strong><span>1200 × 630</span></button>
-                <button class="preset" type="button" data-width="1280" data-height="720"><strong>YouTube</strong><span>1280 × 720</span></button>
-                <button class="preset" type="button" data-width="1500" data-height="500"><strong>Twitter / X</strong><span>1500 × 500</span></button>
-                <button class="preset" type="button" data-width="1200" data-height="675"><strong>Blog image</strong><span>1200 × 675</span></button>
-                <button class="preset" type="button" data-width="1920" data-height="1080"><strong>Full HD</strong><span>1920 × 1080</span></button>
+                <button class="preset" type="button" data-width="1080" data-height="1080"><strong>Instagram Post</strong><span>1080 × 1080 (1:1)</span></button>
+                <button class="preset" type="button" data-width="1200" data-height="630"><strong>Facebook / OG</strong><span>1200 × 630 (1.91:1)</span></button>
+                <button class="preset" type="button" data-width="1280" data-height="720"><strong>YouTube HD</strong><span>1280 × 720 (16:9)</span></button>
+                <button class="preset" type="button" data-width="1500" data-height="500"><strong>Twitter / X Banner</strong><span>1500 × 500 (3:1)</span></button>
+                <button class="preset" type="button" data-width="1200" data-height="675"><strong>Blog Graphic</strong><span>1200 × 675 (16:9)</span></button>
+                <button class="preset" type="button" data-width="1920" data-height="1080"><strong>Full HD Desktop</strong><span>1920 × 1080 (16:9)</span></button>
               </div>
             </div>
 
@@ -252,7 +210,7 @@ const howToSchema = {
                 <div>
                   <span class="control-eyebrow">COMPRESS</span>
                   <h2>Export settings</h2>
-                  <p class="compression-description">Set an optional maximum file size.</p>
+                  <p class="compression-description">Optionally specify a maximum target file size.</p>
                 </div>
               </div>
 
@@ -260,7 +218,7 @@ const howToSchema = {
                 <label class="field target-field">
                   <span>Target file size <em>(optional)</em></span>
                   <div class="target-size-row">
-                    <input id="targetSizeInput" type="number" min="1" step="1" placeholder="40" />
+                    <input id="targetSizeInput" type="number" min="1" step="1" placeholder="e.g. 50" />
                     <select id="targetSizeUnit" aria-label="Target file size unit">
                       <option value="KB">KB</option>
                       <option value="MB">MB</option>
@@ -273,8 +231,8 @@ const howToSchema = {
                 <span class="control-eyebrow">OUTPUT FORMAT</span>
                 <div class="format-grid">
                   <button class="format-button active" type="button" data-format="image/jpeg"><strong>JPG</strong><span>Best for photos</span></button>
-                  <button class="format-button" type="button" data-format="image/png"><strong>PNG</strong><span>Lossless quality</span></button>
-                  <button class="format-button" type="button" data-format="image/webp"><strong>WebP</strong><span>Modern & efficient</span></button>
+                  <button class="format-button" type="button" data-format="image/png"><strong>PNG</strong><span>Crisp line art & transparency</span></button>
+                  <button class="format-button" type="button" data-format="image/webp"><strong>WebP</strong><span>Modern & lightweight</span></button>
                 </div>
               </div>
             </div>
@@ -282,10 +240,10 @@ const howToSchema = {
             <div class="action-area">
               <div>
                 <strong id="selectedCount">0 images selected</strong>
-                <span>Resize locally in your browser.</span>
+                <span>Processed locally in your browser memory.</span>
               </div>
               <button id="resizeButton" type="button" class="primary-button">
-                Resize image <span>↗</span>
+                Resize Image <span>↗</span>
               </button>
             </div>
 
@@ -299,435 +257,440 @@ const howToSchema = {
       </div>
     </section>
 
-    <!-- SECTION: TOOL FEATURES -->
-    <section id="features" class="content-section">
+    <!-- SECTION 1: WHAT IS AN IMAGE SIZE CHANGER? -->
+    <section class="content-section">
       <div class="container">
-        <div class="section-label">FEATURES</div>
+        <div class="section-label">OVERVIEW</div>
         <div class="section-heading">
-          <h2>Core Tool Features</h2>
-          <p>Explore the full range of client-side image editing capabilities.</p>
+          <h2>1. What Is an Image Size Changer?</h2>
+          <p>Understanding how pixel dimensions, width, height, and resizing work.</p>
+        </div>
+
+        <div class="legal-card" style="margin-top: 1.5rem;">
+          <p>
+            An <strong>image size changer</strong> is a digital utility designed to adjust the physical pixel dimensions—the horizontal <strong>width</strong> and vertical <strong>height</strong>—of a digital raster image. Every digital photo, screenshot, and graphic is composed of an orderly grid of tiny color points called <strong>pixels (px)</strong>. For example, a standard Full HD image measuring <code>1920 × 1080</code> pixels contains 1,920 pixels horizontally and 1,080 pixels vertically, creating a total matrix of over 2.07 million individual pixels.
+          </p>
+          <p>
+            Users resize images for a variety of practical everyday reasons:
+          </p>
+          <ul>
+            <li><strong>Display Container Alignment:</strong> Ensuring web graphics precisely match content column widths (e.g. 800px or 1200px) so browsers don't have to scale oversized assets at runtime.</li>
+            <li><strong>Social Media Specifications:</strong> Adjusting images to match recommended platform formats, such as square 1080 × 1080 posts for Instagram or 1200 × 630 preview cards for link sharing.</li>
+            <li><strong>Upload Portals & Forms:</strong> Complying with strict pixel dimension limits on job portals, government exam forms, passport applications, and school registries.</li>
+            <li><strong>Bandwidth & Storage Optimization:</strong> Downscaling oversized digital camera photos (which often exceed 6000 × 4000 pixels) to reduce unnecessary file weight before sending via email or hosting online.</li>
+          </ul>
+          <h3>Resizing vs. Cropping: What is the Difference?</h3>
+          <p>
+            It is helpful to distinguish between <strong>resizing</strong> and <strong>cropping</strong>:
+          </p>
+          <ul>
+            <li><strong>Resizing:</strong> Scales the entire picture up or down so that 100% of the original visual content remains visible, but represented across a different number of total pixels.</li>
+            <li><strong>Cropping:</strong> Cuts away outer sections or edges of the image to alter framing or change the aspect ratio, discarding part of the original image content.</li>
+          </ul>
+          <p>
+            For more details on how dimensions relate to visual quality, explore our guide on <a href="/guides/change-image-dimensions/">How to Change Image Width and Height</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: HOW TO RESIZE AN IMAGE (STEP-BY-STEP) -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">HOW-TO GUIDE</div>
+        <div class="section-heading">
+          <h2>2. How to Resize an Image: Step-by-Step</h2>
+          <p>Follow this straightforward guide to resize any photo using our browser tool.</p>
         </div>
 
         <div class="feature-grid" style="margin-top: 1.5rem;">
           <article class="feature-card">
-            <h3>Pixel & Percent Scaling</h3>
-            <p>Resize images by entering custom width and height in exact pixels or percentage values.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Aspect Ratio Protection</h3>
-            <p>Lock aspect ratio with one click to scale dimensions proportionally without stretching or distorting images.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Optional Target File Size</h3>
-            <p>Specify a target size in KB or MB to compress images to fit email and online portal upload limits.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Format Conversion</h3>
-            <p>Convert images between JPG, PNG and WebP formats directly in your browser.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Batch File Processing</h3>
-            <p>Upload and process multiple images simultaneously to save time during bulk resizing tasks.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Dimension Presets</h3>
-            <p>Apply quick preset buttons for standard social media graphics and common display sizes.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Browser-Based Privacy</h3>
-            <p>All processing runs locally in your web browser using HTML5 Canvas—your files are not uploaded to our server.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: WHAT DOES IMAGE RESIZING MEAN? -->
-    <section class="content-section">
-      <div class="container">
-        <div class="section-label">FUNDAMENTALS</div>
-        <div class="section-heading">
-          <h2>What Does Image Resizing Mean?</h2>
-          <p>Learn how pixel dimensions and file weight interact during image editing.</p>
-        </div>
-
-        <div class="legal-card" style="margin-top: 1.5rem;">
-          <p>
-            Image resizing refers to changing the physical <strong>pixel dimensions</strong> of a digital image—its horizontal width and vertical height measured in pixels (px).
-          </p>
-          <p>
-            When you scale down an image (for instance, from <code>4000 × 3000</code> pixels down to <code>1200 × 900</code> pixels), your computer reorganizes pixel data across a smaller matrix. Because fewer total pixels must be stored, the overall file weight in kilobytes (KB) or megabytes (MB) drops significantly.
-          </p>
-          <p>
-            It is important to recognize that increasing pixel dimensions (upscaling) does not automatically increase image clarity or recreate missing fine detail. If you attempt to stretch a small <code>200 × 200</code> pixel thumbnail up to <code>2000 × 2000</code> pixels, software must fill in unknown pixels by averaging surrounding colors, resulting in soft or blurry visual edges.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: HOW TO RESIZE AN IMAGE -->
-    <section class="content-section">
-      <div class="container">
-        <div class="section-label">TUTORIAL</div>
-        <div class="section-heading">
-          <h2>How to Resize an Image: Step-by-Step</h2>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature-card">
             <div class="feature-number">01</div>
-            <h3>1. Select your files</h3>
-            <p>Drag and drop your images into the dropzone or click browse files. Select single or multiple photos.</p>
+            <h3>Upload or Drag Your Image</h3>
+            <p>
+              Click <strong>browse files</strong> or drag and drop your image file into the workspace area above. You can upload single or multiple JPG, PNG, WebP, GIF, or BMP files.
+            </p>
           </article>
+
           <article class="feature-card">
             <div class="feature-number">02</div>
-            <h3>2. Enter width & height</h3>
-            <p>Type your desired output width or height in pixels or percentage. Or pick a social preset.</p>
+            <h3>Set Target Width or Height</h3>
+            <p>
+              Enter your desired output width or height in exact pixels (px) or switch to percentage scaling (e.g. 50% to halve the size). You can also click any of the social media presets.
+            </p>
           </article>
+
           <article class="feature-card">
             <div class="feature-number">03</div>
-            <h3>3. Lock aspect ratio</h3>
-            <p>Keep aspect ratio locked to preserve proportions and prevent distorted or stretched subjects.</p>
+            <h3>Verify Aspect Ratio Lock</h3>
+            <p>
+              Make sure the aspect ratio lock (🔗) is active. This automatically updates the complementary dimension proportionally so your subject never looks squished or stretched.
+            </p>
           </article>
+
           <article class="feature-card">
             <div class="feature-number">04</div>
-            <h3>4. Export & Save</h3>
-            <p>Pick your output format (JPG, PNG, WebP) and click Resize & compress to save your processed files.</p>
+            <h3>Choose Format & Download</h3>
+            <p>
+              Select your preferred export format (JPG, PNG, or WebP), optionally specify a target file size in KB, and click <strong>Resize Image</strong> to save the file to your device.
+            </p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: HOW TO RESIZE WITHOUT LOSING QUALITY -->
+    <!-- SECTION 3: HOW TO RESIZE WITHOUT DISTORTING -->
     <section class="content-section">
       <div class="container">
-        <div class="section-label">SHARPNESS TIPS</div>
+        <div class="section-label">PROPORTIONS & CLARITY</div>
         <div class="section-heading">
-          <h2>How to Resize an Image Without Losing Quality</h2>
+          <h2>3. How to Resize an Image Without Distorting It</h2>
+          <p>Mastering aspect ratios to prevent unnatural stretching or squashing.</p>
         </div>
 
         <div class="legal-card" style="margin-top: 1.5rem;">
           <p>
-            While technically all raster downscaling alters original pixel data, you can preserve maximum visual sharpness by following these practical rules:
+            One of the most common mistakes in photo editing is <strong>aspect ratio distortion</strong>. An image's <strong>aspect ratio</strong> is the mathematical proportion between its width and its height:
+          </p>
+          <p style="background: var(--surface-input); padding: 1rem; border-left: 3px solid var(--accent); border-radius: 8px;">
+            <code>Aspect Ratio = Width ÷ Height</code>
+          </p>
+          <p>
+            For example, a photo that is <code>1600 px</code> wide and <code>900 px</code> tall has a <code>16:9</code> aspect ratio (<code>1600 / 900 ≈ 1.778</code>).
+          </p>
+          <h3>Why Stretching and Squashing Happen</h3>
+          <p>
+            If you want to reduce the width from <code>1600 px</code> down to <code>800 px</code> (halving the horizontal size), you must also reduce the height from <code>900 px</code> down to <code>450 px</code> (halving the vertical size).
           </p>
           <ul>
-            <li><strong>Always Lock Aspect Ratio:</strong> Unlocked dimensions force unequal scaling, distorting text and subject shapes.</li>
-            <li><strong>Avoid Excessive Upscaling:</strong> Avoid enlarging very small images significantly. Always resize from original high-resolution master files.</li>
-            <li><strong>Match Container Dimensions:</strong> Resize graphics to match the actual display container (e.g. 1200px width for blog content) rather than oversized dimensions.</li>
-            <li><strong>Choose the Right Format:</strong> Use PNG for graphics requiring crisp line art or transparency; use WebP or JPG for rich color photographs.</li>
-            <li><strong>Avoid Repeated JPEG Re-saving:</strong> Re-compressing JPEG files multiple times causes cumulative lossy artifacts. Edit from raw or PNG files and export JPEG once as final output.</li>
+            <li><strong>Stretching:</strong> If you change the width to <code>1200 px</code> while leaving height at <code>400 px</code>, faces, buildings, and circles will look unnaturally wide and flattened.</li>
+            <li><strong>Squashing:</strong> If you reduce width drastically without adjusting height, subjects will look tall and squeezed.</li>
           </ul>
+          <h3>How Our Aspect Ratio Lock Protects You</h3>
+          <p>
+            On ImageSizeChanger, the aspect ratio lock is enabled by default. Whenever you change the width, the tool calculates:
+          </p>
+          <p style="background: var(--surface-input); padding: 1rem; border-left: 3px solid var(--accent); border-radius: 8px;">
+            <code>New Height = Math.round(New Width ÷ Original Aspect Ratio)</code>
+          </p>
+          <p>
+            This guarantees that your resized image retains the exact visual proportions of the original photograph. Learn more in our dedicated tutorial: <a href="/guides/image-aspect-ratio-guide/">Understanding Image Aspect Ratio</a>.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: IMAGE SIZE VS FILE SIZE -->
+    <!-- SECTION 4: IMAGE SIZE VS IMAGE FILE SIZE -->
     <section class="content-section">
       <div class="container">
         <div class="section-label">COMPARISON</div>
         <div class="section-heading">
-          <h2>Image Size vs File Size: Understanding the Difference</h2>
+          <h2>4. Image Size vs Image File Size: What's the Difference?</h2>
+          <p>Distinguishing between pixel dimensions on screen and storage weight on disk.</p>
         </div>
 
         <div class="legal-card" style="margin-top: 1.5rem;">
           <p>
-            A common source of confusion is the difference between <strong>image dimensions</strong> and <strong>file weight</strong>:
+            Many people use the phrase "image size" interchangeably to describe two completely different technical concepts:
+          </p>
+          <div class="table-container">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Concept</th>
+                  <th>Measurement Unit</th>
+                  <th>What It Represents</th>
+                  <th>Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Image Dimensions (Pixel Size)</strong></td>
+                  <td>Pixels (width × height px)</td>
+                  <td>The physical matrix of pixels that make up the image on a digital screen.</td>
+                  <td><code>1920 × 1080 px</code> (Full HD)</td>
+                </tr>
+                <tr>
+                  <td><strong>Image File Size (File Weight)</strong></td>
+                  <td>Kilobytes (KB) or Megabytes (MB)</td>
+                  <td>The amount of digital disk space or network bandwidth required to store or transmit the file.</td>
+                  <td><code>420 KB</code> (0.42 MB)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            A large pixel dimension does not always mean a massive file weight, and a compact pixel dimension does not guarantee a small file size. For example:
           </p>
           <ul>
-            <li><strong>Image Dimensions (Pixel Size):</strong> Measured in pixels (e.g. <code>1920 × 1080 pixels</code>). This describes screen real estate and proportion.</li>
-            <li><strong>File Size (Storage Weight):</strong> Measured in Kilobytes (KB) or Megabytes (MB) (e.g. <code>450 KB</code>). This describes hard drive or network bandwidth consumption.</li>
+            <li>A <code>1920 × 1080 px</code> screenshot saved as an uncompressed PNG with complex graphics might weigh <strong>2.8 MB</strong>.</li>
+            <li>That same <code>1920 × 1080 px</code> scene compressed into modern WebP format might weigh only <strong>280 KB</strong>—a 90% reduction in file size with virtually indistinguishable visual sharpness!</li>
           </ul>
           <p>
-            Because of file encoding differences, a <code>1920 × 1080</code> pixel uncompressed PNG graphic containing high detail might weigh <strong>2.5 MB</strong>, while a <code>1920 × 1080</code> pixel WebP photograph might weigh only <strong>250 KB</strong>!
+            Read our in-depth analysis: <a href="/guides/image-size-vs-file-size/">Image Size vs File Size: What's the Difference?</a>.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: COMMON IMAGE DIMENSIONS -->
+    <!-- SECTION 5: SUPPORTED IMAGE FORMATS -->
     <section class="content-section">
       <div class="container">
-        <div class="section-label">REFERENCE TABLE</div>
+        <div class="section-label">FORMAT COMPATIBILITY</div>
         <div class="section-heading">
-          <h2>Common Image Dimensions Reference</h2>
-          <p>Recommended standard dimensions for digital displays and social sharing.</p>
-        </div>
-
-        <div class="table-container">
-          <table class="guide-table">
-            <thead>
-              <tr>
-                <th>Dimension (px)</th>
-                <th>Common Name / Format</th>
-                <th>Typical Application</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1920 × 1080</td>
-                <td>Full HD (16:9)</td>
-                <td>Desktop wallpapers, hero banners, YouTube video thumbnails</td>
-              </tr>
-              <tr>
-                <td>1280 × 720</td>
-                <td>HD (16:9)</td>
-                <td>Standard blog content photos, video thumbnails</td>
-              </tr>
-              <tr>
-                <td>1080 × 1080</td>
-                <td>Square (1:1)</td>
-                <td>Social media feed posts, profile avatars, product thumbnails</td>
-              </tr>
-              <tr>
-                <td>1200 × 630</td>
-                <td>Social Sharing (1.91:1)</td>
-                <td>Open Graph link preview graphics for websites</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 0.75rem;">
-          <em>Note: Social platform dimension guidelines can change over time. Verify current specs on official platform developer pages.</em>
-        </p>
-      </div>
-    </section>
-
-    <!-- SECTION: JPG VS PNG VS WEBP -->
-    <section class="content-section">
-      <div class="container">
-        <div class="section-label">FORMAT GUIDE</div>
-        <div class="section-heading">
-          <h2>JPG vs PNG vs WebP</h2>
-        </div>
-
-        <!-- DESKTOP TABLE VIEW -->
-        <div class="desktop-format-table table-container">
-          <table class="guide-table">
-            <thead>
-              <tr>
-                <th>Format</th>
-                <th>Compression Type</th>
-                <th>Transparency</th>
-                <th>Ideal Use Cases</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>JPG / JPEG</strong></td>
-                <td>Lossy</td>
-                <td>No</td>
-                <td>Photographs, complex color scenes, lightweight web photos</td>
-              </tr>
-              <tr>
-                <td><strong>PNG</strong></td>
-                <td>Lossless</td>
-                <td>Yes</td>
-                <td>Logos, UI icons, screenshots, graphics needing transparent backdrops</td>
-              </tr>
-              <tr>
-                <td><strong>WebP</strong></td>
-                <td>Lossy & Lossless</td>
-                <td>Yes</td>
-                <td>Modern websites seeking smaller file sizes at comparable visual quality</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- MOBILE STACKED COMPARISON CARDS -->
-        <div class="mobile-format-cards">
-          <div class="format-card">
-            <div class="format-card-header">
-              <h3 class="format-card-title">JPG / JPEG</h3>
-            </div>
-            <div class="format-card-body">
-              <div class="format-card-row">
-                <span class="format-card-label">Compression Type</span>
-                <span class="format-card-value">Lossy</span>
-              </div>
-              <div class="format-card-row">
-                <span class="format-card-label">Transparency</span>
-                <span class="format-card-value">No</span>
-              </div>
-              <div class="format-card-row">
-                <span class="format-card-label">Ideal Use Cases</span>
-                <span class="format-card-value">Photographs, complex color scenes, lightweight web photos</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="format-card">
-            <div class="format-card-header">
-              <h3 class="format-card-title">PNG</h3>
-            </div>
-            <div class="format-card-body">
-              <div class="format-card-row">
-                <span class="format-card-label">Compression Type</span>
-                <span class="format-card-value">Lossless</span>
-              </div>
-              <div class="format-card-row">
-                <span class="format-card-label">Transparency</span>
-                <span class="format-card-value">Yes</span>
-              </div>
-              <div class="format-card-row">
-                <span class="format-card-label">Ideal Use Cases</span>
-                <span class="format-card-value">Logos, UI icons, screenshots, graphics needing transparent backdrops</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="format-card">
-            <div class="format-card-header">
-              <h3 class="format-card-title">WebP</h3>
-            </div>
-            <div class="format-card-body">
-              <div class="format-card-row">
-                <span class="format-card-label">Compression Type</span>
-                <span class="format-card-value">Lossy & Lossless</span>
-              </div>
-              <div class="format-card-row">
-                <span class="format-card-label">Transparency</span>
-                <span class="format-card-value">Yes</span>
-              </div>
-              <div class="format-card-row">
-                <span class="format-card-label">Ideal Use Cases</span>
-                <span class="format-card-value">Modern websites seeking smaller file sizes at comparable visual quality</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: WHY COMPRESS IMAGES? -->
-    <section id="advantages" class="content-section">
-      <div class="container">
-        <div class="section-label">ADVANTAGES</div>
-        <div class="section-heading">
-          <h2>Why Compress Images?</h2>
+          <h2>5. Supported Image Formats</h2>
+          <p>Overview of the image types you can upload, edit, and export with our tool.</p>
         </div>
 
         <div class="feature-grid" style="margin-top: 1.5rem;">
           <article class="feature-card">
-            <h3>Faster Website Load Times</h3>
-            <p>Smaller image payloads accelerate browser rendering and improve mobile user experience.</p>
+            <h3>JPG / JPEG (.jpg, .jpeg)</h3>
+            <p>
+              The worldwide standard for photographic images. Uses efficient lossy compression algorithms to achieve compact file sizes while retaining rich gradients and realistic colors.
+            </p>
           </article>
+
           <article class="feature-card">
-            <h3>Reduced Bandwidth & Storage</h3>
-            <p>Compressed assets consume less server transfer data and decrease storage footprints.</p>
+            <h3>PNG (.png)</h3>
+            <p>
+              A lossless format that preserves razor-sharp text, geometric line art, icons, and alpha-channel transparent backgrounds without compression artifacts.
+            </p>
           </article>
+
           <article class="feature-card">
-            <h3>Easier Email & Form Submissions</h3>
-            <p>Can help reduce image files so they are more likely to fit email attachment and online-form size limits.</p>
+            <h3>WebP (.webp)</h3>
+            <p>
+              A modern, high-efficiency web format developed by Google. Provides superior lossy and lossless compression, delivering 25–35% smaller file sizes than comparable JPGs and PNGs.
+            </p>
           </article>
+
           <article class="feature-card">
-            <h3>Faster Social Sharing</h3>
-            <p>Lightweight image files upload rapidly over cellular networks.</p>
+            <h3>GIF (.gif) & BMP (.bmp)</h3>
+            <p>
+              Supported as input formats. You can upload static GIFs or uncompressed bitmap BMP files and easily convert and resize them into lightweight JPGs or WebPs.
+            </p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: BROWSER-BASED PROCESSING -->
+    <!-- SECTION 6: JPG VS PNG VS WEBP -->
     <section class="content-section">
       <div class="container">
-        <div class="section-label">BROWSER PRIVACY</div>
+        <div class="section-label">COMPARISON TABLE</div>
         <div class="section-heading">
-          <h2>Client-Side In-Browser Processing</h2>
+          <h2>6. JPG vs PNG vs WebP: Which Format Should You Choose?</h2>
+          <p>Side-by-side evaluation of strengths, weaknesses, transparency, and use cases.</p>
+        </div>
+
+        <div class="table-container" style="margin-top: 1.5rem;">
+          <table class="guide-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>JPG / JPEG</th>
+                <th>PNG</th>
+                <th>WebP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Compression Type</strong></td>
+                <td>Lossy</td>
+                <td>Lossless</td>
+                <td>Lossy & Lossless</td>
+              </tr>
+              <tr>
+                <td><strong>Transparency Support</strong></td>
+                <td>No (replaces with solid background)</td>
+                <td>Yes (full alpha channel)</td>
+                <td>Yes (full alpha channel)</td>
+              </tr>
+              <tr>
+                <td><strong>Relative File Size</strong></td>
+                <td>Small to Medium</td>
+                <td>Medium to Large</td>
+                <td>Very Small (25–35% smaller)</td>
+              </tr>
+              <tr>
+                <td><strong>Best For</strong></td>
+                <td>Photos, camera shots, colorful art</td>
+                <td>Logos, UI badges, text screenshots</td>
+                <td>Websites, blog graphics, mobile apps</td>
+              </tr>
+              <tr>
+                <td><strong>Browser Support</strong></td>
+                <td>Universal (100%)</td>
+                <td>Universal (100%)</td>
+                <td>Modern Browsers (97%+)</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div class="legal-card" style="margin-top: 1.5rem;">
+          <h3>Practical Format Selection Advice</h3>
+          <ul>
+            <li><strong>Choose JPG</strong> if you are preparing photographic portraits, landscape photos, or product photography where small file size is crucial and transparency is not needed.</li>
+            <li><strong>Choose PNG</strong> if you are exporting transparent logos, UI mockups, infographics with small text, or icons where crisp sharp edges are mandatory.</li>
+            <li><strong>Choose WebP</strong> if you are publishing images to a website, blog, or online storefront to achieve the fastest possible loading speeds without sacrificing visual quality.</li>
+          </ul>
           <p>
-            Image processing takes place locally in your web browser, so your selected image files are not uploaded to our server.
+            For a deep technical breakdown, read our comprehensive guide: <a href="/guides/jpg-vs-png-vs-webp/">JPG vs PNG vs WebP: Which Image Format Should You Use?</a>.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: HOMEPAGE FAQ -->
+    <!-- SECTION 7: WHEN SHOULD YOU RESIZE AN IMAGE? -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">USE CASES</div>
+        <div class="section-heading">
+          <h2>7. When Should You Resize an Image?</h2>
+          <p>Practical real-world scenarios where dimension and file size resizing are essential.</p>
+        </div>
+
+        <div class="feature-grid" style="margin-top: 1.5rem;">
+          <article class="feature-card">
+            <h3>1. Website & Blog Optimization</h3>
+            <p>
+              Serving 4000px raw photos inside a 800px blog column slows down page loading, wastes user mobile data, and hurts search rankings. Resize images to match display widths. Explore our guide on <a href="/guides/resize-images-for-websites/">How to Resize Images for Websites</a>.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>2. Social Media Banners & Posts</h3>
+            <p>
+              Social networks automatically compress and crop oversized graphics. By sizing your images beforehand (e.g. 1080 × 1080 for Instagram, 1200 × 630 for Facebook), you control the framing and sharpness. See <a href="/guides/social-media-image-sizes/">Common Social Media Image Sizes</a>.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>3. Job & Passport Application Portals</h3>
+            <p>
+              Government registries and job portals frequently enforce strict upload rules (e.g., photo must be exactly 300 × 300 px and under 50 KB). ImageSizeChanger lets you dial in both exact pixels and target file sizes.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>4. Email Attachments & Newsletters</h3>
+            <p>
+              Email clients often block or reject messages with large attachments. Resizing multiple photos before sending ensures your email arrives promptly and renders smoothly on mobile.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>5. Digital Documents & PDFs</h3>
+            <p>
+              Embedding five 10 MB camera photos into a Word document or presentation can swell the file to 50 MB, making it difficult to email. Resizing photos first keeps documents compact and fast to open.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>6. Local Storage Management</h3>
+            <p>
+              Archiving high-resolution digital camera photos can rapidly consume phone or hard drive storage. Downscaling non-essential reference photos saves gigabytes of disk space.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: FAQ PREVIEW -->
     <section id="faq" class="faq-section">
       <div class="container">
-        <div class="section-label">FAQ</div>
+        <div class="section-label">FREQUENTLY ASKED QUESTIONS</div>
         <div class="section-heading">
-          <h2>Frequently Asked Questions</h2>
+          <h2>8. Frequently Asked Questions</h2>
+          <p>Common questions about using our browser-based image resizing tool.</p>
         </div>
 
         <div class="faq-list">
           <details>
-            <summary>How do I resize an image?</summary>
-            <p>Upload your image file, specify your target width or height in pixels or percentage, keep aspect ratio locked to prevent distortion, choose your output format, and click Resize & compress.</p>
+            <summary>What is an image size changer?</summary>
+            <p>An image size changer is an online tool that adjusts the width and height (pixel dimensions) of a digital image. It enables you to scale photos for web pages, social media, document uploads, or emails without distortion.</p>
           </details>
 
           <details>
-            <summary>Can I resize an image without changing its proportions?</summary>
-            <p>Yes. Keep the aspect-ratio lock enabled while entering a new width or height. The tool automatically calculates the missing dimension proportionally.</p>
+            <summary>How do I resize an image without distorting it?</summary>
+            <p>Keep the aspect ratio lock enabled (🔗). When you enter a new width or height, the other dimension automatically recalculates proportionally, ensuring your photo never looks stretched or squashed.</p>
           </details>
 
           <details>
-            <summary>What does aspect ratio mean?</summary>
-            <p>Aspect ratio is the proportional relationship between an image's width and height, such as 16:9 for widescreen monitors or 1:1 for square social posts.</p>
+            <summary>What is the difference between image size and image file size?</summary>
+            <p>Image size refers to pixel dimensions (such as 1920 × 1080 px) which describe how wide and tall the image displays on screen. Image file size refers to digital storage weight in Kilobytes (KB) or Megabytes (MB), which affects upload time and download bandwidth.</p>
           </details>
 
           <details>
-            <summary>Does resizing reduce image quality?</summary>
-            <p>Downscaling generally preserves good visual sharpness when the source image has sufficient resolution and appropriate processing settings are used. Upscaling a small image requires software to estimate missing pixels and can cause blurriness.</p>
+            <summary>Are my images uploaded to any server?</summary>
+            <p>No. All image resizing, compression, and conversion happens entirely in your web browser using HTML5 Canvas technology. Your files remain on your device and are never transmitted to our servers.</p>
           </details>
 
           <details>
-            <summary>Can I make an image larger?</summary>
-            <p>Yes, you can increase pixel dimensions, but enlarging very small images excessively will make them appear soft or pixelated because missing detail cannot be technically recreated.</p>
+            <summary>What image formats are supported?</summary>
+            <p>You can upload JPG, JPEG, PNG, WebP, GIF, and BMP files. Output files can be exported as JPG, PNG, or WebP.</p>
           </details>
+        </div>
 
-          <details>
-            <summary>How can I reduce an image's file size?</summary>
-            <p>You can reduce file size by downscaling pixel dimensions, adjusting quality compression factor, converting to modern WebP format, or specifying a target file size in KB or MB.</p>
-          </details>
-
-          <details>
-            <summary>What is the difference between JPG, PNG and WebP?</summary>
-            <p>JPG uses lossy compression best for photos; PNG uses lossless compression supporting transparency; WebP is a modern web codec that produces smaller files at comparable visual quality.</p>
-          </details>
-
-          <details>
-            <summary>Can I process multiple images at once?</summary>
-            <p>Yes. Select or drag multiple supported image files into the workspace to batch process them together.</p>
-          </details>
-
-          <details>
-            <summary>Can I target a specific file size in KB or MB?</summary>
-            <p>Yes. Enter a target like 50 KB or 1 MB. The tool's search algorithm automatically adjusts JPEG or WebP compression to get as close as possible under your target limit.</p>
-          </details>
-
-          <details>
-            <summary>Are my images uploaded to a server?</summary>
-            <p>No. All image processing occurs locally inside your web browser using HTML5 Canvas APIs. Your images are never sent to or stored on our servers.</p>
-          </details>
+        <div style="text-align: center; margin-top: 2rem;">
+          <a class="primary-button" href="/faq" style="display: inline-flex; width: auto; padding: 0.75rem 1.75rem;">
+            View Complete FAQ Page (15+ Questions) <span>↗</span>
+          </a>
         </div>
       </div>
     </section>
+
+    <!-- SECTION: EXPLORE EDUCATIONAL GUIDES -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-label">EDUCATIONAL RESOURCES</div>
+        <div class="section-heading">
+          <h2>Explore Our Image Guides & Tutorials</h2>
+          <p>In-depth tutorials to master image dimensions, compression, aspect ratios, and web formats.</p>
+        </div>
+
+        <div class="feature-grid" style="margin-top: 1.5rem;">
+          <article class="feature-card">
+            <h3><a href="/guides/how-to-resize-an-image-without-losing-quality/">How to Resize Without Losing Quality</a></h3>
+            <p>Understand how resampling algorithms, aspect ratio lock, and source resolution protect image sharpness during resizing.</p>
+          </article>
+
+          <article class="feature-card">
+            <h3><a href="/guides/change-image-dimensions/">How to Change Width and Height</a></h3>
+            <p>Step-by-step guide to calculating pixel dimensions, scaling by percentages, and avoiding distortion.</p>
+          </article>
+
+          <article class="feature-card">
+            <h3><a href="/guides/image-size-vs-file-size/">Image Size vs File Size</a></h3>
+            <p>Learn the difference between pixel dimensions on screen and storage weight in KB or MB.</p>
+          </article>
+
+          <article class="feature-card">
+            <h3><a href="/guides/image-aspect-ratio-guide/">Understanding Aspect Ratio</a></h3>
+            <p>Comprehensive guide to 1:1, 4:3, 16:9, and 1.91:1 aspect ratios, proportional scaling, and clean cropping.</p>
+          </article>
+
+          <article class="feature-card">
+            <h3><a href="/guides/jpg-vs-png-vs-webp/">JPG vs PNG vs WebP</a></h3>
+            <p>Compare codecs, color depth, alpha transparency, and compression ratios to pick the right format for any project.</p>
+          </article>
+
+          <article class="feature-card">
+            <h3><a href="/guides/resize-images-for-websites/">Resize Images for Websites</a></h3>
+            <p>Optimize web graphics and hero banners to improve Core Web Vitals, accelerate load times, and delight visitors.</p>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+          <a class="back-link" href="/guides" style="font-size: 1rem; font-weight: 700;">Browse All Guides & Tutorials →</a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <Footer />
 
   <script src="../scripts/resizer.js"></script>
 </Layout>
-
-<style>
-  .guide-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
-    font-size: 0.9rem;
-  }
-  .guide-table th, .guide-table td {
-    padding: 0.75rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: left;
-  }
-  .guide-table th {
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-  }
-  .guide-table td {
-    color: #94a3b8;
-  }
-</style>

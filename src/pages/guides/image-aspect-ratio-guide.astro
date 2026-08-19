@@ -1,0 +1,196 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.imagesizechanger.info/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://www.imagesizechanger.info/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Understanding Image Aspect Ratio",
+      "item": "https://www.imagesizechanger.info/guides/image-aspect-ratio-guide"
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Understanding Image Aspect Ratio (Formulas, Common Ratios & Cropping)",
+  "description": "Learn what image aspect ratio is, how to calculate proportional width and height, why locking aspect ratio prevents distortion, and common social media standards.",
+  "author": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ImageSizeChanger",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.imagesizechanger.info/favicon.png"
+    }
+  }
+};
+---
+
+<Layout
+  title="Understanding Image Aspect Ratio — Complete Guide | Image Size Changer"
+  description="Master image aspect ratios (16:9, 4:3, 1:1, 1.91:1). Learn how to calculate proportional dimensions, prevent squishing or stretching, and crop cleanly."
+  structuredData={[breadcrumbSchema, articleSchema]}
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container narrow-container">
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Guide · Aspect Ratios
+      </div>
+
+      <h1>Understanding Image Aspect Ratio</h1>
+
+      <p class="lead">
+        Aspect ratio is one of the most fundamental concepts in photography, digital video, web design, and graphic editing. Knowing how aspect ratio works prevents awkward stretching, preserves natural human proportions, and ensures your graphics look great across all screens.
+      </p>
+
+      <div class="legal-card">
+        <h2>What Is an Image Aspect Ratio?</h2>
+        <p>
+          An <strong>aspect ratio</strong> is the proportional relationship between the width and height of an image, video, or display screen. It is typically written as two numbers separated by a colon: <strong><code>Width : Height</code></strong>.
+        </p>
+        <p>
+          For example:
+        </p>
+        <ul>
+          <li>An aspect ratio of <strong>1:1</strong> means the width and height are perfectly equal (a square).</li>
+          <li>An aspect ratio of <strong>16:9</strong> means that for every 16 units of horizontal width, there are 9 units of vertical height (standard widescreen).</li>
+        </ul>
+        <p>
+          Aspect ratio defines the <em>shape</em> of the image, not its absolute pixel resolution. A <code>1920 × 1080 px</code> image and a <code>1280 × 720 px</code> image both share the exact same <strong>16:9</strong> aspect ratio.
+        </p>
+
+        <h2>Common Aspect Ratios Reference Table</h2>
+        <div class="table-container">
+          <table class="guide-table">
+            <thead>
+              <tr>
+                <th>Aspect Ratio</th>
+                <th>Decimal Value</th>
+                <th>Common Pixel Dimensions</th>
+                <th>Typical Everyday Application</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1:1 (Square)</strong></td>
+                <td>1.00</td>
+                <td>1080 × 1080, 500 × 500</td>
+                <td>Instagram feed posts, profile avatars, product icons</td>
+              </tr>
+              <tr>
+                <td><strong>16:9 (Widescreen)</strong></td>
+                <td>1.78</td>
+                <td>1920 × 1080, 1280 × 720</td>
+                <td>YouTube videos, desktop computer monitors, modern TV displays</td>
+              </tr>
+              <tr>
+                <td><strong>4:3 (Standard)</strong></td>
+                <td>1.33</td>
+                <td>1600 × 1200, 1024 × 768</td>
+                <td>Traditional photography, iPad screens, classic monitors</td>
+              </tr>
+              <tr>
+                <td><strong>3:2 (Classic 35mm)</strong></td>
+                <td>1.50</td>
+                <td>6000 × 4000, 3000 × 2000</td>
+                <td>DSLR and mirrorless digital camera sensors, standard 4×6 photo prints</td>
+              </tr>
+              <tr>
+                <td><strong>1.91:1 (Social Landscape)</strong></td>
+                <td>1.91</td>
+                <td>1200 × 630</td>
+                <td>Facebook and LinkedIn open graph link sharing previews</td>
+              </tr>
+              <tr>
+                <td><strong>9:16 (Vertical)</strong></td>
+                <td>0.56</td>
+                <td>1080 × 1920</td>
+                <td>Smartphone stories, TikTok, Instagram Reels, YouTube Shorts</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>How to Calculate Aspect Ratios</h2>
+        <p>
+          Calculating aspect ratio or finding a missing proportional dimension is straightforward arithmetic:
+        </p>
+        <h3>1. Finding the Decimal Aspect Ratio</h3>
+        <p style="background: var(--surface-input); padding: 1rem; border-left: 3px solid var(--accent); border-radius: 8px;">
+          <code>Aspect Ratio = Width ÷ Height</code>
+        </p>
+        <p>Example: <code>1920 ÷ 1080 = 1.7778 (16:9)</code></p>
+
+        <h3>2. Calculating Height from a New Width</h3>
+        <p style="background: var(--surface-input); padding: 1rem; border-left: 3px solid var(--accent); border-radius: 8px;">
+          <code>New Height = Math.round(New Width ÷ (Original Width ÷ Original Height))</code>
+        </p>
+        <p>Example: To scale a 1920 × 1080 photo down to a 800px width: <code>800 ÷ 1.7778 = 450 px</code>.</p>
+
+        <h3>3. Calculating Width from a New Height</h3>
+        <p style="background: var(--surface-input); padding: 1rem; border-left: 3px solid var(--accent); border-radius: 8px;">
+          <code>New Width = Math.round(New Height × (Original Width ÷ Original Height))</code>
+        </p>
+
+        <h2>Why Unlocking Aspect Ratio Causes Distortion</h2>
+        <p>
+          When you resize an image with the aspect ratio lock disabled, the width and height scale independently. If a 16:9 landscape photo of a person is forced into a 1:1 square box without proportional scaling, the person's face will appear squeezed and unnaturally tall.
+        </p>
+        <p>
+          If you need an image to fit a different aspect ratio (such as converting a 16:9 landscape photo into a 1:1 square Instagram post), <strong>crop the edges of the image</strong> rather than stretching or squishing the pixel grid.
+        </p>
+
+        <h2>How Aspect Ratio Locking Works in ImageSizeChanger</h2>
+        <p>
+          Our <a href="/resize-image">Free Online Image Resizer</a> includes an automated aspect ratio lock (🔗). When enabled:
+        </p>
+        <ul>
+          <li>Type any target width, and the corresponding height calculates instantly in real-time.</li>
+          <li>Type any target height, and the corresponding width updates automatically.</li>
+          <li>Clicking presets (such as Instagram 1080 × 1080 or YouTube 1280 × 720) automatically sets standard industry ratios.</li>
+        </ul>
+
+        <h2>Related Guides</h2>
+        <ul>
+          <li><a href="/guides/change-image-dimensions/">How to Change Image Width and Height</a></li>
+          <li><a href="/guides/how-to-resize-an-image-without-losing-quality/">How to Resize an Image Without Losing Quality</a></li>
+          <li><a href="/guides/social-media-image-sizes/">Common Social Media Image Sizes</a></li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 2rem; display: flex; justify-content: space-between;">
+        <a class="back-link" href="/guides">← Back to all guides</a>
+        <a class="back-link" href="/resize-image">Open Image Resizer →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
