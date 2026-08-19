@@ -21,20 +21,12 @@ const breadcrumbSchema = {
     }
   ]
 };
-
-const aboutSchema = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "name": "About ImageSizeChanger",
-  "url": "https://www.imagesizechanger.info/about",
-  "description": "Learn about ImageSizeChanger, an independent, free, browser-based image utility built for privacy, simplicity, and fast client-side image editing."
-};
 ---
 
 <Layout
   title="About Us — ImageSizeChanger"
-  description="Learn about ImageSizeChanger, an independent web utility built to provide private, fast, in-browser image resizing, compression, and format conversion without server uploads."
-  structuredData={[breadcrumbSchema, aboutSchema]}
+  description="Learn about ImageSizeChanger, our client-side browser image processing philosophy, built for privacy, simplicity, and everyday use."
+  structuredData={breadcrumbSchema}
 >
   <Header />
 
@@ -46,69 +38,53 @@ const aboutSchema = {
         About ImageSizeChanger
       </div>
 
-      <h1>About ImageSizeChanger</h1>
+      <h1>Simple, Browser-Based Image Tools Built for Everyday Use</h1>
 
       <p class="lead">
-        ImageSizeChanger is an independent, free online image utility created to solve a universal everyday challenge: resizing, compressing, and converting digital images quickly without uploading personal files to remote servers or dealing with complex desktop software.
+        ImageSizeChanger is an accessible online image editor designed to make common image tasks—such as dimension resizing, file size compression, and format conversion—fast, simple, and completely private.
       </p>
 
       <div class="legal-card">
-        <h2>Our Mission</h2>
+        <h2>About ImageSizeChanger</h2>
         <p>
-          Digital images are everywhere—from website hero banners and blog post graphics to passport submissions, job portal uploads, and social media feeds. Yet, many people face frustrating hurdles when attempting to resize or compress an image: bloated software that takes minutes to open, paywalled online tools, or privacy concerns when uploading sensitive photos to unknown servers.
-        </p>
-        <p>
-          ImageSizeChanger was built with a simple goal: to provide an intuitive, high-performance web tool where anyone can modify image dimensions, maintain aspect ratios, reduce file weights in KB or MB, and convert formats directly inside their web browser.
+          ImageSizeChanger provides straightforward web tools for scaling photo dimensions, reducing file weight in kilobytes (KB) or megabytes (MB), and converting between common raster file formats (JPG, PNG, WebP).
         </p>
 
-        <h2>How Image Processing Works (Privacy by Design)</h2>
+        <h2>Why We Built It</h2>
         <p>
-          Unlike conventional online converters that transfer your pictures to a remote backend server for processing, ImageSizeChanger is engineered as a <strong>100% client-side web application</strong>.
+          People frequently need to resize a photo for a social media banner, compress a scanned document under a 100 KB limit for a job portal, or convert a PNG screenshot to JPG without installing bulky software or registering an account.
         </p>
+        <p>
+          Many online tools require account signups or upload your personal images to remote servers. We built ImageSizeChanger to solve these daily tasks cleanly directly inside your web browser.
+        </p>
+
+        <h2>What You Can Do</h2>
         <ul>
-          <li><strong>Zero Server Uploads:</strong> When you select an image, it is read into your browser's local memory using HTML5 File APIs and Canvas technology.</li>
-          <li><strong>Local Execution:</strong> Resampling, aspect ratio calculation, compression, and format conversion algorithms execute directly on your device's CPU/GPU.</li>
-          <li><strong>Instant Privacy:</strong> Your photos never leave your device. Once you close the browser tab or remove the image, the data is completely cleared from memory.</li>
+          <li><strong>Resize Pixel Dimensions:</strong> Set exact width and height values in pixels or percentages.</li>
+          <li><strong>Proportional Aspect Ratio Lock:</strong> Maintain natural visual proportions to prevent image distortion.</li>
+          <li><strong>Target File Size Compression:</strong> Specify an exact target limit (e.g. 50 KB or 1 MB) to meet strict submission requirements.</li>
+          <li><strong>Format Conversion:</strong> Convert files between JPG, PNG, and WebP formats.</li>
+          <li><strong>Batch Processing:</strong> Select and process multiple image files simultaneously.</li>
         </ul>
 
-        <h2>What Tools and Resources We Offer</h2>
+        <h2>Our Privacy Approach</h2>
         <p>
-          ImageSizeChanger combines practical utilities with in-depth educational resources:
+          Privacy is at the core of our technical architecture. ImageSizeChanger uses HTML5 Canvas technology to perform client-side image processing. Your selected image files stay inside your local browser memory and are not uploaded to our server.
+        </p>
+
+        <h2>Who It Is For</h2>
+        <p>
+          ImageSizeChanger is designed for practical everyday users:
         </p>
         <ul>
-          <li><strong><a href="/resize-image">Image Size Changer</a>:</strong> Scale width and height in exact pixels or percentages with aspect ratio locking and standard social media presets.</li>
-          <li><strong><a href="/compress-image">Image Compressor</a>:</strong> Specify target file size limits in KB or MB to satisfy strict submission forms or improve web loading times.</li>
-          <li><strong><a href="/convert-image">Format Converter</a>:</strong> Switch seamlessly between JPG, PNG, and WebP formats.</li>
-          <li><strong><a href="/guides">Educational Guides Library</a>:</strong> Thorough, practical tutorials explaining pixel dimensions vs file weight, aspect ratios, format trade-offs, and image optimization for web performance.</li>
+          <li>Students & Applicants submitting documents to passport or government application portals.</li>
+          <li>Website Owners & Bloggers optimizing images for fast page load times and Core Web Vitals.</li>
+          <li>Content Creators & Marketers resizing social media banners and post graphics.</li>
+          <li>Designers & Professionals needing quick format conversions without launching heavy desktop software.</li>
         </ul>
-
-        <h2>Who Uses ImageSizeChanger?</h2>
-        <p>
-          ImageSizeChanger is built for anyone who works with digital pictures:
-        </p>
-        <ul>
-          <li><strong>Job applicants & students</strong> preparing profile photos or scanned documents for online portals with strict 50 KB or 100 KB limits.</li>
-          <li><strong>Webmasters & bloggers</strong> optimizing graphics to improve Core Web Vitals and page load speeds.</li>
-          <li><strong>Content creators & social media managers</strong> sizing banners and posts for Instagram, Facebook, YouTube, and X (Twitter).</li>
-          <li><strong>Everyday computer users</strong> needing a clean, trustworthy tool without creating accounts or downloading bulky software.</li>
-        </ul>
-
-        <h2>Editorial and Quality Standards</h2>
-        <p>
-          Our guides and documentation are written and maintained to deliver factual, practical advice on digital image editing. We do not make exaggerated claims, and we regularly verify that our technical explanations reflect standard image processing science and web specifications.
-        </p>
-
-        <h2>Contact Us</h2>
-        <p>
-          We welcome suggestions, questions, and bug reports from our community. If you would like to get in touch, please visit our <a href="/contact">Contact Page</a> or send an email to <strong>imagesizechanger@gmail.com</strong>.
-        </p>
       </div>
 
-      <div style="margin-top: 2rem; display: flex; justify-content: space-between;">
-        <a class="back-link" href="/">← Back to ImageSizeChanger</a>
-        <a class="back-link" href="/guides">Explore Guides →</a>
-      </div>
-
+      <a class="back-link" href="/">← Back to ImageSizeChanger</a>
     </div>
   </main>
 

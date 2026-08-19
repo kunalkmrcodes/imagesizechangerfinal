@@ -7,7 +7,7 @@
     <div class="cookie-text">
       <strong>🍪 Cookie & Privacy Notice</strong>
       <p>
-        We use cookies to analyze aggregate traffic, improve user experience, and support website operations (including Google Analytics and Google AdSense). By continuing to use our website, you agree to our <a href="/privacy-policy">Privacy Policy</a>.
+        We use cookies to analyze traffic, improve user experience, and support website operations (including third-party services like Google Analytics and Google AdSense). By continuing to use our website, you agree to our <a href="/privacy">Privacy Policy</a>.
       </p>
     </div>
     <div class="cookie-actions">
@@ -45,12 +45,12 @@
     max-width: 800px;
     margin: 0 auto;
     z-index: 9999;
-    background: var(--surface-card);
+    background: rgba(18, 20, 29, 0.95);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-strong);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
     padding: 1.25rem 1.5rem;
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
@@ -68,20 +68,20 @@
 
   .cookie-text strong {
     display: block;
-    color: var(--text-heading);
+    color: #fff;
     font-size: 0.95rem;
     margin-bottom: 0.25rem;
   }
 
   .cookie-text p {
-    color: var(--muted);
+    color: #a0a5b5;
     font-size: 0.85rem;
-    line-height: 1.45;
+    line-height: 1.4;
     margin: 0;
   }
 
   .cookie-text a {
-    color: var(--accent);
+    color: #6366f1;
     text-decoration: underline;
   }
 
@@ -90,19 +90,19 @@
   }
 
   .cookie-btn.primary {
-    background: var(--accent);
-    color: var(--accent-contrast);
+    background: #6366f1;
+    color: #ffffff;
     border: none;
     border-radius: 10px;
-    padding: 0.65rem 1.35rem;
-    font-weight: 750;
+    padding: 0.6rem 1.25rem;
+    font-weight: 600;
     font-size: 0.875rem;
     cursor: pointer;
-    transition: transform 0.15s ease, opacity 0.15s ease;
+    transition: background 0.2s ease, transform 0.15s ease;
   }
 
   .cookie-btn.primary:hover {
-    opacity: 0.9;
+    background: #4f46e5;
     transform: translateY(-1px);
   }
 

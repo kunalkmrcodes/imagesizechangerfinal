@@ -21,20 +21,12 @@ const breadcrumbSchema = {
     }
   ]
 };
-
-const contactSchema = {
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
-  "name": "Contact ImageSizeChanger",
-  "url": "https://www.imagesizechanger.info/contact",
-  "description": "Contact the ImageSizeChanger team for technical support, bug reports, feature suggestions, privacy inquiries, and general questions."
-};
 ---
 
 <Layout
   title="Contact Us — ImageSizeChanger"
-  description="Contact the ImageSizeChanger team for technical support, bug reports, feature suggestions, copyright inquiries, or feedback."
-  structuredData={[breadcrumbSchema, contactSchema]}
+  description="Contact the ImageSizeChanger team for technical support, feedback, bug reports, privacy questions, or feature suggestions."
+  structuredData={breadcrumbSchema}
 >
   <Header />
 
@@ -49,53 +41,37 @@ const contactSchema = {
       <h1>Contact Us</h1>
 
       <p class="lead">
-        Have a technical question, found a bug, or have a suggestion to improve ImageSizeChanger? We are always happy to hear from visitors and users.
+        Have a technical question, found a bug, or have a suggestion to improve ImageSizeChanger? We welcome your feedback and inquiries.
       </p>
 
       <div class="legal-card">
         <h2>How We Can Help</h2>
-        <p>You can reach out to us regarding any of the following topics:</p>
+        <p>You can reach out to our team regarding any of the following support topics:</p>
         <ul>
-          <li><strong>Technical Support & Bug Reports:</strong> If an image fails to load, resize, or download properly on your browser or device.</li>
-          <li><strong>Feature & Preset Suggestions:</strong> Requests for new dimension presets, additional export options, or UX enhancements.</li>
-          <li><strong>Editorial Feedback & Guide Corrections:</strong> If you spot a typographical error or outdated specification in our guides.</li>
-          <li><strong>Copyright & Intellectual Property:</strong> Any inquiries regarding content ownership, attribution, or copyright.</li>
-          <li><strong>Privacy & Security Questions:</strong> Inquiries about client-side processing, cookies, or data practices.</li>
+          <li><strong>Technical Problems:</strong> Reporting issues with image loading, canvas rendering, or file downloads.</li>
+          <li><strong>Feature Suggestions:</strong> Recommending new dimensions presets, format support, or tool enhancements.</li>
+          <li><strong>Feedback & Corrections:</strong> Alerting us to outdated guide content or user experience improvements.</li>
+          <li><strong>Privacy Inquiries:</strong> Questions regarding data handling, cookies, or privacy policy details.</li>
         </ul>
 
-        <h2>Direct Contact Details</h2>
-        <div class="contact-card" style="margin-top: 1.5rem;">
+        <div class="contact-card" style="margin-top: 2rem;">
           <div class="contact-icon">✉</div>
           <span class="control-eyebrow">DIRECT EMAIL SUPPORT</span>
           <h2>ImageSizeChanger Support</h2>
-          <p>We typically review and respond to inquiries within 24–48 hours.</p>
+          <p>Send us an email and we will respond as soon as possible.</p>
 
           <a
             class="primary-button contact-button"
             href="mailto:imagesizechanger@gmail.com"
           >
-            Email Support <span>↗</span>
+            Email us <span>↗</span>
           </a>
 
           <div class="email-address">imagesizechanger@gmail.com</div>
         </div>
-
-        <h2 style="margin-top: 2.5rem;">Frequently Asked Questions First</h2>
-        <p>
-          Before emailing, you might find an instant answer to common questions on our <a href="/faq">FAQ Page</a> or in our <a href="/guides">Guides Section</a>, including:
-        </p>
-        <ul>
-          <li><a href="/faq">How to maintain aspect ratios without distortion</a></li>
-          <li><a href="/guides/how-to-resize-an-image-without-losing-quality">Why upscaling a small image causes blurriness</a></li>
-          <li><a href="/privacy-policy">How in-browser client-side processing ensures 100% photo privacy</a></li>
-        </ul>
       </div>
 
-      <div style="margin-top: 2rem; display: flex; justify-content: space-between;">
-        <a class="back-link" href="/">← Back to ImageSizeChanger</a>
-        <a class="back-link" href="/faq">Visit FAQ Page →</a>
-      </div>
-
+      <a class="back-link" href="/">← Back to ImageSizeChanger</a>
     </div>
   </main>
 

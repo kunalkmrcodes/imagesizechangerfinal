@@ -25,27 +25,15 @@ const breadcrumbSchema = {
 const guides = [
   {
     title: "How to Resize an Image Without Losing Quality",
-    slug: "how-to-resize-an-image",
-    category: "Resizing & Quality",
+    slug: "how-to-resize-an-image-without-losing-quality",
+    category: "Resizing",
     description: "Learn how image dimensions, resampling, aspect ratios, and format choices affect visual sharpness when downscaling or upscaling images."
   },
   {
-    title: "How to Change Image Width and Height",
-    slug: "change-image-dimensions",
-    category: "Dimension Editing",
-    description: "Master pixel dimensions vs percentage scaling, aspect ratio formulas, and practical tips to prevent squishing or stretching."
-  },
-  {
-    title: "Image Size vs File Size: What's the Difference?",
-    slug: "image-size-vs-file-size",
-    category: "Fundamentals",
-    description: "Demystify on-screen pixel dimensions (1920 × 1080) vs storage file weight in KB or MB and understand how both interact."
-  },
-  {
-    title: "Understanding Image Aspect Ratio",
-    slug: "image-aspect-ratio-guide",
-    category: "Aspect Ratios",
-    description: "Comprehensive guide to 1:1, 16:9, 4:3, and 1.91:1 ratios, proportional scaling math, and clean cropping."
+    title: "How to Reduce Image File Size Without Losing Too Much Quality",
+    slug: "how-to-reduce-image-file-size",
+    category: "Compression",
+    description: "Discover practical strategies to shrink image weight in KB or MB using dimension tuning, lossy vs lossless compression, and modern codecs."
   },
   {
     title: "JPG vs PNG vs WebP: Which Image Format Should You Use?",
@@ -54,22 +42,34 @@ const guides = [
     description: "A complete side-by-side comparison of JPG, PNG, and WebP image formats, color handling, transparency support, and ideal use cases."
   },
   {
+    title: "What Is Image Aspect Ratio?",
+    slug: "what-is-image-aspect-ratio",
+    category: "Fundamentals",
+    description: "Understand aspect ratio math (1:1, 4:3, 16:9), why locking proportions prevents image stretching or distortion, and how to crop cleanly."
+  },
+  {
+    title: "Image Resolution vs Image Dimensions: What's the Difference?",
+    slug: "image-resolution-vs-dimensions",
+    category: "Fundamentals",
+    description: "Demystify pixel dimensions (width × height) vs PPI/DPI resolution, print vs digital display requirements, and common misconceptions."
+  },
+  {
     title: "How to Resize Images for Websites",
-    slug: "resize-images-for-websites",
+    slug: "how-to-resize-images-for-websites",
     category: "Web Performance",
-    description: "Optimize web graphics, hero banners, and blog thumbnails for layout containers to speed up page load times and boost Core Web Vitals (LCP)."
+    description: "Optimize web graphics, hero banners, and blog thumbnails for layout containers to speed up page load times and improve UX."
   },
   {
-    title: "Common Image Sizes for Social Media",
-    slug: "social-media-image-sizes",
+    title: "How to Compress Images for Faster Websites",
+    slug: "how-to-compress-images-for-websites",
+    category: "Web Performance",
+    description: "Boost Core Web Vitals, reduce server bandwidth costs, and accelerate browser rendering through smart image compression strategies."
+  },
+  {
+    title: "How to Resize Images for Social Media",
+    slug: "how-to-resize-images-for-social-media",
     category: "Social Media",
-    description: "Up-to-date dimensions cheat sheet for Instagram, Facebook, YouTube, Twitter/X, and LinkedIn to avoid automatic cropping and blur."
-  },
-  {
-    title: "How to Reduce Image File Size",
-    slug: "reduce-image-file-size",
-    category: "Compression",
-    description: "Discover practical strategies to shrink image weight in KB or MB using dimension tuning, lossy vs lossless compression, and modern codecs."
+    description: "Guide to profile photos, banner graphics, square posts, and story sizes for major social networks with formatting tips to avoid automatic cropping."
   },
   {
     title: "How to Convert PNG to JPG",
@@ -81,7 +81,7 @@ const guides = [
     title: "How to Make an Image Smaller for Online Forms",
     slug: "how-to-make-an-image-smaller-for-online-forms",
     category: "Forms & Uploads",
-    description: "Learn how to meet strict file size limits (e.g. under 50 KB or 100 KB) for job applications, passport submissions, and government portal uploads."
+    description: "Learn how to meet strict file size limits (e.g. under 50 KB or 1 MB) for job applications, passport submissions, and government portal uploads."
   }
 ];
 ---
@@ -124,16 +124,6 @@ const guides = [
         ))}
       </div>
 
-      <div class="legal-card" style="margin-top: 3rem; text-align: center;">
-        <h2>Need to resize an image right now?</h2>
-        <p style="margin-bottom: 1.5rem;">
-          Use our free, private, client-side tool to change dimensions and compress files in seconds.
-        </p>
-        <a class="primary-button" href="/resize-image" style="display: inline-flex; width: auto; padding: 0.75rem 1.75rem;">
-          Launch Image Resizer <span>↗</span>
-        </a>
-      </div>
-
     </div>
   </main>
 
@@ -149,21 +139,19 @@ const guides = [
   }
 
   .guide-card {
-    background: var(--surface-card);
-    border: 1px solid var(--border);
+    background: rgba(18, 20, 29, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 1.75rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: var(--card-shadow);
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
   }
 
   .guide-card:hover {
     transform: translateY(-2px);
-    border-color: var(--accent-border);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: rgba(99, 102, 241, 0.4);
   }
 
   .guide-category {
@@ -171,14 +159,14 @@ const guides = [
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--accent);
+    color: #6366f1;
     margin-bottom: 0.75rem;
   }
 
   .guide-card h2 {
     font-size: 1.2rem;
     line-height: 1.4;
-    color: var(--text-heading);
+    color: #ffffff;
     margin-bottom: 0.75rem;
   }
 
@@ -188,18 +176,18 @@ const guides = [
   }
 
   .guide-card h2 a:hover {
-    color: var(--accent);
+    color: #818cf8;
   }
 
   .guide-card p {
-    color: var(--muted);
+    color: #94a3b8;
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 1.25rem;
   }
 
   .read-link {
-    color: var(--accent);
+    color: #6366f1;
     font-weight: 600;
     font-size: 0.9rem;
     text-decoration: none;

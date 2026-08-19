@@ -69,7 +69,7 @@ const articleSchema = {
         <p>
           It is important to note that aspect ratio describes <em>proportions</em>, not physical measurement units. An image measuring <code>1920 × 1080 pixels</code> and an image measuring <code>1280 × 720 pixels</code> both share the exact same <strong>16:9 aspect ratio</strong> because:
         </p>
-        <p style="text-align: center; font-weight: bold; color: var(--accent);">
+        <p style="text-align: center; font-weight: bold; color: #818cf8;">
           1920 / 1080 = 1.777 &nbsp;&nbsp;|&nbsp;&nbsp; 1280 / 720 = 1.777
         </p>
 
@@ -123,7 +123,7 @@ const articleSchema = {
         <p>
           The math formula to find new height when changing width while locking aspect ratio is:
         </p>
-        <p style="background: var(--surface-input); padding: 1rem; border-radius: 8px; font-family: monospace;">
+        <p style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; font-family: monospace;">
           New Height = (Original Height / Original Width) × New Width
         </p>
 
@@ -146,3 +146,24 @@ const articleSchema = {
 
   <Footer />
 </Layout>
+
+<style>
+  .guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .guide-table th, .guide-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .guide-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .guide-table td {
+    color: #94a3b8;
+  }
+</style>

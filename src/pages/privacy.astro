@@ -17,7 +17,7 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 2,
       "name": "Privacy Policy",
-      "item": "https://www.imagesizechanger.info/privacy-policy"
+      "item": "https://www.imagesizechanger.info/privacy"
     }
   ]
 };
@@ -25,7 +25,7 @@ const breadcrumbSchema = {
 
 <Layout
   title="Privacy Policy — ImageSizeChanger"
-  description="Read the official ImageSizeChanger Privacy Policy. Learn about our in-browser image processing architecture, cookie usage, analytics, and data protection practices."
+  description="Read the ImageSizeChanger Privacy Policy regarding in-browser image processing, local storage, and Google Analytics."
   structuredData={breadcrumbSchema}
 >
   <Header />
@@ -41,83 +41,47 @@ const breadcrumbSchema = {
       <h1>Privacy Policy</h1>
 
       <p class="lead">
-        Your privacy is critically important to us. This Privacy Policy provides an accurate, transparent explanation of how ImageSizeChanger operates, how your data is handled, and how your privacy is protected when using our website and tools.
+        Your privacy is critically important to us. This Privacy Policy accurately details how ImageSizeChanger handles data and safeguards visitor information when you use our website.
       </p>
 
       <div class="legal-card">
-        <h2>1. In-Browser Client-Side Image Processing (Core Privacy Model)</h2>
+        <h2>1. In-Browser Local Image Processing</h2>
         <p>
-          ImageSizeChanger operates primarily as a <strong>client-side web utility</strong>. When you select, drag, or drop an image into our tool:
-        </p>
-        <ul>
-          <li>All image resizing, pixel dimension adjustments, quality compression, and format conversions execute directly inside your web browser using HTML5 Canvas and Web APIs.</li>
-          <li><strong>Your image files are never uploaded, transmitted, or stored on our servers.</strong></li>
-          <li>All file data resides temporarily in your device's memory while the page is open and is destroyed when you close the tab or remove the image.</li>
-          <li>No human has access to the images you process on this website.</li>
-        </ul>
-
-        <h2>2. Technical Log Information</h2>
-        <p>
-          Like almost all websites, our hosting and content delivery network (CDN) servers automatically collect non-personally identifiable technical access logs when pages are requested. This information may include:
-        </p>
-        <ul>
-          <li>Browser type and version</li>
-          <li>Operating system and device category</li>
-          <li>Referring URLs and timestamps of visits</li>
-          <li>IP addresses (used for server security diagnostics, DDoS mitigation, and geographic routing)</li>
-        </ul>
-        <p>
-          Server logs are used solely to ensure site availability, security, and technical performance. They are never linked to individual identity or personal information.
+          ImageSizeChanger operates entirely as a client-side web application. All image resizing, cropping, quality compression, and format conversions execute locally within your web browser using HTML5 Canvas APIs. Your selected image files are never transferred to, stored on, or processed by our web servers.
         </p>
 
-        <h2>3. Local Browser Storage</h2>
+        <h2>2. Server Log Files</h2>
         <p>
-          ImageSizeChanger uses standard browser <code>localStorage</code> or <code>sessionStorage</code> solely to store client-side interface state, such as:
+          Like standard web servers, non-personally identifiable technical information automatically provided by web browsers (such as browser type, operating system, language preferences, referring pages, and access timestamps) is logged to monitor network security and server performance.
         </p>
-        <ul>
-          <li>Dismissal status of the cookie notice or PWA install banner.</li>
-          <li>Local processing session preferences.</li>
-        </ul>
+
+        <h2>3. Local Storage</h2>
         <p>
-          This data remains on your local device and is never synchronized to external servers.
+          ImageSizeChanger uses browser <code>localStorage</code> to remember certain user preferences, such as whether the cookie/analytics notice has been dismissed. This information is stored locally in your browser and is not used by ImageSizeChanger to create personal tracking profiles or store user credentials.
+        </p>
+        <p>
+          If cookies or other browser storage technologies are introduced in the future, this Privacy Policy will be updated to describe their use accurately.
         </p>
 
         <h2>4. Web Analytics (Google Analytics)</h2>
         <p>
-          We use Google Analytics (Measurement ID: <code>G-3PXQHDHWP2</code>) to measure aggregate website traffic patterns, understand popular educational guides, and evaluate technical performance across device types.
+          We use Google Analytics to understand how visitors use ImageSizeChanger, including overall website traffic, popular pages, and device/browser information.
         </p>
         <p>
-          Google Analytics collects anonymized statistical information via first-party cookies. For details on how Google processes analytics data, please consult <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google’s Privacy & Terms</a>. You can opt out of Google Analytics tracking using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.
+          Google Analytics may use cookies and similar technologies to collect usage information. The information is used to help us understand website performance and improve the service.
         </p>
-
-        <h2>5. Advertising Networks & Cookies (Google AdSense)</h2>
         <p>
-          We may display third-party advertisements served by Google AdSense to support the free operation of this website.
-        </p>
-        <ul>
-          <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites on the internet.</li>
-          <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to this site and/or other sites on the Internet.</li>
-          <li>Users may opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google Ads Settings</a> or through <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer">aboutads.info</a>.</li>
-        </ul>
-
-        <h2>6. Third-Party Links</h2>
-        <p>
-          Our guides may contain links to external websites for reference. We are not responsible for the privacy practices or content of third-party websites. We encourage you to review the privacy policies of any external websites you visit.
+          For more information about how Google handles data, please refer to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy and Terms</a>.
         </p>
 
-        <h2>7. Children's Privacy</h2>
+        <h2>5. Advertising Policy Notice</h2>
         <p>
-          ImageSizeChanger does not knowingly collect any personally identifiable information from children under the age of 13. Because our tools operate locally in the browser without account creation, no user profiles or personal information are gathered.
+          Third-party advertising services (such as Google AdSense) are not currently active on this website. If advertising networks or third-party ad cookies are integrated in the future, this Privacy Policy will be updated to disclose relevant advertising cookies and user opt-out options in compliance with applicable laws.
         </p>
 
-        <h2>8. Updates to This Privacy Policy</h2>
+        <h2>6. Contact Us</h2>
         <p>
-          We may update this Privacy Policy from time to time to reflect operational or legal changes. Any updates will be posted on this page with an updated modification date.
-        </p>
-
-        <h2>9. Contacting Us</h2>
-        <p>
-          If you have any questions, suggestions, or concerns regarding this Privacy Policy, please contact us via email at <strong>imagesizechanger@gmail.com</strong> or via our <a href="/contact">Contact Page</a>.
+          If you have questions or require further information regarding our Privacy Policy, please contact us via email at <strong>imagesizechanger@gmail.com</strong> or visit our <a href="/contact">Contact Page</a>.
         </p>
 
         <p class="updated">Last updated: August 2026</p>
