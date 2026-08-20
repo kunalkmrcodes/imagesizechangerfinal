@@ -3724,6 +3724,57 @@ html[data-theme="light"] .content-section {
     padding: 60px 0;
 }
 
+html.light-theme .mobile-nav summary,
+html[data-theme="light"] .mobile-nav summary {
+    border-color: #e2e5e9;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+html.light-theme .mobile-nav summary span,
+html[data-theme="light"] .mobile-nav summary span {
+    background: #111827;
+}
+
+html.light-theme .mobile-menu,
+html[data-theme="light"] .mobile-menu {
+    background: #ffffff;
+    border: 1px solid #e2e5e9;
+    box-shadow: 0 12px 32px -4px rgba(16, 24, 40, 0.12);
+}
+
+html.light-theme .mobile-menu a,
+html[data-theme="light"] .mobile-menu a {
+    color: #344054;
+}
+
+html.light-theme .mobile-menu a:hover,
+html[data-theme="light"] .mobile-menu a:hover {
+    background: #f8f9fb;
+    color: #111827;
+}
+
+html.light-theme .mobile-theme-toggle-btn,
+html[data-theme="light"] .mobile-theme-toggle-btn {
+    background: #f8f9fb;
+    border: 1px solid #e2e5e9;
+    color: #111827;
+}
+
+html.light-theme .mobile-theme-toggle-btn:hover,
+html[data-theme="light"] .mobile-theme-toggle-btn:hover {
+    background: #ecfdf3;
+    border-color: #a6f4c5;
+    color: #16a34a;
+}
+
+html.light-theme .mobile-menu-cta,
+html[data-theme="light"] .mobile-menu-cta {
+    background: #ecfdf3 !important;
+    border: 1px solid #a6f4c5 !important;
+    color: #027a48 !important;
+}
+
 html.light-theme .site-footer,
 html[data-theme="light"] .site-footer {
     background: #eef0f3;
