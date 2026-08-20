@@ -186,7 +186,8 @@
 
   // Initial Sync
   try {
-    const currentTheme = localStorage.getItem('theme') || 'dark';
+    const saved = localStorage.getItem('theme');
+    const currentTheme = (saved === 'light') ? 'light' : 'dark';
     updateThemeUI(currentTheme);
   } catch (e) {
     updateThemeUI('dark');

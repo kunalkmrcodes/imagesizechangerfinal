@@ -35,25 +35,28 @@ const schemas = structuredData
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Inline Theme Script (Early FOUT prevention) -->
+    <!-- Inline Theme Script (Early FOUC prevention - Defaults strictly to Dark Mode) -->
     <script is:inline>
       (function() {
         try {
           var saved = localStorage.getItem('theme');
-          var theme = saved ? saved : 'dark';
-          if (theme === 'light') {
+          if (saved === 'light') {
             document.documentElement.classList.add('light-theme');
             document.documentElement.setAttribute('data-theme', 'light');
           } else {
+            // Default to Dark Mode for all new visitors or when theme === 'dark'
             document.documentElement.classList.remove('light-theme');
             document.documentElement.setAttribute('data-theme', 'dark');
           }
-        } catch (e) {}
+        } catch (e) {
+          document.documentElement.classList.remove('light-theme');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
       })();
     </script>
 
